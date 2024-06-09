@@ -1,1 +1,11 @@
-<p>app-header works!</p>
+<section class="app-header">
+    <div class="discount-alert" *ngIf="discount.isDiscount">{{discount.sumOfDiscount}}% off everything! Hurry up!</div>
+    <div class="logo">Manook</div>
+    <button>Women</button>
+    <button>Men</button>
+    <input type="text" placeholder="What are we buying today?" />
+    <button>SEARCH</button>
+    <login-signup></login-signup>
+    <router-outlet></router-outlet>
+
+</section>
