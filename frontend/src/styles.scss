@@ -1,10 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import './assets/style/setup/typography';
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: cp-reg, 'Courier New', Courier, monospace;
-}
+@import './assets/style/setup/functions';
+@import './assets/style/setup/variables';
+@import './assets/style/setup/mixins';
+@import './assets/style/base/base';
+@import './assets/style/base/helpers';
