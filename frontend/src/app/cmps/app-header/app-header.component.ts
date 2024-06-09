@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppHeaderComponent {
 
+  discount = {isDiscount: true, sumOfDiscount: 40}
 }
