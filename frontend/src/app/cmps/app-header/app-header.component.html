@@ -1,11 +1,16 @@
 <section class="app-header">
     <div class="discount-alert" *ngIf="discount.isDiscount">{{discount.sumOfDiscount}}% off everything! Hurry up!</div>
-    <div class="logo">Manook</div>
-    <button>Women</button>
-    <button>Men</button>
-    <input type="text" placeholder="What are we buying today?" />
-    <button>SEARCH</button>
-    <login-signup></login-signup>
+    <div class="buttons-logo-container grid">
+        <div class="logo flex center">Manook</div>
+        <button class="women-btn">Women</button>
+        <button class="men-btn">Men</button>
+        <form class="flex align-center">
+            <input type="text" placeholder="What are we buying today?" />
+            <button class="search-btn"></button>
+        </form>
+
+        <login-signup></login-signup>
+    </div>
     <router-outlet></router-outlet>
 
 </section>
