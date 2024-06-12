@@ -1,5 +1,4 @@
 import { ClothingItem } from "./clothingitem.model"
-import { Style } from "./style.model"
 
 export interface User {
     fullName: string,
