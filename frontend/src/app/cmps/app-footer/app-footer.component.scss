@@ -1,0 +1,20 @@
+.footer {
+    pre {
+        text-align: center;
+
+        .logo-in-footer {
+            font-family: jersey, Tahoma;
+            font-size: 1.5em;
+        }
+
+        .github-icon::before {
+            content: "\f09b";
+            font-family: fa-brands;
+            cursor: pointer;
+        }
+
+        .github-icon:hover::before {
+            color: var(--primary-clr2);
+        }
+    }
+}
