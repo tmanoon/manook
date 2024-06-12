@@ -6,6 +6,7 @@
     span::before {
         font-family: fa-solid;
         color: var(--primary-clr2);
+        cursor: pointer;
     }
 
     span:hover::before {

@@ -35,7 +35,12 @@
 
                     &:focus {
                         outline: none;
-                        border: 1px solid var(--primary-clr1);
+                        border-bottom: 5px solid var(--primary-clr2);
+
+                    }
+
+                    &::placeholder {
+                        color: var(--text);
                     }
                 }
 
