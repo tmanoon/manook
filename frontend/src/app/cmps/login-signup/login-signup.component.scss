@@ -1,0 +1,26 @@
+.login-signup {
+    grid-auto-flow: column;
+    height: 100%;
+    justify-content: space-evenly;
+
+    span::before {
+        font-family: fa-solid;
+        color: var(--primary-clr2);
+    }
+
+    span:hover::before {
+        color: var(--primary-clr1);
+    }
+
+    .user::before {
+        content: '\f007';
+    }
+
+    .wishlist::before {
+        content: '\f004';
+    }
+
+    .cart::before {
+        content: '\f07a';
+    }
+}
