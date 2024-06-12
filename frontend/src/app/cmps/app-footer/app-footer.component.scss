@@ -1,6 +1,8 @@
 .footer {
+    grid-template-rows: 1fr;
+
     pre {
-        text-align: center;
+        grid-row: 1;
 
         .logo-in-footer {
             font-family: jersey, Tahoma;
