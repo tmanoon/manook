@@ -1,7 +1,7 @@
 @import '../../../assets/style/setup/mixins';
 
 :host {
-  grid-column: 1 / 4;  
+  grid-column: 1 / -1;  
 
     .app-header {
 
@@ -15,7 +15,7 @@
             position: relative;
             background-color: var(--white);
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 3fr max-content 1fr;
+            grid-template-columns: 1fr 1fr 1fr 3fr 1fr;
 
             .logo {
                 font-family: jersey, Tahoma;
