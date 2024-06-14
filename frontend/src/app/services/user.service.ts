@@ -45,6 +45,7 @@ export class userService {
         wishlist: [],
         isSubscribed: credentials.isSubscribed ?? false,
         favoriteStyles: [],
+        orders: []
       }
 
       this._loggedInUser$.next(user)
@@ -99,6 +100,7 @@ export class userService {
         email: 'shoval.sabag@example.com',
         isSubscribed: true,
         favoriteStyles: ['Classic', 'Casual', 'Hippie'],
+        orders: []
       },
       {
         fullName: 'Guest Guest',
@@ -110,6 +112,7 @@ export class userService {
         wishlist: [],
         email: 'guest@example.com',
         isSubscribed: false,
+        orders: []
       },
       {
         fullName: 'Alice Smith',
@@ -121,6 +124,7 @@ export class userService {
         wishlist: [],
         email: 'alice.smith@example.com',
         isSubscribed: true,
+        orders: []
       },
       {
         fullName: 'Bob Johnson',
@@ -132,6 +136,7 @@ export class userService {
         wishlist: [],
         email: 'bob.johnson@example.com',
         isSubscribed: false,
+        orders: []
       },
       {
         fullName: 'Charlie Brown',
@@ -144,6 +149,7 @@ export class userService {
         email: 'charlie.brown@example.com',
         isSubscribed: true,
         favoriteStyles: ['Sporty'],
+        orders: []
       }
     ]
     utilService.setToStorage(USERS_DB, users)
