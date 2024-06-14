@@ -10,5 +10,5 @@ export interface User {
     wishlist: ClothingItem[],
     email: string,
     isSubscribed: boolean,
-    favoriteStyles?: []
+    favoriteStyles?: string[]
 }
