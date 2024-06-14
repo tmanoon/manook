@@ -11,4 +11,5 @@ export interface User {
     email: string,
     isSubscribed: boolean,
     favoriteStyles?: string[]
+    orders: object[]
 }
