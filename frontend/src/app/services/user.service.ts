@@ -36,6 +36,7 @@ export class userService {
     try {
       const user: User = {
         fullName: credentials.fullName!,
+        username: credentials.username!,
         sex: credentials.sex!,
         isAdmin: credentials.isAdmin!,
         password: credentials.password!,
@@ -91,6 +92,7 @@ export class userService {
     const users: User[] = [
       {
         fullName: 'Shoval Sabag',
+        username: 'Shovalit',
         sex: 'Female',
         isAdmin: true,
         password: 'shov99',
@@ -104,6 +106,7 @@ export class userService {
       },
       {
         fullName: 'Guest Guest',
+        username: 'guest',
         sex: 'Male',
         isAdmin: false,
         password: 'shov99',
@@ -116,6 +119,7 @@ export class userService {
       },
       {
         fullName: 'Alice Smith',
+        username: 'AliceS',
         sex: 'Female',
         isAdmin: false,
         password: 'shov99',
@@ -128,6 +132,7 @@ export class userService {
       },
       {
         fullName: 'Bob Johnson',
+        username: 'BobJ',
         sex: 'Male',
         isAdmin: false,
         password: 'shov99',
@@ -140,6 +145,7 @@ export class userService {
       },
       {
         fullName: 'Charlie Brown',
+        username: 'CharlieB',
         sex: 'Male',
         isAdmin: false,
         password: 'shov99',
