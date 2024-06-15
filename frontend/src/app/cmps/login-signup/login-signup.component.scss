@@ -34,5 +34,26 @@
         transform: translate(-50%, -50%);
         background-color: var(--white);
         padding: 1rem;
+
+        .login-info {
+            grid-auto-flow: row;
+            position: relative;
+
+            .guest-btn {
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+
+                &:hover {
+                    color: var(--primary-clr2);
+                }
+            }
+
+            .close-btn {
+                position: absolute;
+                left: -1rem;
+                top: -1rem;
+            }
+        }
     }
 }
