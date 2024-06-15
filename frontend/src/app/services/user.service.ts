@@ -20,12 +20,8 @@ export class userService {
   constructor() {
     const storedUser = utilService.loadFromStorage(USER_DB)
     this._loadUsers()
-    if (this._isValidUser(storedUser)) {
-      this._loggedInUser$.next(storedUser)
-    } else {
-      console.error('Invalid user data found in storage')
-      this._loggedInUser$.next(null)
-    }
+    if (this._isValidUser(storedUser)) this._loggedInUser$.next(storedUser)
+    else this._loggedInUser$.next(null)
   }
 
   public async signup(credentials: Partial<User>): Promise<User | Error | null> {
@@ -64,13 +60,13 @@ export class userService {
       const users = await storageService.query<User>(USERS_DB)
       const user = users.find(_user => _user.fullName === credentials.fullName && _user.password === credentials.password)
       return user
-    } catch(err) {
+    } catch (err) {
       this._handleError(err as Error)
     }
     return undefined
   }
 
-  public disconnect() : void {
+  public disconnect(): void {
     localStorage.removeItem(USER_DB)
     this._loggedInUser$.next(null)
   }
