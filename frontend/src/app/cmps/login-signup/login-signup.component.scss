@@ -24,4 +24,15 @@
     .cart::before {
         content: '\f07a';
     }
+
+    .user-login-signup {
+        grid-auto-flow: row;
+        position: absolute;
+        z-index: 10;
+        top: 50vh;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: var(--white);
+        padding: 1rem;
+    }
 }
