@@ -1,3 +1,5 @@
+@import '../../../assets/style/setup/mixins';
+
 .login-signup {
     grid-auto-flow: column;
     height: 100%;
@@ -35,9 +37,32 @@
         background-color: var(--white);
         padding: 1rem;
 
-        .login-info {
+        input {
+            padding: .5em;
+        }
+
+        button:not(.close-btn) {
+            @include buttons1;
+            width: max-content;
+            padding: .5em;
+        }
+
+        .login-info,
+        .sign-up-info {
             grid-auto-flow: row;
+            justify-content: center;
+            justify-items: center;
+        }
+
+        .login-info {
             position: relative;
+            gap: 8px;
+
+            margin-block-end: 1rem;
+
+            .login-btn {
+                text-align: center;
+            }
 
             .guest-btn {
                 background-color: transparent;
@@ -51,8 +76,17 @@
 
             .close-btn {
                 position: absolute;
-                left: -1rem;
-                top: -1rem;
+                left: calc(-1rem + 5px);
+                top: calc(-1rem + 5px);
+                background-color: transparent;
+                border: none;
+            }
+        }
+
+        .sign-up-info {
+
+            h3 {
+                text-align: center;
             }
         }
     }
