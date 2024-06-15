@@ -1,5 +1,19 @@
 <section class="login-signup grid align-center">
-    <span class="user"></span>
+    <span class="user" (click)="onUserClick()"></span>
+    <div class="user-login-signup grid" *ngIf="userClickAndState.isClicked">
+        <div class="logged-in-user" *ngIf="loggedInUser">
+            <h1>Hey {{loggedInUser.fullName}}! You have {{loggedInUser.coins}}.</h1>
+        </div>
+        <div class="login-info grid" *ngIf="!loggedInUser">
+            <button class="close-btn" (click)="onUserClick()">x</button>
+            <button class="guest-btn">Continue as Guest</button>
+            <input type="text" placeholder="Username">
+            <input type="password" placeholder="Password" />
+            <button class="login-btn">Login</button>
+        </div>
+        <h3>New here? Let's sign up real quick!</h3>
+        <button class="signup-btn">Sign-up</button>
+    </div>
     <span class="wishlist"></span>
     <span class="cart"></span>
 </section>
