@@ -1,7 +1,8 @@
 export const utilService = {
   loadFromStorage,
   makeId,
-  setToStorage
+  setToStorage,
+  removeFromStorage
 }
 
   function loadFromStorage(entity: string): object | false {
@@ -22,4 +23,8 @@ export const utilService = {
       txt += possible.charAt(Math.floor(Math.random() * possible.length))
     }
     return txt
+  }
+
+  function removeFromStorage(entity: string) : void {
+    localStorage.removeItem(entity)
   }
