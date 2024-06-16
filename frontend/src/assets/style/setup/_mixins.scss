@@ -33,4 +33,18 @@
     }
 }
 
+@mixin input1 {
+    padding: .5em;
+    position: absolute;
+    width: 100%;
 
+    &:focus {
+        outline: none;
+        border-bottom: 5px solid var(--primary-clr2);
+
+    }
+
+    &::placeholder {
+        color: var(--text);
+    }
+}
