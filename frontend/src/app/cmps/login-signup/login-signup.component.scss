@@ -38,7 +38,8 @@
         padding: 1rem;
 
         input {
-            padding: .5em;
+            @include input1;
+            position: static;
         }
 
         button:not(.close-btn) {
@@ -80,6 +81,7 @@
                 top: calc(-1rem + 5px);
                 background-color: transparent;
                 border: none;
+                cursor: pointer;
             }
         }
 
@@ -87,6 +89,7 @@
 
             h3 {
                 text-align: center;
+                line-height: 1.5em;
             }
         }
     }
