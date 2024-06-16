@@ -6,8 +6,8 @@ export const utilService = {
 }
 
   function loadFromStorage(entity: string): object | false {
-    const userData = localStorage.getItem(entity)
-    if (userData) return JSON.parse(userData)
+    const data = localStorage.getItem(entity)
+    if (data) return JSON.parse(data)
     return false
   }
 
