@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, throwError, from, tap, retry, catchError, map, Subscription } from 'rxjs';
-import { storageService } from './local.storage.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { User } from '../models/user.model';
-import { utilService } from './util.service';
+import { Injectable } from '@angular/core'
+import { Observable, BehaviorSubject, throwError, from, tap, retry, catchError, map, Subscription, of } from 'rxjs'
+import { storageService } from './local.storage.service'
+import { HttpErrorResponse } from '@angular/common/http'
+import { User } from '../models/user.model'
+import { utilService } from './util.service'
 
 const USER_DB = 'user'
 const USERS_DB = 'users'
@@ -19,69 +19,92 @@ export class userService {
 
   constructor() {
     const storedUser = utilService.loadFromStorage(USER_DB)
-    this._loadUsers()
     if (this._isValidUser(storedUser)) this._loggedInUser$.next(storedUser)
     else this._loggedInUser$.next(null)
+
+    const users = utilService.loadFromStorage(USERS_DB) as User[]
+    if (!users || users.length === 0) this._setDefaultUsers(1000)
   }
 
-  public async signup(credentials: Partial<User>): Promise<User | Error | null> {
+  // public async signup(credentials: Partial<User>): Promise<User | Error | null> {
+  //   if (!this._validateCredentials(credentials)) {
+  //     return new Error('Invalid credentials. Please check your information.')
+  //   }
+
+  //   try {
+  //     const user: User = {
+  //       fullName: credentials.fullName!,
+  //       username: credentials.username!,
+  //       sex: credentials.sex!,
+  //       isAdmin: credentials.isAdmin!,
+  //       password: credentials.password!,
+  //       email: credentials.email!,
+  //       _id: utilService.makeId(),
+  //       coins: 1000,
+  //       wishlist: [],
+  //       isSubscribed: credentials.isSubscribed ?? false,
+  //       favoriteStyles: [],
+  //       orders: []
+  //     }
+
+  //     this._loggedInUser$.next(user)
+  //     utilService.setToStorage(USER_DB, user)
+  //     await storageService.post<User>(USERS_DB, user)
+  //     return user
+  //   } catch (err) {
+  //     this._handleError(err as Error)
+  //   }
+  //   return null
+  // }
+
+  public signup(credentials: Partial<User>): Observable<User | Error> {
     if (!this._validateCredentials(credentials)) {
-      return new Error('Invalid credentials. Please check your information.')
+      return throwError(() => new Error('Invalid credentials. Please check your information.'))
     }
 
-    try {
-      const user: User = {
-        fullName: credentials.fullName!,
-        username: credentials.username!,
-        sex: credentials.sex!,
-        isAdmin: credentials.isAdmin!,
-        password: credentials.password!,
-        email: credentials.email!,
-        _id: utilService.makeId(),
-        coins: 1000,
-        wishlist: [],
-        isSubscribed: credentials.isSubscribed ?? false,
-        favoriteStyles: [],
-        orders: []
-      }
-
-      this._loggedInUser$.next(user)
-      utilService.setToStorage(USER_DB, user)
-      await storageService.post<User>(USERS_DB, user)
-      return user
-    } catch (err) {
-      this._handleError(err as Error)
+    const user: User = {
+      fullName: credentials.fullName!,
+      username: credentials.username!,
+      sex: credentials.sex!,
+      isAdmin: false,
+      password: credentials.password!,
+      email: credentials.email!,
+      coins: 1000,
+      wishlist: [],
+      isSubscribed: credentials.isSubscribed ?? false,
+      favoriteStyles: [],
+      orders: [],
+      _id: ''
     }
-    return null
+
+    return from(storageService.post<User>(USERS_DB, user)).pipe(
+      map(() => {
+        this._loggedInUser$.next(user)
+        utilService.setToStorage(USER_DB, user)
+        return user
+      }),
+      catchError(err => this._handleError(err))
+    )
   }
 
-  public async login(credentials: Partial<User>): Promise<User | undefined> {
-    try {
-      const users = await storageService.query<User>(USERS_DB)
-      const user = users.find(_user => _user.fullName === credentials.fullName && _user.password === credentials.password)
-      return user
-    } catch (err) {
-      this._handleError(err as Error)
-    }
-    return undefined
+
+  public login(credentials: Partial<User>): Observable<User | undefined> {
+    return from(storageService.query<User>(USERS_DB))
+      .pipe(
+        map(users => users.find(_user => _user.username === credentials.username && _user.password === credentials.password)),
+        catchError(err => of(undefined).pipe(catchError((error) => throwError(error)))),
+        tap(user => {
+          if (user) {
+            this._loggedInUser$.next(user)
+            utilService.setToStorage(USER_DB, user)
+          }
+        })
+      )
   }
 
   public disconnect(): void {
-    localStorage.removeItem(USER_DB)
+    utilService.removeFromStorage(USER_DB)
     this._loggedInUser$.next(null)
-  }
-
-  private async _loadUsers() {
-    let users: User[]
-    try {
-      users = await storageService.query<User>(USERS_DB)
-      if (users) return
-      else {
-        this._setDefaultUsers(1000)
-      }
-    } catch (err) {
-      this._handleError(err as HttpErrorResponse)
-    }
   }
 
   private _setDefaultUsers(coins: number) {
