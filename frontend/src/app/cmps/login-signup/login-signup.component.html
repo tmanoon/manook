@@ -1,19 +1,20 @@
 <section class="login-signup grid align-center">
     <span class="user" (click)="onUserClick()"></span>
     <div class="user-login-signup grid" *ngIf="userClickAndState.isClicked">
-        <div class="logged-in-user" *ngIf="loggedInUser">
-            <h1>Hey {{loggedInUser.fullName}}! <br/> You have {{loggedInUser.coins}}.</h1>
+        <button class="close-btn" (click)="onUserClick()">x</button>
+        <div class="logged-in-user grid" *ngIf="loggedInUser">
+            <h1>Hey {{loggedInUser.fullName}}! <br /> You have {{loggedInUser.coins}} coins.</h1>
             <button (click)="onLogout()">Logout</button>
         </div>
         <div class="login-info grid" *ngIf="!loggedInUser">
-            <button class="close-btn" (click)="onUserClick()">x</button>
+
             <button class="guest-btn" (click)="onGuestClick()">Continue as Guest</button>
             <input type="text" placeholder="Username" [(ngModel)]="user.username">
-            <input type="password" placeholder="Password" [(ngModel)]="user.password"/>
+            <input type="password" placeholder="Password" [(ngModel)]="user.password" />
             <button class="login-btn" (click)="onLogin()">Login</button>
         </div>
-        <div class="sign-up-info grid">
-            <h3>New here? <br/> Let's sign up real quick!</h3>
+        <div class="sign-up-info grid" *ngIf="!loggedInUser">
+            <h3>New here? <br /> Let's sign up real quick!</h3>
             <button class="signup-btn">Sign-up</button>
         </div>
     </div>
