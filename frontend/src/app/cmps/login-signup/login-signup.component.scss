@@ -36,10 +36,22 @@
         transform: translate(-50%, -50%);
         background-color: var(--white);
         padding: 1rem;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        border-radius: .5rem;
 
         input {
             @include input1;
             position: static;
+        }
+
+        .close-btn {
+            position: absolute;
+            left: 6px;
+            top: 6px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 14;
         }
 
         button:not(.close-btn) {
@@ -49,7 +61,8 @@
         }
 
         .login-info,
-        .sign-up-info {
+        .sign-up-info,
+        .logged-in-user {
             grid-auto-flow: row;
             justify-content: center;
             justify-items: center;
@@ -75,21 +88,18 @@
                 }
             }
 
-            .close-btn {
-                position: absolute;
-                left: calc(-1rem + 5px);
-                top: calc(-1rem + 5px);
-                background-color: transparent;
-                border: none;
-                cursor: pointer;
-            }
         }
 
-        .sign-up-info {
+        .logged-in-user>*,
+        .sign-up-info h3 {
+            text-align: center;
+            line-height: 1.5em;
+        }
 
-            h3 {
-                text-align: center;
-                line-height: 1.5em;
+        .logged-in-user {
+            
+            h1 {
+                margin-block-start: 8px;
             }
         }
     }
