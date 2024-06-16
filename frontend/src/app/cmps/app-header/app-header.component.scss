@@ -33,19 +33,7 @@
 
 
                 input {
-                    padding: .5em;
-                    position: absolute;
-                    width: 100%;
-
-                    &:focus {
-                        outline: none;
-                        border-bottom: 5px solid var(--primary-clr2);
-
-                    }
-
-                    &::placeholder {
-                        color: var(--text);
-                    }
+                    @include input1;
                 }
 
                 .search-btn {
