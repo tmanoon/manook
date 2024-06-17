@@ -1,5 +1,15 @@
 .user-signup {
+
+    .signup-form,
+    .subscription-container {
+        gap: .5rem;
+    }
+
     .signup-form {
         grid-auto-flow: row;
+    }
+
+    .subscription-container {
+        grid-auto-flow: column;
     }
 }
