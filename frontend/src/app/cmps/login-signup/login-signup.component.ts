@@ -16,6 +16,7 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
   loggedInUser: User | null = null
   userClickAndState = {
     isClicked: false,
+    sectionClicked: 'none',
     isUserLoggedIn: false
   }
   user: Partial<User> = { username: '', password: '' }
@@ -39,8 +40,9 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
     this.destroySubject$.complete()
   }
 
-  onUserClick() {
+  onUserClick(): void {
     this.userClickAndState.isClicked = !this.userClickAndState.isClicked
+    this.userClickAndState.sectionClicked = 'user'
   }
 
   onLogin() {
