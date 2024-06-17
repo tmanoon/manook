@@ -1,5 +1,7 @@
 .footer {
     grid-template-rows: 1fr;
+    position: fixed;
+    bottom: 0;
 
     pre {
         grid-row: 1;
