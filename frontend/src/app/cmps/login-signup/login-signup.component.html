@@ -1,6 +1,7 @@
 <section class="login-signup grid align-center">
+    <div class="layout" *ngIf="userClickAndState.isClicked"></div>
     <span class="user" (click)="onUserClick()"></span>
-    <div class="user-login-signup grid" *ngIf="userClickAndState.isClicked">
+    <div class="user-login-signup grid" *ngIf="userClickAndState.isClicked && userClickAndState.sectionClicked === 'user'">
         <button class="close-btn" (click)="onUserClick()">x</button>
         <div class="logged-in-user grid" *ngIf="loggedInUser">
             <h1>Hey {{loggedInUser.fullName}}! <br /> You have {{loggedInUser.coins}} coins.</h1>
