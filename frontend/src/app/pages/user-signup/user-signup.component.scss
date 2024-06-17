@@ -1,3 +1,5 @@
+@import '../../../assets/style/setup/mixins';
+
 .user-signup {
 
     .signup-form,
@@ -7,6 +9,19 @@
 
     .signup-form {
         grid-auto-flow: row;
+
+        label {
+            text-align: center;
+        }
+
+        input {
+            @include input1;
+            position: static;
+        }
+
+        .subscription-btn {
+            @include buttons2;
+        }
     }
 
     .subscription-container {
