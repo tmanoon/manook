@@ -35,7 +35,7 @@ export class userService {
   //     const user: User = {
   //       fullName: credentials.fullName!,
   //       username: credentials.username!,
-  //       sex: credentials.sex!,
+  //       gender: credentials.gender!,
   //       isAdmin: credentials.isAdmin!,
   //       password: credentials.password!,
   //       email: credentials.email!,
@@ -65,7 +65,7 @@ export class userService {
     const user: User = {
       fullName: credentials.fullName!,
       username: credentials.username!,
-      sex: credentials.sex!,
+      gender: credentials.gender!,
       isAdmin: false,
       password: credentials.password!,
       email: credentials.email!,
@@ -112,7 +112,7 @@ export class userService {
       {
         fullName: 'Shoval Sabag',
         username: 'Shovalit',
-        sex: 'Female',
+        gender: 'Female',
         isAdmin: true,
         password: 'shov99',
         _id: utilService.makeId(),
@@ -126,7 +126,7 @@ export class userService {
       {
         fullName: 'Guest Guest',
         username: 'guest',
-        sex: 'Male',
+        gender: 'Male',
         isAdmin: false,
         password: 'shov99',
         _id: utilService.makeId(),
@@ -139,7 +139,7 @@ export class userService {
       {
         fullName: 'Alice Smith',
         username: 'AliceS',
-        sex: 'Female',
+        gender: 'Female',
         isAdmin: false,
         password: 'shov99',
         _id: utilService.makeId(),
@@ -152,7 +152,7 @@ export class userService {
       {
         fullName: 'Bob Johnson',
         username: 'BobJ',
-        sex: 'Male',
+        gender: 'Male',
         isAdmin: false,
         password: 'shov99',
         _id: utilService.makeId(),
@@ -165,7 +165,7 @@ export class userService {
       {
         fullName: 'Charlie Brown',
         username: 'CharlieB',
-        sex: 'Male',
+        gender: 'Male',
         isAdmin: false,
         password: 'shov99',
         _id: utilService.makeId(),

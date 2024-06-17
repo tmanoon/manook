@@ -3,7 +3,7 @@ import { ClothingItem } from "./clothingitem.model"
 export interface User {
     fullName: string,
     username: string,
-    sex: string,
+    gender: string,
     isAdmin: boolean,
     password: string,
     _id: string,
