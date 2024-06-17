@@ -1,4 +1,5 @@
 import { ClothingItem } from "./clothingitem.model"
+import { Order } from "./order.model"
 
 export interface User {
     fullName: string,
@@ -12,5 +13,5 @@ export interface User {
     email: string,
     isSubscribed: boolean,
     favoriteStyles?: string[]
-    orders: object[]
+    orders: Order[]
 }
