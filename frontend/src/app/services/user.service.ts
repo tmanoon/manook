@@ -26,37 +26,6 @@ export class userService {
     if (!users || users.length === 0) this._setDefaultUsers(1000)
   }
 
-  // public async signup(credentials: Partial<User>): Promise<User | Error | null> {
-  //   if (!this._validateCredentials(credentials)) {
-  //     return new Error('Invalid credentials. Please check your information.')
-  //   }
-
-  //   try {
-  //     const user: User = {
-  //       fullName: credentials.fullName!,
-  //       username: credentials.username!,
-  //       gender: credentials.gender!,
-  //       isAdmin: credentials.isAdmin!,
-  //       password: credentials.password!,
-  //       email: credentials.email!,
-  //       _id: utilService.makeId(),
-  //       coins: 1000,
-  //       wishlist: [],
-  //       isSubscribed: credentials.isSubscribed ?? false,
-  //       favoriteStyles: [],
-  //       orders: []
-  //     }
-
-  //     this._loggedInUser$.next(user)
-  //     utilService.setToStorage(USER_DB, user)
-  //     await storageService.post<User>(USERS_DB, user)
-  //     return user
-  //   } catch (err) {
-  //     this._handleError(err as Error)
-  //   }
-  //   return null
-  // }
-
   public signup(credentials: Partial<User>): Observable<User | Error> {
     if (!this._validateCredentials(credentials)) {
       return throwError(() => new Error('Invalid credentials. Please check your information.'))
