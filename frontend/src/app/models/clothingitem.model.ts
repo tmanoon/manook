@@ -7,5 +7,6 @@ export interface ClothingItem {
     quantity: number,
     style: string[],
     type: string,
-    desc: string
+    desc: string,
+    _id: string
 }
