@@ -16,7 +16,7 @@
         </div>
         <div class="sign-up-info grid" *ngIf="!loggedInUser">
             <h3>New here? <br /> Let's sign up real quick!</h3>
-            <button routerLink="signup" class="signup-btn">Sign-up</button>
+            <button routerLink="signup" (click)="onUserClick()" class="signup-btn">Sign-up</button>
         </div>
     </div>
     <span class="wishlist"></span>
