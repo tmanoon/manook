@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { userService } from '../../services/user.service';
+import { User } from '../../models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'user-signup',
@@ -7,4 +10,21 @@ import { Component } from '@angular/core';
 })
 export class UserSignupComponent {
 
+  private userService = inject(userService)
+  private router = inject(Router)
+
+  newUser: Partial<User> = {
+    fullName: '',
+    username: '',
+    gender: undefined,
+    password: '',
+    email: '',
+    isSubscribed: false,
+  }
+
+  onSubmitSignup(ev: Event) : void {
+    ev.preventDefault()
+    this.userService.signup(this.newUser).subscribe()
+    this.router.navigateByUrl('/')
+  }
 }
