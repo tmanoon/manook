@@ -20,7 +20,7 @@ export class ClothingItemService {
     }
   }
 
-  private _createClothesList() : ClothingItem[] {
+  private _createClothesList(): ClothingItem[] {
     const clothingList: ClothingItem[] = [
       {
         name: 'Classic Cotton T-Shirt',
@@ -30,7 +30,8 @@ export class ClothingItemService {
         quantity: 10,
         style: ['casual', 'basics'],
         type: 'top',
-        desc: 'A comfortable and versatile white cotton t-shirt, perfect for everyday wear.'
+        desc: 'A comfortable and versatile white cotton t-shirt, perfect for everyday wear.',
+        _id: utilService.makeId()
       },
       {
         name: 'Flowy Floral Dress',
@@ -40,7 +41,8 @@ export class ClothingItemService {
         quantity: 5,
         style: ['romantic', 'summer'],
         type: 'dress',
-        desc: 'A lightweight and airy dress featuring a beautiful floral print, ideal for warm weather.'
+        desc: 'A lightweight and airy dress featuring a beautiful floral print, ideal for warm weather.',
+        _id: utilService.makeId()
       },
       {
         name: 'Ripped Denim Jeans',
@@ -50,7 +52,8 @@ export class ClothingItemService {
         quantity: 15,
         style: ['casual', 'streetwear'],
         type: 'bottoms',
-        desc: 'Stylish and edgy ripped denim jeans for a relaxed and trendy look.'
+        desc: 'Stylish and edgy ripped denim jeans for a relaxed and trendy look.',
+        _id: utilService.makeId()
       },
       {
         name: 'Warm Winter Jacket',
@@ -60,7 +63,8 @@ export class ClothingItemService {
         quantity: 8,
         style: ['winter', 'outerwear'],
         type: 'jacket',
-        desc: 'A warm and insulated winter jacket perfect for cold weather conditions.'
+        desc: 'A warm and insulated winter jacket perfect for cold weather conditions.',
+        _id: utilService.makeId()
       },
       {
         name: 'Elegant Silk Blouse',
@@ -70,7 +74,8 @@ export class ClothingItemService {
         quantity: 3,
         style: ['formal', 'workwear'],
         type: 'top',
-        desc: 'A luxurious and sophisticated silk blouse for a polished and professional look.'
+        desc: 'A luxurious and sophisticated silk blouse for a polished and professional look.',
+        _id: utilService.makeId()
       },
       {
         name: 'Sporty Tracksuit',
@@ -80,7 +85,8 @@ export class ClothingItemService {
         quantity: 12,
         style: ['athleisure', 'sporty'],
         type: 'set',
-        desc: 'A comfortable and stylish tracksuit for workouts or casual wear.'
+        desc: 'A comfortable and stylish tracksuit for workouts or casual wear.',
+        _id: utilService.makeId()
       },
       {
         name: 'Cozy Cashmere Sweater',
@@ -90,7 +96,8 @@ export class ClothingItemService {
         quantity: 2,
         style: ['winter', 'luxury'],
         type: 'sweater',
-        desc: 'A soft and luxurious cashmere sweater for warmth and comfort in cooler weather.'
+        desc: 'A soft and luxurious cashmere sweater for warmth and comfort in cooler weather.',
+        _id: utilService.makeId()
       },
       {
         name: 'Lightweight Linen Shirt',
@@ -100,7 +107,8 @@ export class ClothingItemService {
         quantity: 7,
         style: ['summer', 'casual'],
         type: 'top',
-        desc: 'A breathable and airy linen shirt for a comfortable and relaxed feel in hot weather.'
+        desc: 'A breathable and airy linen shirt for a comfortable and relaxed feel in hot weather.',
+        _id: utilService.makeId()
       },
       {
         name: 'Functional Cargo Pants',
@@ -110,7 +118,8 @@ export class ClothingItemService {
         quantity: 10,
         style: ['casual', 'utility'],
         type: 'bottoms',
-        desc: 'Practical and stylish cargo pants with multiple pockets for everyday wear.'
+        desc: 'Practical and stylish cargo pants with multiple pockets for everyday wear.',
+        _id: utilService.makeId()
       },
       {
         name: 'Hooded Sweatshirt',
@@ -120,7 +129,8 @@ export class ClothingItemService {
         quantity: 18,
         style: ['casual', 'streetwear'],
         type: 'top',
-        desc: 'A comfortable and versatile hooded sweatshirt for layering or wearing on its own.'
+        desc: 'A comfortable and versatile hooded sweatshirt for layering or wearing on its own.',
+        _id: utilService.makeId()
       },
       {
         name: 'Elegant Cocktail Dress',
@@ -130,7 +140,8 @@ export class ClothingItemService {
         quantity: 4,
         style: ['formal', 'eveningwear'],
         type: 'dress',
-        desc: 'A stunning and sophisticated cocktail dress for a special occasion.'
+        desc: 'A stunning and sophisticated cocktail dress for a special occasion.',
+        _id: utilService.makeId()
       },
       {
         name: 'Performance Running Tights',
@@ -140,7 +151,8 @@ export class ClothingItemService {
         quantity: 6,
         style: ['athletic', 'activewear'],
         type: 'bottoms',
-        desc: 'Supportive and breathable running tights for optimal performance during workouts.'
+        desc: 'Supportive and breathable running tights for optimal performance during workouts.',
+        _id: utilService.makeId()
       },
       {
         name: 'Classic Leather Boots',
@@ -150,7 +162,8 @@ export class ClothingItemService {
         quantity: 5,
         style: ['formal', 'winter'],
         type: 'shoes',
-        desc: 'Durable and stylish leather boots for a timeless and elevated look.'
+        desc: 'Durable and stylish leather boots for a timeless and elevated look.',
+        _id: utilService.makeId()
       },
       {
         name: 'Trendy Denim Jacket',
@@ -160,7 +173,8 @@ export class ClothingItemService {
         quantity: 9,
         style: ['casual', 'streetwear'],
         type: 'jacket',
-        desc: 'A cool and versatile denim jacket for a relaxed and trendy look.'
+        desc: 'A cool and versatile denim jacket for a relaxed and trendy look.',
+        _id: utilService.makeId()
       },
       {
         name: 'Comfortable Pajamas',
@@ -170,7 +184,8 @@ export class ClothingItemService {
         quantity: 15,
         style: ['sleepwear', 'loungewear'],
         type: 'set',
-        desc: 'A soft and cozy pajama set for ultimate comfort and relaxation.'
+        desc: 'A soft and cozy pajama set for ultimate comfort and relaxation.',
+        _id: utilService.makeId()
       },
       {
         name: 'Functional Hiking Boots',
@@ -180,7 +195,8 @@ export class ClothingItemService {
         quantity: 7,
         style: ['outdoor', 'activewear'],
         type: 'shoes',
-        desc: 'Durable and supportive hiking boots for outdoor adventures.'
+        desc: 'Durable and supportive hiking boots for outdoor adventures.',
+        _id: utilService.makeId()
       },
       {
         name: 'Warm Puffer Jacket',
@@ -190,7 +206,8 @@ export class ClothingItemService {
         quantity: 11,
         style: ['winter', 'outerwear'],
         type: 'jacket',
-        desc: 'A lightweight and warm puffer jacket for cold weather conditions.'
+        desc: 'A lightweight and warm puffer jacket for cold weather conditions.',
+        _id: utilService.makeId()
       },
       {
         name: 'Flowy Maxi Dress',
@@ -200,12 +217,13 @@ export class ClothingItemService {
         quantity: 3,
         style: ['summer', 'bohemian'],
         type: 'dress',
-        desc: 'A beautiful and flowy maxi dress for a relaxed and elegant look in warm weather.'
+        desc: 'A beautiful and flowy maxi dress for a relaxed and elegant look in warm weather.',
+        _id: utilService.makeId()
       }]
-      
-      return clothingList
+
+    return clothingList
   }
-  
+
 }
 
 
