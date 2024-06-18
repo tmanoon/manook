@@ -28,6 +28,9 @@
         .subscription-btn {
             @include buttons2;
             padding: 1rem;
+            width: max-content;
+            justify-self: center;
+            margin-block-start: 1rem;
         }
     }
 
