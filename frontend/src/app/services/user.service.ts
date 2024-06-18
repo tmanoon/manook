@@ -77,14 +77,15 @@ export class userService {
       _id: ''
     }
 
-    return from(storageService.post<User>(USERS_DB, user)).pipe(
-      map(() => {
-        this._loggedInUser$.next(user)
-        utilService.setToStorage(USER_DB, user)
-        return user
-      }),
-      catchError(err => this._handleError(err))
-    )
+    return from(storageService.post<User>(USERS_DB, user))
+      .pipe(
+        map(() => {
+          this._loggedInUser$.next(user)
+          utilService.setToStorage(USER_DB, user)
+          return user
+        }),
+        catchError(err => this._handleError(err))
+      )
   }
 
 
