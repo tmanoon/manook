@@ -24,7 +24,7 @@ export class ClothingItemService {
     const clothingList: ClothingItem[] = [
       {
         name: 'Classic Cotton T-Shirt',
-        gender: 'men',
+        gender: 'male',
         price: 19.99,
         imgUrl: 'https://example.com/images/clothing/t-shirt-white.jpg',
         quantity: 10,
@@ -34,7 +34,7 @@ export class ClothingItemService {
       },
       {
         name: 'Flowy Floral Dress',
-        gender: 'women',
+        gender: 'female',
         price: 49.99,
         imgUrl: ['https://example.com/images/clothing/dress-floral-blue.jpg', 'https://example.com/images/clothing/dress-floral-red.jpg'],
         quantity: 5,
@@ -54,7 +54,7 @@ export class ClothingItemService {
       },
       {
         name: 'Warm Winter Jacket',
-        gender: 'men',
+        gender: 'male',
         price: 99.99,
         imgUrl: 'https://example.com/images/clothing/jacket-winter-black.jpg',
         quantity: 8,
@@ -64,7 +64,7 @@ export class ClothingItemService {
       },
       {
         name: 'Elegant Silk Blouse',
-        gender: 'women',
+        gender: 'female',
         price: 79.99,
         imgUrl: 'https://example.com/images/clothing/blouse-silk-white.jpg',
         quantity: 3,
@@ -84,7 +84,7 @@ export class ClothingItemService {
       },
       {
         name: 'Cozy Cashmere Sweater',
-        gender: 'women',
+        gender: 'female',
         price: 149.99,
         imgUrl: 'https://example.com/images/clothing/sweater-cashmere-beige.jpg',
         quantity: 2,
@@ -94,7 +94,7 @@ export class ClothingItemService {
       },
       {
         name: 'Lightweight Linen Shirt',
-        gender: 'men',
+        gender: 'male',
         price: 24.99,
         imgUrl: 'https://example.com/images/clothing/shirt-linen-white.jpg',
         quantity: 7,
@@ -104,7 +104,7 @@ export class ClothingItemService {
       },
       {
         name: 'Functional Cargo Pants',
-        gender: 'men',
+        gender: 'male',
         price: 45.99,
         imgUrl: 'https://example.com/images/clothing/pants-cargo-khaki.jpg',
         quantity: 10,
@@ -124,7 +124,7 @@ export class ClothingItemService {
       },
       {
         name: 'Elegant Cocktail Dress',
-        gender: 'women',
+        gender: 'female',
         price: 89.99,
         imgUrl: 'https://example.com/images/clothing/dress-cocktail-black.jpg',
         quantity: 4,
@@ -144,7 +144,7 @@ export class ClothingItemService {
       },
       {
         name: 'Classic Leather Boots',
-        gender: 'men',
+        gender: 'male',
         price: 179.99,
         imgUrl: 'https://example.com/images/clothing/boots-leather-brown.jpg',
         quantity: 5,
@@ -154,7 +154,7 @@ export class ClothingItemService {
       },
       {
         name: 'Trendy Denim Jacket',
-        gender: 'women',
+        gender: 'female',
         price: 59.99,
         imgUrl: 'https://example.com/images/clothing/jacket-denim-lightwash.jpg',
         quantity: 9,
@@ -184,7 +184,7 @@ export class ClothingItemService {
       },
       {
         name: 'Warm Puffer Jacket',
-        gender: 'men',
+        gender: 'male',
         price: 69.99,
         imgUrl: 'https://example.com/images/clothing/jacket-puffer-black.jpg',
         quantity: 11,
@@ -194,7 +194,7 @@ export class ClothingItemService {
       },
       {
         name: 'Flowy Maxi Dress',
-        gender: 'women',
+        gender: 'female',
         price: 64.99,
         imgUrl: 'https://example.com/images/clothing/dress-maxi-floral.jpg',
         quantity: 3,
@@ -202,6 +202,7 @@ export class ClothingItemService {
         type: 'dress',
         desc: 'A beautiful and flowy maxi dress for a relaxed and elegant look in warm weather.'
       }]
+      
       return clothingList
   }
   
