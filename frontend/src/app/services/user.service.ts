@@ -12,7 +12,7 @@ const USERS_DB = 'users'
   providedIn: 'root'
 })
 
-export class userService {
+export class UserService {
 
   private _loggedInUser$ = new BehaviorSubject<User | null>(null)
   public loggedInUser$ = this._loggedInUser$.asObservable()

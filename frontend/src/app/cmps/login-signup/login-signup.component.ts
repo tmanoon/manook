@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { userService } from '../../services/user.service';
+import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class LoginSignupComponent implements OnInit, OnDestroy {
 
-  private userService = inject(userService)
+  private userService = inject(UserService)
   private destroySubject$ = new Subject()
 
   loggedInUser: User | null = null

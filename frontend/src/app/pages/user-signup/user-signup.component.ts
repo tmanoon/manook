@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { userService } from '../../services/user.service';
+import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { Router } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class UserSignupComponent {
 
-  private userService = inject(userService)
+  private userService = inject(UserService)
   private router = inject(Router)
 
   newUser: Partial<User> = {
