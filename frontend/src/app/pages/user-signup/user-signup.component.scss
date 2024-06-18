@@ -4,23 +4,30 @@
 
     .signup-form,
     .subscription-container {
-        gap: .5rem;
+        gap: 1rem;
+    }
+
+    h1 {
+        font-size: 24px;
+        text-align: center;
+        margin-block: 1rem;
     }
 
     .signup-form {
         grid-auto-flow: row;
-
-        label {
-            text-align: center;
-        }
 
         input {
             @include input1;
             position: static;
         }
 
+        select {
+         padding: .5rem;   
+        }
+
         .subscription-btn {
             @include buttons2;
+            padding: 1rem;
         }
     }
 
