@@ -1,7 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ClothingItem } from '../models/clothingitem.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, filter, from, map, retry, tap, throwError } from 'rxjs';
 import { utilService } from './util.service';
+import { storageService } from './local.storage.service';
+import { FilterBy } from '../models/filterby.model';
+import { User } from '../models/user.model';
 
 const CLOTHES_DB = 'clothes_db'
 
@@ -10,17 +13,126 @@ const CLOTHES_DB = 'clothes_db'
 })
 export class ClothingItemService {
 
-  private _clothesList$ = new BehaviorSubject<ClothingItem[] | null>(null)
-  public clothesList$ = this._clothesList$.asObservable()
+  private _clothes$ = new BehaviorSubject<ClothingItem[] | null>(null)
+  public clothes$ = this._clothes$.asObservable()
+  private _filterBy$ = new BehaviorSubject<FilterBy | null>(null)
+  public filterBy$ = this._filterBy$.asObservable()
 
   constructor() {
-    const storedClothesList = utilService.loadFromStorage(CLOTHES_DB) as ClothingItem[] || null
-    if (!storedClothesList || storedClothesList.length === 0) {
-      utilService.setToStorage(CLOTHES_DB, this._createClothesList())
+    const storedClothes = utilService.loadFromStorage(CLOTHES_DB) as ClothingItem[] || null
+    if (!storedClothes || storedClothes.length === 0) {
+      utilService.setToStorage(CLOTHES_DB, this._createClothes())
     }
   }
 
-  private _createClothesList(): ClothingItem[] {
+  public loadClothes() {
+    return from(storageService.query<ClothingItem>(CLOTHES_DB))
+      .pipe(
+        tap(clothes => {
+          const filterBy = this._filterBy$.value
+          if (filterBy &&
+            (filterBy.gender ||
+              filterBy.style ||
+              filterBy.type ||
+              filterBy.name ||
+              filterBy.priceRange.min ||
+              filterBy.priceRange.max)) clothes = this._filter(clothes, filterBy)
+          this._clothes$.next(this._sort(clothes))
+        }),
+        retry(1),
+        catchError(this._handleError)
+      )
+  }
+
+  public getClothingItemById(id: string): Observable<ClothingItem> {
+    return from(storageService.get<ClothingItem>(CLOTHES_DB, id))
+      .pipe(catchError(err => throwError(() => `Contact id ${id} not found!`)))
+  }
+
+  public deleteClothingItem(id: string) {
+    return from(storageService.remove(CLOTHES_DB, id))
+      .pipe(
+        tap(() => {
+          let clothes = this._clothes$.value as ClothingItem[]
+          clothes = clothes.filter(clothingItem => clothingItem._id !== id)
+          this._clothes$.next(clothes)
+        }),
+        retry(1),
+        catchError(this._handleError)
+      )
+  }
+
+  public saveClothingItem(clothingItem: ClothingItem) {
+    return clothingItem._id ? this._updateClothingItem(clothingItem) : this._addClothingItem(clothingItem)
+  }
+
+  public getEmptyContact() {
+    return {
+      name: '',
+      email: '',
+      phone: ''
+    }
+  }
+
+  public setFilter(filterBy: FilterBy) {
+    this._filterBy$.next(filterBy)
+    this.loadClothes().pipe(retry(1)).subscribe()
+  }
+
+  private _updateClothingItem(clothingItem: ClothingItem) {
+    return from(storageService.put<ClothingItem>(CLOTHES_DB, clothingItem))
+      .pipe(
+        tap(updatedClothingItem => {
+          const clothes = this._clothes$.value as ClothingItem[]
+          this._clothes$.next(clothes.map(clothingItem => clothingItem._id === clothingItem._id ? updatedClothingItem : clothingItem))
+        }),
+        retry(1),
+        catchError(this._handleError)
+      )
+  }
+
+  private _addClothingItem(clothingItem: ClothingItem) {
+    return from(storageService.post(ENTITY, contact))
+      .pipe(
+        tap(newClothingItem => {
+          const clothes = this._clothes$.value as ClothingItem[]
+          this._clothes$.next([...clothes, newClothingItem])
+        }),
+        retry(1),
+        catchError(this._handleError)
+      )
+  }
+
+  private _sort(clothes: ClothingItem[]): ClothingItem[] {
+    return clothes.sort((a, b) => {
+      if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) {
+        return -1;
+      }
+      if (a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase()) {
+        return 1;
+      }
+      return 0;
+    })
+  }
+
+  private _filter(clothes: ClothingItem[], filterBy: FilterBy) {
+    filterBy.name = filterBy.name.toLocaleLowerCase()
+    return clothes.filter(clothingItem => {
+      return clothingItem.name.toLocaleLowerCase().includes(filterBy.name) &&
+        clothingItem.gender.toLocaleLowerCase().includes(filterBy.gender) &&
+        clothingItem.style.some(style => filterBy.style.includes(style)) &&
+        filterBy.type.includes(clothingItem.type) &&
+        (clothingItem.price >= filterBy.priceRange.min && clothingItem.price <= filterBy.priceRange.max)
+    })
+  }
+
+  public loadFavorites(user: Observable<User>): Observable<ClothingItem[]> {
+    return user.pipe(
+      map(user => user.wishlist)
+    )
+  }
+
+  private _createClothes(): ClothingItem[] {
     const clothingList: ClothingItem[] = [
       {
         name: 'Classic Cotton T-Shirt',
@@ -222,6 +334,11 @@ export class ClothingItemService {
       }]
 
     return clothingList
+  }
+
+  private _handleError(err: HttpErrorResponse) {
+    console.log('err:', err)
+    return throwError(() => err)
   }
 
 }
