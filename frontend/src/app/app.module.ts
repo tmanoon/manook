@@ -9,7 +9,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { AppFooterComponent } from './cmps/app-footer/app-footer.component';
 import { UserSignupComponent } from './pages/user-signup/user-signup.component';
 import { ClothingItemDetailsComponent } from './pages/clothing-item-details/clothing-item-details.component';
-import { HomeClothingItemsPreviewComponent } from './cmps/home-clothing-items-preview/home-clothing-items-preview.component';
 import { ClothingItemIndexComponent } from './pages/clothing-item-index/clothing-item-index.component';
 import { HomeClothingItemPreviewComponent } from './cmps/home-clothing-item-preview/home-clothing-item-preview.component';
 
@@ -22,7 +21,6 @@ import { HomeClothingItemPreviewComponent } from './cmps/home-clothing-item-prev
     AppFooterComponent,
     UserSignupComponent,
     ClothingItemDetailsComponent,
-    HomeClothingItemsPreviewComponent,
     ClothingItemIndexComponent,
     HomeClothingItemPreviewComponent
   ],
