@@ -1,5 +1,7 @@
 export interface FilterBy {
-    gender?: string,
+    gender: string,
     style: string[],
-    type: string
+    type: string,
+    name: string,
+    priceRange: object
 }
