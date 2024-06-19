@@ -1,1 +1,8 @@
-<p>home-clothing-item-preview works!</p>
+<section class="home-clothing-item-preview">
+    <article *ngFor="let clothingItem in clothingItems">
+        <img [src]="clothingItem.imgUrl" [title]="clothingItem.name" />
+        <h1>{{clothingItem.name}}</h1>
+        <p>{{clothingItem.desc}}</p>
+        <pre *ngIf="clothingItem.quantity < 5">{{clothingItem.quantity}} left</pre>
+    </article>
+</section>
