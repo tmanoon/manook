@@ -1,10 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { ClothingItem } from '../models/clothingitem.model';
 import { BehaviorSubject, Observable, catchError, filter, from, map, retry, tap, throwError } from 'rxjs';
-import { utilService } from './util.service';
+import { UtilService } from './util.service';
 import { storageService } from './local.storage.service';
 import { FilterBy } from '../models/filterby.model';
 import { User } from '../models/user.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 const CLOTHES_DB = 'clothes_db'
 
@@ -13,15 +14,17 @@ const CLOTHES_DB = 'clothes_db'
 })
 export class ClothingItemService {
 
+  private utilService = inject(UtilService)
+
   private _clothes$ = new BehaviorSubject<ClothingItem[] | null>(null)
   public clothes$ = this._clothes$.asObservable()
   private _filterBy$ = new BehaviorSubject<FilterBy | null>(null)
   public filterBy$ = this._filterBy$.asObservable()
 
   constructor() {
-    const storedClothes = utilService.loadFromStorage(CLOTHES_DB) as ClothingItem[] || null
+    const storedClothes = this.utilService.loadFromStorage(CLOTHES_DB) as ClothingItem[] || null
     if (!storedClothes || storedClothes.length === 0) {
-      utilService.setToStorage(CLOTHES_DB, this._createClothes())
+      this.utilService.setToStorage(CLOTHES_DB, this._createClothes())
     }
   }
 
@@ -92,7 +95,7 @@ export class ClothingItemService {
   }
 
   private _addClothingItem(clothingItem: ClothingItem) {
-    return from(storageService.post(ENTITY, contact))
+    return from(storageService.post(CLOTHES_DB, clothingItem))
       .pipe(
         tap(newClothingItem => {
           const clothes = this._clothes$.value as ClothingItem[]
@@ -143,7 +146,7 @@ export class ClothingItemService {
         style: ['casual', 'basics'],
         type: 'top',
         desc: 'A comfortable and versatile white cotton t-shirt, perfect for everyday wear.',
-        _id: utilService.makeId()
+        _id: this.utilService.makeId()
       },
       {
         name: 'Flowy Floral Dress',
@@ -154,7 +157,7 @@ export class ClothingItemService {
         style: ['romantic', 'summer'],
         type: 'dress',
         desc: 'A lightweight and airy dress featuring a beautiful floral print, ideal for warm weather.',
-        _id: utilService.makeId()
+        _id: this.utilService.makeId()
       },
       {
         name: 'Ripped Denim Jeans',
@@ -165,7 +168,7 @@ export class ClothingItemService {
         style: ['casual', 'streetwear'],
         type: 'bottoms',
         desc: 'Stylish and edgy ripped denim jeans for a relaxed and trendy look.',
-        _id: utilService.makeId()
+        _id: this.utilService.makeId()
       },
       {
         name: 'Warm Winter Jacket',
@@ -176,7 +179,7 @@ export class ClothingItemService {
         style: ['winter', 'outerwear'],
         type: 'jacket',
         desc: 'A warm and insulated winter jacket perfect for cold weather conditions.',
-        _id: utilService.makeId()
+        _id: this.utilService.makeId()
       },
       {
         name: 'Elegant Silk Blouse',
@@ -187,7 +190,7 @@ export class ClothingItemService {
         style: ['formal', 'workwear'],
         type: 'top',
         desc: 'A luxurious and sophisticated silk blouse for a polished and professional look.',
-        _id: utilService.makeId()
+        _id: this.utilService.makeId()
       },
       {
         name: 'Sporty Tracksuit',
@@ -198,7 +201,7 @@ export class ClothingItemService {
         style: ['athleisure', 'sporty'],
         type: 'set',
         desc: 'A comfortable and stylish tracksuit for workouts or casual wear.',
-        _id: utilService.makeId()
+        _id: this.utilService.makeId()
       },
       {
         name: 'Cozy Cashmere Sweater',
@@ -209,7 +212,7 @@ export class ClothingItemService {
         style: ['winter', 'luxury'],
         type: 'sweater',
         desc: 'A soft and luxurious cashmere sweater for warmth and comfort in cooler weather.',
-        _id: utilService.makeId()
+        _id: this.utilService.makeId()
       },
       {
         name: 'Lightweight Linen Shirt',
@@ -220,7 +223,7 @@ export class ClothingItemService {
         style: ['summer', 'casual'],
         type: 'top',
         desc: 'A breathable and airy linen shirt for a comfortable and relaxed feel in hot weather.',
-        _id: utilService.makeId()
+        _id: this.utilService.makeId()
       },
       {
         name: 'Functional Cargo Pants',
@@ -231,7 +234,7 @@ export class ClothingItemService {
         style: ['casual', 'utility'],
         type: 'bottoms',
         desc: 'Practical and stylish cargo pants with multiple pockets for everyday wear.',
-        _id: utilService.makeId()
+        _id: this.utilService.makeId()
       },
       {
         name: 'Hooded Sweatshirt',
@@ -242,7 +245,7 @@ export class ClothingItemService {
         style: ['casual', 'streetwear'],
         type: 'top',
         desc: 'A comfortable and versatile hooded sweatshirt for layering or wearing on its own.',
-        _id: utilService.makeId()
+        _id: this.utilService.makeId()
       },
       {
         name: 'Elegant Cocktail Dress',
@@ -253,7 +256,7 @@ export class ClothingItemService {
         style: ['formal', 'eveningwear'],
         type: 'dress',
         desc: 'A stunning and sophisticated cocktail dress for a special occasion.',
-        _id: utilService.makeId()
+        _id: this.utilService.makeId()
       },
       {
         name: 'Performance Running Tights',
@@ -264,7 +267,7 @@ export class ClothingItemService {
         style: ['athletic', 'activewear'],
         type: 'bottoms',
         desc: 'Supportive and breathable running tights for optimal performance during workouts.',
-        _id: utilService.makeId()
+        _id: this.utilService.makeId()
       },
       {
         name: 'Classic Leather Boots',
@@ -275,7 +278,7 @@ export class ClothingItemService {
         style: ['formal', 'winter'],
         type: 'shoes',
         desc: 'Durable and stylish leather boots for a timeless and elevated look.',
-        _id: utilService.makeId()
+        _id: this.utilService.makeId()
       },
       {
         name: 'Trendy Denim Jacket',
@@ -286,7 +289,7 @@ export class ClothingItemService {
         style: ['casual', 'streetwear'],
         type: 'jacket',
         desc: 'A cool and versatile denim jacket for a relaxed and trendy look.',
-        _id: utilService.makeId()
+        _id: this.utilService.makeId()
       },
       {
         name: 'Comfortable Pajamas',
@@ -297,7 +300,7 @@ export class ClothingItemService {
         style: ['sleepwear', 'loungewear'],
         type: 'set',
         desc: 'A soft and cozy pajama set for ultimate comfort and relaxation.',
-        _id: utilService.makeId()
+        _id: this.utilService.makeId()
       },
       {
         name: 'Functional Hiking Boots',
@@ -308,7 +311,7 @@ export class ClothingItemService {
         style: ['outdoor', 'activewear'],
         type: 'shoes',
         desc: 'Durable and supportive hiking boots for outdoor adventures.',
-        _id: utilService.makeId()
+        _id: this.utilService.makeId()
       },
       {
         name: 'Warm Puffer Jacket',
@@ -319,7 +322,7 @@ export class ClothingItemService {
         style: ['winter', 'outerwear'],
         type: 'jacket',
         desc: 'A lightweight and warm puffer jacket for cold weather conditions.',
-        _id: utilService.makeId()
+        _id: this.utilService.makeId()
       },
       {
         name: 'Flowy Maxi Dress',
@@ -330,7 +333,7 @@ export class ClothingItemService {
         style: ['summer', 'bohemian'],
         type: 'dress',
         desc: 'A beautiful and flowy maxi dress for a relaxed and elegant look in warm weather.',
-        _id: utilService.makeId()
+        _id: this.utilService.makeId()
       }]
 
     return clothingList
