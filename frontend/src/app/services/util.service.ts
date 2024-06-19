@@ -1,21 +1,23 @@
-export const utilService = {
-  loadFromStorage,
-  makeId,
-  setToStorage,
-  removeFromStorage
-}
+import { Injectable } from '@angular/core';
 
-  function loadFromStorage(entity: string): object | false {
+@Injectable({
+  providedIn: 'root'
+})
+export class UtilService {
+
+  constructor() { }
+
+  loadFromStorage(entity: string): object | false {
     const data = localStorage.getItem(entity)
     if (data) return JSON.parse(data)
     return false
   }
 
-  function setToStorage(entity: string, data: object): void {
+  setToStorage(entity: string, data: object): void {
     localStorage.setItem(entity, JSON.stringify(data))
   }
 
-  function makeId(length: number = 10): string {
+  makeId(length: number = 10): string {
     let txt = ''
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
@@ -25,6 +27,7 @@ export const utilService = {
     return txt
   }
 
-  function removeFromStorage(entity: string) : void {
+  removeFromStorage(entity: string): void {
     localStorage.removeItem(entity)
   }
+}
