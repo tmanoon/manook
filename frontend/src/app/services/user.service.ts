@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 import { Observable, BehaviorSubject, throwError, from, tap, retry, catchError, map, Subscription, of } from 'rxjs'
 import { storageService } from './local.storage.service'
 import { HttpErrorResponse } from '@angular/common/http'
 import { User } from '../models/user.model'
-import { utilService } from './util.service'
+import { UtilService } from './util.service'
 
 const USER_DB = 'user'
 const USERS_DB = 'users'
@@ -14,15 +14,16 @@ const USERS_DB = 'users'
 
 export class UserService {
 
+  private utilService = inject(UtilService)
   private _loggedInUser$ = new BehaviorSubject<User | null>(null)
   public loggedInUser$ = this._loggedInUser$.asObservable()
 
   constructor() {
-    const storedUser = utilService.loadFromStorage(USER_DB)
+    const storedUser = this.utilService.loadFromStorage(USER_DB)
     if (this._isValidUser(storedUser)) this._loggedInUser$.next(storedUser)
     else this._loggedInUser$.next(null)
 
-    const users = utilService.loadFromStorage(USERS_DB) as User[]
+    const users = this.utilService.loadFromStorage(USERS_DB) as User[]
     if (!users || users.length === 0) this._setDefaultUsers(1000)
   }
 
@@ -50,7 +51,7 @@ export class UserService {
       .pipe(
         map(() => {
           this._loggedInUser$.next(user)
-          utilService.setToStorage(USER_DB, user)
+          this.utilService.setToStorage(USER_DB, user)
           return user
         }),
         catchError(err => this._handleError(err))
@@ -66,14 +67,14 @@ export class UserService {
         tap(user => {
           if (user) {
             this._loggedInUser$.next(user)
-            utilService.setToStorage(USER_DB, user)
+            this.utilService.setToStorage(USER_DB, user)
           }
         })
       )
   }
 
   public disconnect(): void {
-    utilService.removeFromStorage(USER_DB)
+    this.utilService.removeFromStorage(USER_DB)
     this._loggedInUser$.next(null)
   }
 
@@ -85,7 +86,7 @@ export class UserService {
         gender: 'Female',
         isAdmin: true,
         password: 'shov99',
-        _id: utilService.makeId(),
+        _id: this.this.utilService.makeId(),
         coins,
         wishlist: [],
         email: 'shoval.sabag@example.com',
@@ -99,7 +100,7 @@ export class UserService {
         gender: 'Male',
         isAdmin: false,
         password: 'shov99',
-        _id: utilService.makeId(),
+        _id: this.this.utilService.makeId(),
         coins,
         wishlist: [],
         email: 'guest@example.com',
@@ -112,7 +113,7 @@ export class UserService {
         gender: 'Female',
         isAdmin: false,
         password: 'shov99',
-        _id: utilService.makeId(),
+        _id: this.utilService.makeId(),
         coins,
         wishlist: [],
         email: 'alice.smith@example.com',
@@ -125,7 +126,7 @@ export class UserService {
         gender: 'Male',
         isAdmin: false,
         password: 'shov99',
-        _id: utilService.makeId(),
+        _id: this.utilService.makeId(),
         coins,
         wishlist: [],
         email: 'bob.johnson@example.com',
@@ -138,7 +139,7 @@ export class UserService {
         gender: 'Male',
         isAdmin: false,
         password: 'shov99',
-        _id: utilService.makeId(),
+        _id: this.utilService.makeId(),
         coins,
         wishlist: [],
         email: 'charlie.brown@example.com',
@@ -147,7 +148,7 @@ export class UserService {
         orders: []
       }
     ]
-    utilService.setToStorage(USERS_DB, users)
+    this.utilService.setToStorage(USERS_DB, users)
   }
 
   private _validateCredentials(credentials: Partial<User>): boolean {
