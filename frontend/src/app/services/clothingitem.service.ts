@@ -16,7 +16,7 @@ export class ClothingItemService {
 
   private utilService = inject(UtilService)
 
-  private _clothes$ = new BehaviorSubject<ClothingItem[] | null>(null)
+  private _clothes$! = new BehaviorSubject<ClothingItem[]>([])
   public clothes$ = this._clothes$.asObservable()
   private _filterBy$ = new BehaviorSubject<FilterBy>({
     gender: '',
