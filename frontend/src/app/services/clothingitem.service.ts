@@ -18,7 +18,13 @@ export class ClothingItemService {
 
   private _clothes$ = new BehaviorSubject<ClothingItem[] | null>(null)
   public clothes$ = this._clothes$.asObservable()
-  private _filterBy$ = new BehaviorSubject<FilterBy | null>(null)
+  private _filterBy$ = new BehaviorSubject<FilterBy>({
+    gender: '',
+    style: [],
+    type: [],
+    name: '',
+    priceRange: { min: 0, max: Infinity }
+  })
   public filterBy$ = this._filterBy$.asObservable()
 
   constructor() {
