@@ -1,5 +1,5 @@
-<section class="home-clothing-item-preview">
-    <article *ngFor="let clothingItem of clothes">
+<section class="home-clothing-item-preview grid">
+    <article *ngFor="let clothingItem of clothes" class="clothing-item">
         <img [src]="clothingItem.imgUrl" [title]="clothingItem.name" />
         <h1>{{clothingItem.name}}</h1>
         <p>{{clothingItem.desc}}</p>
