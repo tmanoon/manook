@@ -1,15 +1,18 @@
-.home-clothing-item-preview {
-    grid-auto-flow: column;
+:host {
+    grid-column: 2;
 
-    .clothing-item {
-        color: var(--text);
-        grid-auto-flow: row;
-        max-width: 20vw;
+    .home-clothing-item-preview {
+        grid-auto-flow: column;
 
-        img {
-            object-fit: cover;
+        .clothing-item {
+            color: var(--text);
+            grid-auto-flow: row;
             max-width: 100%;
-            height: 350px;
+
+            img {
+                object-fit: cover;
+                max-width: 100%;
+            }
         }
     }
 }
