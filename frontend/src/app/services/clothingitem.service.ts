@@ -130,7 +130,7 @@ export class ClothingItemService {
       return clothingItem.name.toLocaleLowerCase().includes(filterBy.name) &&
         clothingItem.gender.toLocaleLowerCase().includes(filterBy.gender) &&
         (!filterBy.style.length || clothingItem.style.some(style => filterBy.style.includes(style))) &&
-        clothingItem.type.includes(filterBy.type) &&
+        (!filterBy.type.length || filterBy.type.includes(clothingItem.type)) &&
         (clothingItem.price >= filterBy.priceRange.min && clothingItem.price <= filterBy.priceRange.max)
     })
     return filteredClothes 
