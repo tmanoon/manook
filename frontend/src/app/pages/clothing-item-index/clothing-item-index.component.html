@@ -1,1 +1,9 @@
-<p>clothing-item-index works!</p>
+<section class="clothing-item-index grid">
+    <article *ngFor="let clothingItem of clothingItems">
+        <img [src]="clothingItem.imgUrl">
+        <h1>{{clothingItem.name}}</h1>
+        <h3>{{clothingItem.type}}</h3>
+        <p>{{clothingItem.desc}}</p>
+        <h3>{{clothingItem.price}}</h3>
+    </article>
+</section>
