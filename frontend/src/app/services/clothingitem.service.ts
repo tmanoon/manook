@@ -55,7 +55,7 @@ export class ClothingItemService {
 
   public getClothingItemById(id: string): Observable<ClothingItem> {
     return from(storageService.get<ClothingItem>(CLOTHES_DB, id))
-      .pipe(catchError(err => throwError(() => `Contact id ${id} not found!`)))
+      .pipe(catchError(err => throwError(() => `Clothing item's id ${id} not found!`)))
   }
 
   public deleteClothingItem(id: string) {
@@ -124,7 +124,7 @@ export class ClothingItemService {
     })
   }
 
-  private _filter(clothes: ClothingItem[], filterBy: FilterBy) : ClothingItem[] {
+  private _filter(clothes: ClothingItem[], filterBy: FilterBy): ClothingItem[] {
     filterBy.name = filterBy.name.toLocaleLowerCase()
     const filteredClothes = clothes.filter(clothingItem => {
       return clothingItem.name.toLocaleLowerCase().includes(filterBy.name) &&
@@ -133,7 +133,7 @@ export class ClothingItemService {
         (!filterBy.type.length || filterBy.type.includes(clothingItem.type)) &&
         (clothingItem.price >= filterBy.priceRange.min && clothingItem.price <= filterBy.priceRange.max)
     })
-    return filteredClothes 
+    return filteredClothes
   }
 
   public loadFavorites(user: Observable<User>): Observable<ClothingItem[]> {
@@ -148,7 +148,7 @@ export class ClothingItemService {
         name: 'Classic Cotton T-Shirt',
         gender: 'male',
         price: 19.99,
-        imgUrl: 'https://example.com/images/clothing/t-shirt-white.jpg',
+        imgUrl: 'https://images.stockcake.com/public/5/e/6/5e6112b1-8c4c-4570-aae8-402ef1f8426d_large/simple-white-t-shirt-stockcake.jpg',
         quantity: 10,
         style: ['casual', 'basics'],
         type: 'top',
@@ -159,7 +159,8 @@ export class ClothingItemService {
         name: 'Flowy Floral Dress',
         gender: 'female',
         price: 49.99,
-        imgUrl: ['https://example.com/images/clothing/dress-floral-blue.jpg', 'https://example.com/images/clothing/dress-floral-red.jpg'],
+        imgUrl: ['https://images.stockcake.com/public/9/0/6/906a534a-d281-4e86-a532-b13fbde50881/vibrant-dress-twirl-stockcake.jpg',
+          'https://images.stockcake.com/public/5/c/e/5ce8c8be-4849-4e0e-8cb6-d098bdab4fa1/elegant-sunset-twirl-stockcake.jpg'],
         quantity: 5,
         style: ['romantic', 'summer'],
         type: 'dress',
@@ -170,7 +171,7 @@ export class ClothingItemService {
         name: 'Ripped Denim Jeans',
         gender: 'unisex',
         price: 39.99,
-        imgUrl: 'https://example.com/images/clothing/jeans-ripped-blue.jpg',
+        imgUrl: 'https://images.stockcake.com/public/f/a/3/fa35d8c6-3d15-4215-a14d-f89de815aef7/trendy-ripped-jeans-stockcake.jpg',
         quantity: 15,
         style: ['casual', 'streetwear'],
         type: 'bottoms',
@@ -181,7 +182,8 @@ export class ClothingItemService {
         name: 'Warm Winter Jacket',
         gender: 'male',
         price: 99.99,
-        imgUrl: 'https://example.com/images/clothing/jacket-winter-black.jpg',
+        imgUrl: ['https://images.stockcake.com/public/1/a/c/1aca8860-6fe2-4fd5-b666-ec933d05e256_large/winter-adventure-gear-stockcake.jpg',
+          'https://images.stockcake.com/public/3/6/a/36ad0854-0134-4256-8e56-30e4b2748597/mountain-winter-fashion-stockcake.jpg'],
         quantity: 8,
         style: ['winter', 'outerwear'],
         type: 'jacket',
@@ -192,7 +194,8 @@ export class ClothingItemService {
         name: 'Elegant Silk Blouse',
         gender: 'female',
         price: 79.99,
-        imgUrl: 'https://example.com/images/clothing/blouse-silk-white.jpg',
+        imgUrl: ['https://images.stockcake.com/public/d/2/1/d210cb58-571b-4f61-9c65-664309220365/fashionable-urban-chic-stockcake.jpg',
+          'https://images.stockcake.com/public/5/b/4/5b431679-3e42-45ba-9b35-a11463405cdf_large/fashionable-urban-chic-stockcake.jpg'],
         quantity: 3,
         style: ['formal', 'workwear'],
         type: 'top',
@@ -203,7 +206,8 @@ export class ClothingItemService {
         name: 'Sporty Tracksuit',
         gender: 'unisex',
         price: 54.99,
-        imgUrl: ['https://example.com/images/clothing/tracksuit-grey.jpg', 'https://example.com/images/clothing/tracksuit-black.jpg'],
+        imgUrl: ['https://images.stockcake.com/public/2/9/e/29ec4245-68a0-4839-96d1-d60c860648dc_large/urban-morning-jog-stockcake.jpg',
+          'https://images.stockcake.com/public/6/8/5/6855c71b-bbee-4760-9f1a-f2e8f1cb877b_large/athlete-sprinting-intensely-stockcake.jpg'],
         quantity: 12,
         style: ['athleisure', 'sporty'],
         type: 'set',
@@ -214,7 +218,8 @@ export class ClothingItemService {
         name: 'Cozy Cashmere Sweater',
         gender: 'female',
         price: 149.99,
-        imgUrl: 'https://example.com/images/clothing/sweater-cashmere-beige.jpg',
+        imgUrl: ['https://images.stockcake.com/public/a/0/d/a0d911ed-6190-4517-afb4-6966a9179709_large/stylish-winter-fashion-stockcake.jpg',
+          'https://images.stockcake.com/public/e/c/2/ec25c922-822e-4c04-9761-2c98241e83e7_large/elegant-wrist-watch-stockcake.jpg'],
         quantity: 2,
         style: ['winter', 'luxury'],
         type: 'sweater',
@@ -225,7 +230,7 @@ export class ClothingItemService {
         name: 'Lightweight Linen Shirt',
         gender: 'male',
         price: 24.99,
-        imgUrl: 'https://example.com/images/clothing/shirt-linen-white.jpg',
+        imgUrl: 'https://images.stockcake.com/public/6/e/2/6e212e0f-e82b-4047-a747-9df91dcbd370_large/serene-meditation-garden-stockcake.jpg',
         quantity: 7,
         style: ['summer', 'casual'],
         type: 'top',
@@ -236,7 +241,9 @@ export class ClothingItemService {
         name: 'Functional Cargo Pants',
         gender: 'male',
         price: 45.99,
-        imgUrl: 'https://example.com/images/clothing/pants-cargo-khaki.jpg',
+        imgUrl: ['https://images.stockcake.com/public/3/7/7/377fa064-6d79-4edc-9a40-448c2d6a6c6a/stylish-cargo-pants-stockcake.jpg',
+          'https://images.stockcake.com/public/7/5/6/756b50e9-450d-44de-84ed-3589160ac896_large/casual-cargo-pants-stockcake.jpg',
+          'https://images.stockcake.com/public/3/f/3/3f35d75a-922e-474e-8a4f-7abae5500249_large/cargo-pants-detail-stockcake.jpg'],
         quantity: 10,
         style: ['casual', 'utility'],
         type: 'bottoms',
@@ -247,7 +254,9 @@ export class ClothingItemService {
         name: 'Hooded Sweatshirt',
         gender: 'unisex',
         price: 34.99,
-        imgUrl: ['https://example.com/images/clothing/sweatshirt-hoodie-grey.jpg', 'https://example.com/images/clothing/sweatshirt-hoodie-red.jpg'],
+        imgUrl: ['https://images.stockcake.com/public/0/7/d/07db86fa-d1ae-44e6-9cd4-784cd2f9fab2/black-hooded-sweatshirt-stockcake.jpg',
+           'https://images.stockcake.com/public/1/c/e/1ce8c606-469a-42de-b791-b7ec3d2c96f0/sleek-black-hoodie-stockcake.jpg',
+          'https://images.stockcake.com/public/d/f/6/df61f856-cdbe-4050-a4c4-ba0a54b9692b/casual-black-hoodie-stockcake.jpg'],
         quantity: 18,
         style: ['casual', 'streetwear'],
         type: 'top',
@@ -258,7 +267,8 @@ export class ClothingItemService {
         name: 'Elegant Cocktail Dress',
         gender: 'female',
         price: 89.99,
-        imgUrl: 'https://example.com/images/clothing/dress-cocktail-black.jpg',
+        imgUrl: ['https://images.stockcake.com/public/a/1/5/a1594536-ccba-494f-8576-82be46d7bb0d/elegant-evening-toast-stockcake.jpg',
+          'https://images.stockcake.com/public/9/3/9/93941780-df32-4930-8c8c-b41e3a737d96/elegant-cocktail-evening-stockcake.jpg'],
         quantity: 4,
         style: ['formal', 'eveningwear'],
         type: 'dress',
@@ -269,7 +279,7 @@ export class ClothingItemService {
         name: 'Performance Running Tights',
         gender: 'unisex',
         price: 49.99,
-        imgUrl: 'https://example.com/images/clothing/tights-running-black.jpg',
+        imgUrl: 'https://images.stockcake.com/public/8/5/d/85d9f11a-90da-459f-84f9-d10d78dbdbbc/dynamic-marathon-runners-stockcake.jpg',
         quantity: 6,
         style: ['athletic', 'activewear'],
         type: 'bottoms',
@@ -280,7 +290,8 @@ export class ClothingItemService {
         name: 'Classic Leather Boots',
         gender: 'male',
         price: 179.99,
-        imgUrl: 'https://example.com/images/clothing/boots-leather-brown.jpg',
+        imgUrl: ['https://images.stockcake.com/public/4/5/c/45ce6e55-3d22-4430-98a5-e4c737b73751/morning-run-session-stockcake.jpg',
+          'https://images.stockcake.com/public/0/8/2/0822aebf-35e9-43f6-b970-7af9e9206c1b/graceful-ballet-pose-stockcake.jpg'],
         quantity: 5,
         style: ['formal', 'winter'],
         type: 'shoes',
@@ -291,7 +302,7 @@ export class ClothingItemService {
         name: 'Trendy Denim Jacket',
         gender: 'female',
         price: 59.99,
-        imgUrl: 'https://example.com/images/clothing/jacket-denim-lightwash.jpg',
+        imgUrl: 'https://images.stockcake.com/public/6/6/0/660118f3-0a71-4102-a3a7-d385660b05fa/urban-fashion-posing-stockcake.jpg',
         quantity: 9,
         style: ['casual', 'streetwear'],
         type: 'jacket',
@@ -302,7 +313,8 @@ export class ClothingItemService {
         name: 'Comfortable Pajamas',
         gender: 'unisex',
         price: 29.99,
-        imgUrl: ['https://example.com/images/clothing/pajamas-striped-blue.jpg', 'https://example.com/images/clothing/pajamas-floral-pink.jpg'],
+        imgUrl: ['https://images.stockcake.com/public/3/2/9/3292131e-4d5a-4dcc-a325-c3bc8ff02069/festive-family-pajamas-stockcake.jpg',
+           'https://images.stockcake.com/public/0/a/b/0abe4667-cdf0-46d5-a369-f1b6a1927c2e/festive-family-portrait-stockcake.jpg'],
         quantity: 15,
         style: ['sleepwear', 'loungewear'],
         type: 'set',
@@ -313,7 +325,7 @@ export class ClothingItemService {
         name: 'Functional Hiking Boots',
         gender: 'unisex',
         price: 84.99,
-        imgUrl: 'https://example.com/images/clothing/boots-hiking-brown.jpg',
+        imgUrl: 'https://images.stockcake.com/public/6/b/6/6b6e9f95-fc96-41f5-814e-a3a63ac02dd1/hiking-boots-outdoors-stockcake.jpg',
         quantity: 7,
         style: ['outdoor', 'activewear'],
         type: 'shoes',
@@ -324,7 +336,8 @@ export class ClothingItemService {
         name: 'Warm Puffer Jacket',
         gender: 'male',
         price: 69.99,
-        imgUrl: 'https://example.com/images/clothing/jacket-puffer-black.jpg',
+        imgUrl: ['https://images.stockcake.com/public/a/2/d/a2d1bb61-f07b-4687-8f90-ea8f385877d0_large/savoring-aroma-intently-stockcake.jpg',
+        'https://images.stockcake.com/public/d/a/6/da68525e-ef77-4a6a-82eb-8c10eb106758_large/urban-digital-connection-stockcake.jpg'],
         quantity: 11,
         style: ['winter', 'outerwear'],
         type: 'jacket',
@@ -335,7 +348,8 @@ export class ClothingItemService {
         name: 'Flowy Maxi Dress',
         gender: 'female',
         price: 64.99,
-        imgUrl: 'https://example.com/images/clothing/dress-maxi-floral.jpg',
+        imgUrl: ['https://images.stockcake.com/public/5/1/8/518192e2-a732-456b-a76a-ef178c745c76/elegant-summer-fashion-stockcake.jpg',
+          'https://images.stockcake.com/public/5/1/c/51cd964b-b137-4091-91be-a23761374943/bohemian-style-outfit-stockcake.jpg'],
         quantity: 3,
         style: ['summer', 'bohemian'],
         type: 'dress',
