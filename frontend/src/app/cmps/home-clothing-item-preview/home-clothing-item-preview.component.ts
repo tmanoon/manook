@@ -20,7 +20,7 @@ export class HomeClothingItemPreviewComponent implements OnInit, OnDestroy {
     this.clothingItemService.clothes$
       .pipe(
         takeUntil(this.destroySubject$),
-        map(clothes => clothes.slice(0, 4))
+        map(clothes => clothes.slice(0, 3))
       )
       .subscribe(clothes => {
         this.clothes = clothes
