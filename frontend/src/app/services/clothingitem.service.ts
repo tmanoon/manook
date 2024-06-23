@@ -148,7 +148,7 @@ export class ClothingItemService {
         name: 'Classic Cotton T-Shirt',
         gender: 'male',
         price: 19.99,
-        imgUrl: 'https://images.stockcake.com/public/5/e/6/5e6112b1-8c4c-4570-aae8-402ef1f8426d_large/simple-white-t-shirt-stockcake.jpg',
+        imgUrl: 'https://images.stockcake.com/public/5/e/6/5e6112b1-8c4c-4570-aae8-402ef1f8426d/simple-white-t-shirt-stockcake.jpg',
         quantity: 10,
         style: ['casual', 'basics'],
         type: 'top',
