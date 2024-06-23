@@ -21,7 +21,7 @@ export class ClothingItemService {
   private _filterBy$ = new BehaviorSubject<FilterBy>({
     gender: '',
     style: [],
-    type: '',
+    type: [],
     name: '',
     priceRange: { min: 0, max: Infinity }
   })
