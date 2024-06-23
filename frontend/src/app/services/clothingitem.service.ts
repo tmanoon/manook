@@ -21,7 +21,7 @@ export class ClothingItemService {
   private _filterBy$ = new BehaviorSubject<FilterBy>({
     gender: '',
     style: [],
-    type: [],
+    type: '',
     name: '',
     priceRange: { min: 0, max: Infinity }
   })
@@ -124,15 +124,16 @@ export class ClothingItemService {
     })
   }
 
-  private _filter(clothes: ClothingItem[], filterBy: FilterBy) {
+  private _filter(clothes: ClothingItem[], filterBy: FilterBy) : ClothingItem[] {
     filterBy.name = filterBy.name.toLocaleLowerCase()
-    return clothes.filter(clothingItem => {
+    const filteredClothes = clothes.filter(clothingItem => {
       return clothingItem.name.toLocaleLowerCase().includes(filterBy.name) &&
         clothingItem.gender.toLocaleLowerCase().includes(filterBy.gender) &&
-        clothingItem.style.some(style => filterBy.style.includes(style)) &&
-        filterBy.type.includes(clothingItem.type) &&
+        (!filterBy.style.length || clothingItem.style.some(style => filterBy.style.includes(style))) &&
+        clothingItem.type.includes(filterBy.type) &&
         (clothingItem.price >= filterBy.priceRange.min && clothingItem.price <= filterBy.priceRange.max)
     })
+    return filteredClothes 
   }
 
   public loadFavorites(user: Observable<User>): Observable<ClothingItem[]> {
