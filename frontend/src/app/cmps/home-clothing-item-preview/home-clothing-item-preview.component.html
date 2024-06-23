@@ -3,6 +3,5 @@
         <img [src]="clothingItem.imgUrl || clothingItem.imgUrl[0]" [title]="clothingItem.name" />
         <h1>{{clothingItem.name}}</h1>
         <p>{{clothingItem.desc}}</p>
-        <pre *ngIf="clothingItem.quantity < 4">{{clothingItem.quantity}} left</pre>
     </article>
 </section>
