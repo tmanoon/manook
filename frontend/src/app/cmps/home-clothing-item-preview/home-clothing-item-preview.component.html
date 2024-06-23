@@ -1,6 +1,6 @@
 <section class="home-clothing-item-preview grid">
-    <article *ngFor="let clothingItem of clothes" class="clothing-item">
-        <img [src]="clothingItem.imgUrl" [title]="clothingItem.name" />
+    <article *ngFor="let clothingItem of clothes" class="clothing-item grid">
+        <img [src]="clothingItem.imgUrl || clothingItem.imgUrl[0]" [title]="clothingItem.name" />
         <h1>{{clothingItem.name}}</h1>
         <p>{{clothingItem.desc}}</p>
         <pre *ngIf="clothingItem.quantity < 4">{{clothingItem.quantity}} left</pre>
