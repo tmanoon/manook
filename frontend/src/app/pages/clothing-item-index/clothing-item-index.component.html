@@ -1,9 +1,10 @@
 <section class="clothing-item-index grid">
-    <article *ngFor="let clothingItem of clothes$">
+    <article *ngFor="let clothingItem of clothes$" class="clothing-item grid">
         <img [src]="clothingItem.imgUrl || clothingItem.imgUrl[0]">
         <h1>{{clothingItem.name}}</h1>
         <h3>{{clothingItem.type}}</h3>
         <p>{{clothingItem.desc}}</p>
         <h3>{{clothingItem.price}}</h3>
+        <pre class="quantity-in-user-order"><button (click)="onAddClothingItem(clothingItem)">Order</button><span></span></pre>
     </article>
 </section>
