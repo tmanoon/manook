@@ -1,6 +1,6 @@
 <section class="clothing-item-index grid">
-    <article *ngFor="let clothingItem of clothingItems">
-        <img [src]="clothingItem.imgUrl">
+    <article *ngFor="let clothingItem of clothes$">
+        <img [src]="clothingItem.imgUrl || clothingItem.imgUrl[0]">
         <h1>{{clothingItem.name}}</h1>
         <h3>{{clothingItem.type}}</h3>
         <p>{{clothingItem.desc}}</p>
