@@ -14,5 +14,5 @@ export interface User {
     isSubscribed: boolean,
     favoriteStyles?: string[]
     orders: Order[]
-    recentOrder: Order
+    recentOrder?: Order
 }
