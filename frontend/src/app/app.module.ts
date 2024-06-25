@@ -11,6 +11,7 @@ import { UserSignupComponent } from './pages/user-signup/user-signup.component';
 import { ClothingItemDetailsComponent } from './pages/clothing-item-details/clothing-item-details.component';
 import { ClothingItemIndexComponent } from './pages/clothing-item-index/clothing-item-index.component';
 import { HomeClothingItemPreviewComponent } from './cmps/home-clothing-item-preview/home-clothing-item-preview.component';
+import { ClothingItemListComponent } from './cmps/clothing-item-list/clothing-item-list.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HomeClothingItemPreviewComponent } from './cmps/home-clothing-item-prev
     UserSignupComponent,
     ClothingItemDetailsComponent,
     ClothingItemIndexComponent,
-    HomeClothingItemPreviewComponent
+    HomeClothingItemPreviewComponent,
+    ClothingItemListComponent
   ],
   imports: [
     BrowserModule,
