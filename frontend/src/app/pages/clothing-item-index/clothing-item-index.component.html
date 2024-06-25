@@ -2,9 +2,17 @@
     <article *ngFor="let clothingItem of clothes$" class="clothing-item grid">
         <img [src]="clothingItem.imgUrl || clothingItem.imgUrl[0]">
         <h1>{{clothingItem.name}}</h1>
-        <h3>{{clothingItem.type}}</h3>
         <p>{{clothingItem.desc}}</p>
-        <h3>{{clothingItem.price}}</h3>
-        <pre class="quantity-in-user-order"><button (click)="onAddClothingItem(clothingItem)">Order</button><span></span></pre>
+        <h3>${{clothingItem.price}}</h3>
+        <!-- <pre class="quantity-in-user-order"><button (click)="onAddClothingItem(clothingItem)">Order</button><span></span></pre> -->
+         <div class="user-actions">
+            <span class="cart"></span>
+            <span class="wishlist"></span>
+         </div>
     </article>
+
+    <div class="disconnected-user" *ngIf="disconnectedUserClicked">
+        <button>x</button>
+        <p>Please login to your user or create an account to add items to your cart.</p>
+    </div>
 </section>
