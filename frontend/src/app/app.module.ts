@@ -12,6 +12,7 @@ import { ClothingItemDetailsComponent } from './pages/clothing-item-details/clot
 import { ClothingItemIndexComponent } from './pages/clothing-item-index/clothing-item-index.component';
 import { HomeClothingItemPreviewComponent } from './cmps/home-clothing-item-preview/home-clothing-item-preview.component';
 import { ClothingItemListComponent } from './cmps/clothing-item-list/clothing-item-list.component';
+import { ClothingItemPreviewComponent } from './cmps/clothing-item-preview/clothing-item-preview.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ClothingItemListComponent } from './cmps/clothing-item-list/clothing-it
     ClothingItemDetailsComponent,
     ClothingItemIndexComponent,
     HomeClothingItemPreviewComponent,
-    ClothingItemListComponent
+    ClothingItemListComponent,
+    ClothingItemPreviewComponent
   ],
   imports: [
     BrowserModule,
