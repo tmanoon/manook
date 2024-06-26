@@ -4,7 +4,7 @@
     <p>{{clothingItem.desc}}</p>
     <h3>${{clothingItem.price}}</h3>
     <div class="user-actions">
-        <span class="cart"></span>
+        <span class="cart" (click)="onAddItemToCart(clothingItem)"></span>
         <span class="wishlist"></span>
         <span *ngIf="user && user.isAdmin" class="deletion"></span>
         <span class="details"></span>
