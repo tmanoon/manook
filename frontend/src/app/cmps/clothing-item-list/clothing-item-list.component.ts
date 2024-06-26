@@ -8,5 +8,5 @@ import { ClothingItem } from '../../models/clothingitem.model';
 })
 export class ClothingItemListComponent {
 
-  @Input() clothes!: ClothingItem[] | null
+  @Input() clothes!: ClothingItem[] 
 }
