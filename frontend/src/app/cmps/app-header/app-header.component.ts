@@ -34,13 +34,15 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
         )
   }
 
+  onSetFilter(term: string) {
+    this.filterSubject$.next(term)
+  }
+
   ngOnDestroy(): void {
     this.destroySubject$.next(null)
     this.destroySubject$.complete()
   }
 
-  onSetFilter(term: string) {
-    this.filterSubject$.next(term)
-  }
+
 
 }

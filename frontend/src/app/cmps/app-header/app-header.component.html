@@ -5,12 +5,15 @@
         <button routerLink="clothing-item" class="women-btn">Women</button>
         <button routerLink="clothing-item" class="men-btn">Men</button>
         <form class="flex align-center">
-            <input type="text" [(ngModel)]="filterBy.name" (ngModelChange)="onSetFilter($event)" placeholder="What are we buying today?" />
+            <input type="text"
+             [(ngModel)]="filterBy.name"
+              (ngModelChange)="onSetFilter($event)"
+               placeholder="What are we buying today?"
+               name="term" />
             <button class="search-btn"></button>
         </form>
 
         <login-signup></login-signup>
     </div>
-    <router-outlet></router-outlet>
 
 </section>
