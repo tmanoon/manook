@@ -4,6 +4,7 @@ import { storageService } from './local.storage.service'
 import { HttpErrorResponse } from '@angular/common/http'
 import { User } from '../models/user.model'
 import { UtilService } from './util.service'
+import { ClothingItem } from '../models/clothingitem.model'
 
 const USER_DB = 'user'
 const USERS_DB = 'users'
@@ -76,6 +77,23 @@ export class UserService {
   public disconnect(): void {
     this.utilService.removeFromStorage(USER_DB)
     this._loggedInUser$.next(null)
+  }
+
+  public addItemToOrder(item: ClothingItem): boolean {
+    const user = this._loggedInUser$.value
+    if (!user) return false
+    this._loggedInUser$
+      .pipe(
+        map(user => {
+          if (!user) return user
+          const recentOrder = user.recentOrder
+            ? { ...user.recentOrder, selectedItems: [...user.recentOrder.selectedItems, item], sum: user.recentOrder.sum + item.price }
+            : { buyer: user, selectedItems: [item], sum: item.price };
+          return { ...user, recentOrder }
+        })
+      )
+      .subscribe(updatedUser => this._loggedInUser$.next(updatedUser))
+    return true
   }
 
   private _setDefaultUsers(coins: number) {
