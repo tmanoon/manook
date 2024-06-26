@@ -3,6 +3,7 @@
         grid-auto-flow: row;
         justify-items: center;
         gap: .5rem;
+        margin-block-end: 1rem;
 
         img {
             object-fit: cover;
@@ -13,5 +14,36 @@
 
         p {
             text-align: center;
+        }
+
+        .user-actions {
+
+            grid-template-rows: 1fr;
+            justify-self: self-start;
+            gap: 1rem;
+
+            span {
+                font-family: fa-solid;
+                cursor: pointer;
+                grid-row: 1;
+            }
+
+            .deletion::before {
+                content: '\f1f8';
+            }
+
+            .cart::before {
+                content: '\f07a';
+                font-family: fa-solid;
+            }
+
+            .wishlist::before {
+                content: '\f004';
+            }
+
+            .details::before {
+                content: '\f141';
+            }
+
         }
     }
