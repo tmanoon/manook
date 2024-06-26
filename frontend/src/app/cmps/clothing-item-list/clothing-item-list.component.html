@@ -1,7 +1,18 @@
 <ng-container *ngIf="clothes">
     <section class="clothing-items-list grid">
-        <clothing-item-preview *ngFor="let clothingItem of clothes" [clothingItem]="clothingItem">
+        <clothing-item-preview 
+        *ngFor="let clothingItem of clothes"
+         [clothingItem]="clothingItem"
+         [user]="user"
+         (itemToAdd)="onAddClothingItem(clothingItem)">
+         
         </clothing-item-preview>
     </section>
 </ng-container>
+
+<div class="disconnected-user" *ngIf="disconnectedUserClicked">
+    <button>x</button>
+    <p>Please login to your user or create an account to add items to your cart.</p>
+</div>
+
 <router-outlet></router-outlet>

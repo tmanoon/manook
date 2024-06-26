@@ -1,9 +1,3 @@
 <section class="clothing-item-index grid">
-<clothing-item-list [clothes]="clothes$"></clothing-item-list>
-
-    <div class="disconnected-user" *ngIf="disconnectedUserClicked">
-        <button>x</button>
-        <p>Please login to your user or create an account to add items to your cart.</p>
-    </div>
+<clothing-item-list [clothes]="clothes"></clothing-item-list>
 </section>
-<router-outlet></router-outlet>
