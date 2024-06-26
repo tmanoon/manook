@@ -7,7 +7,7 @@
         <span class="cart" (click)="onAddItemToCart(clothingItem)"></span>
         <span class="wishlist"></span>
         <span *ngIf="user && user.isAdmin" class="deletion"></span>
-        <span class="details"></span>
+        <span class="details" routerLink="{{ clothingItem._id }}"></span>
     </div>
 </article>
 
