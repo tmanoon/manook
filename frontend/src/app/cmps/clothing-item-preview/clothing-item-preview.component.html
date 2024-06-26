@@ -6,5 +6,8 @@
     <div class="user-actions">
         <span class="cart"></span>
         <span class="wishlist"></span>
+        <span *ngIf="user && user.isAdmin" class="deletion"></span>
+        <span class="details"></span>
     </div>
 </article>
+
