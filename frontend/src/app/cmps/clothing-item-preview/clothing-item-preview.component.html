@@ -1,1 +1,10 @@
-<p>clothing-item-preview works!</p>
+<article class="clothing-item grid">
+    <img [src]="clothingItem.imgUrl || clothingItem.imgUrl[0]">
+    <h1>{{clothingItem.name}}</h1>
+    <p>{{clothingItem.desc}}</p>
+    <h3>${{clothingItem.price}}</h3>
+    <div class="user-actions">
+        <span class="cart"></span>
+        <span class="wishlist"></span>
+    </div>
+</article>
