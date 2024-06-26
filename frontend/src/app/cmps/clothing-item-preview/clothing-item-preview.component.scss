@@ -26,6 +26,11 @@
                 font-family: fa-solid;
                 cursor: pointer;
                 grid-row: 1;
+                color: var(--primary-clr2);
+
+                &:hover {
+                    color: var(--primary-clr1);
+                }
             }
 
             .deletion::before {
