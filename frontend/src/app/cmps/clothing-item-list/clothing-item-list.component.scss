@@ -1,0 +1,5 @@
+.clothing-items-list {
+        grid-template-columns: repeat(3, minmax(350px, 1fr));
+        gap: .5rem;
+    
+    }
