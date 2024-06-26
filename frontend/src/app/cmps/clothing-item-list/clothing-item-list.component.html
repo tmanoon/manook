@@ -1,1 +1,7 @@
-<p>clothing-item-list works!</p>
+<ng-container *ngIf="clothes">
+    <section class="clothing-items-list grid">
+        <clothing-item-preview *ngFor="let clothingItem of clothes" [clothingItem]="clothingItem">
+        </clothing-item-preview>
+    </section>
+</ng-container>
+<router-outlet></router-outlet>
