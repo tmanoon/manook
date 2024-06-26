@@ -13,8 +13,8 @@ export class HomeClothingItemPreviewComponent {
 
   private clothingItemService = inject(ClothingItemService)
   clothes$: Observable<ClothingItem[]> = this.clothingItemService.clothes$
-      .pipe(
-        map(clothes => clothes.slice(0, 3))
+      .pipe(        
+        map(clothes => clothes.slice(0, 4))
       )
 
       constructor() {}
