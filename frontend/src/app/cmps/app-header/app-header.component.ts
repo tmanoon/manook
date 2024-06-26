@@ -38,11 +38,14 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
     this.filterSubject$.next(term)
   }
 
+  onSetGender(gender: string) {
+    this.filterBy.gender = gender
+    this.onSetFilter(gender)
+  }
+
   ngOnDestroy(): void {
     this.destroySubject$.next(null)
     this.destroySubject$.complete()
   }
-
-
 
 }
