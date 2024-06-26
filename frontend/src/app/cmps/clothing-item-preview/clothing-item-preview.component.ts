@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ClothingItem } from '../../models/clothingitem.model';
 
 @Component({
   selector: 'clothing-item-preview',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class ClothingItemPreviewComponent {
 
+  @Input() clothingItem!: ClothingItem
 }
