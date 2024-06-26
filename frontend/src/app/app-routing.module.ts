@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { UserSignupComponent } from './pages/user-signup/user-signup.component';
 import { ClothingItemIndexComponent } from './pages/clothing-item-index/clothing-item-index.component';
+import { ClothingItemDetailsComponent } from './pages/clothing-item-details/clothing-item-details.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,10 @@ const routes: Routes = [
   {
     path: 'clothing-item',
     component: ClothingItemIndexComponent
+  },
+  {
+    path: 'clothing-item/:id',
+    component: ClothingItemDetailsComponent
   },
   {
     path: '',
