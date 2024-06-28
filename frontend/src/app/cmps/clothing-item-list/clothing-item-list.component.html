@@ -4,7 +4,8 @@
         *ngFor="let clothingItem of clothes; trackBy: trackByFn"
          [clothingItem]="clothingItem"
          [user]="user"
-         (itemToAdd)="onAddClothingItem(clothingItem)">
+         (addToCart)="addToCart.emit($event)"
+         (remove)="remove.emit($event)">
          
         </clothing-item-preview>
     </section>
