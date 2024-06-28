@@ -1,7 +1,7 @@
 <ng-container *ngIf="clothes">
     <section class="clothing-items-list grid">
         <clothing-item-preview 
-        *ngFor="let clothingItem of clothes"
+        *ngFor="let clothingItem of clothes; trackBy: trackByFn"
          [clothingItem]="clothingItem"
          [user]="user"
          (itemToAdd)="onAddClothingItem(clothingItem)">

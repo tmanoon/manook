@@ -42,4 +42,9 @@ export class ClothingItemListComponent implements OnInit, OnDestroy {
     this.destroySubject$.next(null)
     this.destroySubject$.complete()
   }
+
+  trackByFn(idx: number, item: ClothingItem) : string {
+    return item._id
+  }
+  
 }
