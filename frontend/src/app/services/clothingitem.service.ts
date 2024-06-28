@@ -75,14 +75,6 @@ export class ClothingItemService {
     return clothingItem._id ? this._updateClothingItem(clothingItem) : this._addClothingItem(clothingItem)
   }
 
-  public getEmptyContact() {
-    return {
-      name: '',
-      email: '',
-      phone: ''
-    }
-  }
-
   public setFilter(filterBy: FilterBy) {
     this._filterBy$.next(filterBy)
     this.loadClothes().pipe(retry(1)).subscribe()
