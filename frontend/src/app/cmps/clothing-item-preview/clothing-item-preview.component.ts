@@ -14,10 +14,14 @@ export class ClothingItemPreviewComponent {
   @Input() clothingItem!: ClothingItem
   @Input() user!: User | null
 
-  @Output() itemToAdd = new EventEmitter<ClothingItem>()
+  @Output() addToCart = new EventEmitter<ClothingItem>()
+  @Output() remove = new EventEmitter<string>()
 
-  onAddItemToCart(item: ClothingItem) : void {
-    this.itemToAdd.emit(item)
+  onAddItemToCart() : void {
+    this.addToCart.emit(this.clothingItem)
   }
 
+  onRemoveItem() {
+    this.remove.emit(this.clothingItem._id)
+  }
 }
