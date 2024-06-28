@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import { ClothingItem } from '../../models/clothingitem.model';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
@@ -10,12 +10,15 @@ import { Observable, Subject, retry, takeUntil } from 'rxjs';
   styleUrl: './clothing-item-list.component.scss'
 })
 export class ClothingItemListComponent implements OnInit, OnDestroy {
-  
+
+  @Output() addToCart = new EventEmitter<ClothingItem>()
+  @Output() remove = new EventEmitter<string>()
   @Input() clothes!: ClothingItem[] | null
   private userService = inject(UserService)
   disconnectedUserClicked: boolean = false
   destroySubject$ = new Subject()
   user!: User | null
+  
 
   ngOnInit(): void {
     this.userService.loggedInUser$
@@ -46,5 +49,5 @@ export class ClothingItemListComponent implements OnInit, OnDestroy {
   trackByFn(idx: number, item: ClothingItem) : string {
     return item._id
   }
-  
+
 }
