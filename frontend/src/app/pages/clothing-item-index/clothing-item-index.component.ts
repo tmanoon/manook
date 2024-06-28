@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ClothingItem } from '../../models/clothingitem.model';
 import { Observable, Subject, retry, take, takeUntil, tap } from 'rxjs';
 import { ClothingItemService } from '../../services/clothingitem.service';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
@@ -12,6 +13,7 @@ import { ClothingItemService } from '../../services/clothingitem.service';
 export class ClothingItemIndexComponent implements OnInit, OnDestroy {
 
   private clothingItemService = inject(ClothingItemService)
+  private userService = inject(UserService)
   private destroySubject$ = new Subject()
   clothes!: ClothingItem[]
 
@@ -28,6 +30,21 @@ export class ClothingItemIndexComponent implements OnInit, OnDestroy {
           throw err
         }
       })
+  }
+
+  onRemoveClothingItem(id: string) {
+    this.clothingItemService.deleteClothingItem(id)
+      .pipe(
+        take(1)
+      )
+      .subscribe({
+        error: err => console.log('err', err)
+      })
+  }
+
+  OnAddItemToCart(item: ClothingItem) {
+    this.userService.addItemToOrder(item)
+      
   }
 
   ngOnDestroy(): void {
