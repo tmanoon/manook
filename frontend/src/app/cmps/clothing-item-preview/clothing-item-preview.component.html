@@ -4,9 +4,9 @@
     <p>{{clothingItem.desc}}</p>
     <h3>${{clothingItem.price}}</h3>
     <div class="user-actions grid">
-        <span class="cart" (click)="onAddItemToCart(clothingItem)"></span>
+        <span class="cart" (click)="onAddItemToCart()"></span>
         <span class="wishlist"></span>
-        <span *ngIf="user && user.isAdmin" class="deletion"></span>
+        <span *ngIf="user && user.isAdmin" class="deletion" (click)="onRemoveItem()"></span>
         <span class="details" routerLink="{{ clothingItem._id }}"></span>
     </div>
 </article>
