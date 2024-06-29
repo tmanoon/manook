@@ -47,7 +47,6 @@ export class ClothingItemIndexComponent implements OnInit, OnDestroy {
     .subscribe({
       error: err => console.log('err', err)
     })
-      
   }
 
   ngOnDestroy(): void {
