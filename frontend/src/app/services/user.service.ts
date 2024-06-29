@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http'
 import { User } from '../models/user.model'
 import { UtilService } from './util.service'
 import { ClothingItem } from '../models/clothingitem.model'
+import { Order } from '../models/order.model'
 
 const USER_DB = 'user'
 const USERS_DB = 'users'
@@ -79,21 +80,19 @@ export class UserService {
     this._loggedInUser$.next(null)
   }
 
-  public addItemToOrder(item: ClothingItem): boolean {
-    const user = this._loggedInUser$.value
-    if (!user) return false
-    this._loggedInUser$
+  public addItemToOrder(item: ClothingItem): Observable<Order> {
+    let userToUpdate = this._loggedInUser$.value
+    if (!userToUpdate) return throwError('No logged in user found')
+    userToUpdate.recentOrder = userToUpdate.recentOrder ?
+      { ...userToUpdate.recentOrder, selectedItems: [...userToUpdate.recentOrder.selectedItems, item], sum: userToUpdate.recentOrder.sum + item.price } :
+      { buyer: userToUpdate, selectedItems: [item], sum: item.price }
+    this._loggedInUser$.next(userToUpdate)
+    return from(storageService.put(USER_DB, userToUpdate))
       .pipe(
         map(user => {
-          if (!user) return user
-          const recentOrder = user.recentOrder
-            ? { ...user.recentOrder, selectedItems: [...user.recentOrder.selectedItems, item], sum: user.recentOrder.sum + item.price }
-            : { buyer: user, selectedItems: [item], sum: item.price };
-          return { ...user, recentOrder }
+          return user.recentOrder!
         })
       )
-      .subscribe(updatedUser => this._loggedInUser$.next(updatedUser))
-    return true
   }
 
   private _setDefaultUsers(coins: number) {
