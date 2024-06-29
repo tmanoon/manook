@@ -42,8 +42,11 @@ export class ClothingItemIndexComponent implements OnInit, OnDestroy {
       })
   }
 
-  OnAddItemToCart(item: ClothingItem) {
+  OnAddItemToCart(item: ClothingItem) : void {
     this.userService.addItemToOrder(item)
+    .subscribe({
+      error: err => console.log('err', err)
+    })
       
   }
 
