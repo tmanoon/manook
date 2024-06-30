@@ -16,6 +16,7 @@ export class ClothingItemPreviewComponent {
 
   @Output() addToCart = new EventEmitter<ClothingItem>()
   @Output() remove = new EventEmitter<string>()
+  @Output() wishlist = new EventEmitter<ClothingItem>()
 
   onAddItemToCart() : void {
     this.addToCart.emit(this.clothingItem)
@@ -23,5 +24,9 @@ export class ClothingItemPreviewComponent {
 
   onRemoveItem() {
     this.remove.emit(this.clothingItem._id)
+  }
+
+  onAddItemToWishlist() : void {
+    this.wishlist.emit(this.clothingItem)
   }
 }
