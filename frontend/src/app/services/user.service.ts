@@ -82,14 +82,16 @@ export class UserService {
 
   public addItemToOrder(item: ClothingItem): Observable<Order> {
     let userToUpdate = this._loggedInUser$.value
+    console.log(userToUpdate)
     if (!userToUpdate) return throwError('No logged in user found')
     userToUpdate.recentOrder = userToUpdate.recentOrder ?
       { ...userToUpdate.recentOrder, selectedItems: [...userToUpdate.recentOrder.selectedItems, item], sum: userToUpdate.recentOrder.sum + item.price } :
-      { buyer: userToUpdate, selectedItems: [item], sum: item.price }
+      {  selectedItems: [item], sum: item.price }
     this._loggedInUser$.next(userToUpdate)
     return from(storageService.put(USER_DB, userToUpdate))
       .pipe(
         map(user => {
+          console.log(user)
           return user.recentOrder!
         })
       )
