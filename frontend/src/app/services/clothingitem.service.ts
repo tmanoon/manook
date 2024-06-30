@@ -22,7 +22,7 @@ export class ClothingItemService {
     style: [],
     type: '',
     name: '',
-    priceRange: { min: 0, max: Infinity }
+    maxPrice: Infinity
   })
   public filterBy$ = this._filterBy$.asObservable()
 
@@ -44,8 +44,7 @@ export class ClothingItemService {
               filterBy.style.length ||
               filterBy.type.length ||
               filterBy.name ||
-              filterBy.priceRange.min > 0 ||
-              filterBy.priceRange.max < Infinity)) clothes = this._filter(clothes, filterBy)
+              filterBy.maxPrice < Infinity)) clothes = this._filter(clothes, filterBy)
           this._clothes$.next(this._sort(clothes))
         }),
         retry(1),
@@ -123,7 +122,7 @@ export class ClothingItemService {
         (!filterBy.gender || clothingItem.gender === filterBy.gender) &&
         (!filterBy.style.length || clothingItem.style.some(style => filterBy.style.includes(style))) &&
         (!filterBy.type|| filterBy.type === clothingItem.type) &&
-        (clothingItem.price >= filterBy.priceRange.min && clothingItem.price <= filterBy.priceRange.max)
+        clothingItem.price <= filterBy.maxPrice
     })
     return filteredClothes
   }
