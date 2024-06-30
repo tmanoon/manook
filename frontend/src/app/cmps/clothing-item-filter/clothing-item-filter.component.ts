@@ -17,6 +17,7 @@ export class ClothingItemFilterComponent implements OnInit, OnDestroy {
   public filterBy!: FilterBy
   styles: string[] = ['classic', 'hippie', 'casual', 'sporty', 'basics', 'romantic', 'summer', 'streetwear', 'winter',
     'outwear', 'formal', 'workwear', 'luxurious', 'utility', 'eveningwear', 'activewear', 'sleepwear', 'loungewear']
+  types: string[] = ['', 'top', 'dress', 'bottoms', 'jacket', 'set', 'sweater', 'shoes']
 
   ngOnInit(): void {
 
@@ -47,12 +48,18 @@ export class ClothingItemFilterComponent implements OnInit, OnDestroy {
     this.onSetFilter(ev.chosenStyle)
   }
 
+  onSelectType(ev: Event) {
+    const chosenType = (ev.target as HTMLInputElement).value
+    this.filterBy.type = chosenType
+    this.onSetFilter(chosenType)
+  }
+
   onSetFilter(term: string) {
     this.filterSubject$.next(term)
   }
 
-  trackByFn(idx: number, style: string) {
-    return style
+  trackByTermFn(idx: number, term: string) {
+    return term
   }
 
   ngOnDestroy(): void {
