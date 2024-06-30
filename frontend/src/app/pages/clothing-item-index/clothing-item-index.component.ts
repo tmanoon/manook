@@ -75,6 +75,18 @@ export class ClothingItemIndexComponent implements OnInit, OnDestroy {
     this.disconnectedUserClicked = false
   }
 
+  onAddItemToWishlist(item: ClothingItem) : void {
+    if(!this.user) this.showDisconnectedUserPopUp()
+    this.userService.addItemToWishlist(item)
+      .pipe(
+        take(1),
+        retry(1)
+      )
+      .subscribe({
+        error: err => console.log('err', err)
+      })
+  }
+
   ngOnDestroy(): void {
     this.destroySubject$.next(null)
     this.destroySubject$.complete()
