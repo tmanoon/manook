@@ -88,7 +88,7 @@ export class UserService {
       {  selectedItems: [item], sum: item.price }
     this._loggedInUser$.next(userToUpdate)
     this.utilService.setToStorage(USER_DB, userToUpdate)
-    return from(Promise.resolve(userToUpdate))
+    return of(userToUpdate)
       .pipe(
         map(user => {
           return user.recentOrder!
@@ -102,7 +102,7 @@ export class UserService {
     userToUpdate.wishlist.unshift(item)
     this._loggedInUser$.next(userToUpdate)
     this.utilService.setToStorage(USER_DB, userToUpdate)
-    return from(Promise.resolve(userToUpdate))
+    return of(userToUpdate)
       .pipe(
         map(user => {
           return user.wishlist
