@@ -20,7 +20,7 @@ export class ClothingItemService {
   private _filterBy$ = new BehaviorSubject<FilterBy>({
     gender: '',
     style: [],
-    type: [],
+    type: '',
     name: '',
     priceRange: { min: 0, max: Infinity }
   })
@@ -122,7 +122,7 @@ export class ClothingItemService {
       return clothingItem.name.toLocaleLowerCase().includes(filterBy.name) &&
         (!filterBy.gender || clothingItem.gender === filterBy.gender) &&
         (!filterBy.style.length || clothingItem.style.some(style => filterBy.style.includes(style))) &&
-        (!filterBy.type.length || filterBy.type.includes(clothingItem.type)) &&
+        (!filterBy.type|| filterBy.type === clothingItem.type) &&
         (clothingItem.price >= filterBy.priceRange.min && clothingItem.price <= filterBy.priceRange.max)
     })
     return filteredClothes
