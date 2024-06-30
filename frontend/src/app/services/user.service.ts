@@ -123,7 +123,7 @@ export class UserService {
         wishlist: [],
         email: 'shoval.sabag@example.com',
         isSubscribed: true,
-        favoriteStyles: ['Classic', 'Casual', 'Hippie'],
+        favoriteStyles: ['classic', 'casual', 'hippie'],
         orders: []
       },
       {
@@ -176,7 +176,7 @@ export class UserService {
         wishlist: [],
         email: 'charlie.brown@example.com',
         isSubscribed: true,
-        favoriteStyles: ['Sporty'],
+        favoriteStyles: ['sporty'],
         orders: []
       }
     ]
