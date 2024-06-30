@@ -2,17 +2,21 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ClothingItemService } from '../../services/clothingitem.service';
 import { Observable, Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { FilterBy } from '../../models/filterby.model';
+import { selectedStyleChange } from '../dynamic-style-input/dynamic-style-input.component';
 
 @Component({
   selector: 'clothing-item-filter',
   templateUrl: './clothing-item-filter.component.html',
   styleUrl: './clothing-item-filter.component.scss'
 })
+
 export class ClothingItemFilterComponent implements OnInit, OnDestroy {
   private clothingItemService = inject(ClothingItemService)
   private filterSubject$ = new Subject()
   private destroySubject$ = new Subject()
   public filterBy!: FilterBy
+  styles: string[] = ['classic', 'hippie', 'casual', 'sporty', 'basics', 'romantic', 'summer', 'streetwear', 'winter',
+    'outwear', 'formal', 'workwear', 'luxurious', 'utility', 'eveningwear', 'activewear', 'sleepwear', 'loungewear']
 
   ngOnInit(): void {
 
@@ -35,19 +39,20 @@ export class ClothingItemFilterComponent implements OnInit, OnDestroy {
       )
   }
 
-  onSetStyle(e: Event) {
-    const chosenStyle: string = (e.target as HTMLInputElement).value
-    const isChecked: boolean = (e.target as HTMLInputElement).checked
-    console.log(chosenStyle, isChecked)
-    if (isChecked) this.filterBy.style.push(chosenStyle)
+  onSetStyle(ev: selectedStyleChange) {
+    if (ev.isChecked) this.filterBy.style.push(ev.chosenStyle)
     else {
-      this.filterBy.style = this.filterBy.style.filter(style => style !== chosenStyle)
+      this.filterBy.style = this.filterBy.style.filter(style => style !== ev.chosenStyle)
     }
-    this.onSetFilter(chosenStyle)
+    this.onSetFilter(ev.chosenStyle)
   }
 
   onSetFilter(term: string) {
     this.filterSubject$.next(term)
+  }
+
+  trackByFn(idx: number, style: string) {
+    return style
   }
 
   ngOnDestroy(): void {
