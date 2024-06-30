@@ -62,6 +62,12 @@ export class ClothingItemFilterComponent implements OnInit, OnDestroy {
     return term
   }
 
+  onChangeRange(ev: Event) {
+    const num = parseInt((ev.target as HTMLInputElement).value)
+    this.filterBy.maxPrice = num
+    this.onSetFilter(String(num))
+  }
+
   ngOnDestroy(): void {
     this.destroySubject$.next(null)
     this.destroySubject$.complete()
