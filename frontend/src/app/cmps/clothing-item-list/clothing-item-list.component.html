@@ -6,14 +6,8 @@
          [user]="user"
          (addToCart)="addToCart.emit($event)"
          (remove)="remove.emit($event)">
-         
         </clothing-item-preview>
     </section>
 </ng-container>
 
-<div class="disconnected-user" *ngIf="disconnectedUserClicked">
-    <button>x</button>
-    <p>Please login to your user or create an account to add items to your cart.</p>
-</div>
 
-<router-outlet></router-outlet>
