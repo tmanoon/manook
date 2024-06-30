@@ -1,3 +1,12 @@
 <section class="clothing-item-index grid">
-<clothing-item-list [clothes]="clothes"></clothing-item-list>
+<clothing-item-list 
+[clothes]="clothes"
+[user]="user"
+(remove)="onRemoveClothingItem($event)"
+(addToCart)="OnAddItemToCart($event)"></clothing-item-list>
 </section>
+
+<div class="disconnected-user" *ngIf="disconnectedUserClicked">
+    <button (click)="onCloseMsg()">x</button>
+    <p>Please login to your user or create an account to add items to your cart.</p>
+</div>
