@@ -1,1 +1,8 @@
-<p>dynamic-style-input works!</p>
+<div class="style-selection">
+<input type="checkbox" 
+[value]="style" 
+[name]="style" 
+[checked]="filterBy.style.includes(style)" 
+(change)="onSetStyle($event)"/>
+<label [for]="style">{{style}}</label>
+</div>
