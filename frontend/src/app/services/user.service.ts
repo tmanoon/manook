@@ -88,7 +88,8 @@ export class UserService {
       { ...userToUpdate.recentOrder, selectedItems: [...userToUpdate.recentOrder.selectedItems, item], sum: userToUpdate.recentOrder.sum + item.price } :
       {  selectedItems: [item], sum: item.price }
     this._loggedInUser$.next(userToUpdate)
-    return from(storageService.put(USER_DB, userToUpdate))
+    this.utilService.setToStorage(USER_DB, userToUpdate)
+    return from(Promise.resolve(userToUpdate))
       .pipe(
         map(user => {
           console.log(user)
