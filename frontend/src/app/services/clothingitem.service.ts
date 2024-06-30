@@ -38,13 +38,14 @@ export class ClothingItemService {
       .pipe(
         tap(clothes => {
           const filterBy = this._filterBy$.value
+          console.log(filterBy)
           if (filterBy &&
             ((filterBy.gender && filterBy.gender !== 'unisex') ||
               filterBy.style.length ||
               filterBy.type.length ||
               filterBy.name ||
               filterBy.priceRange.min > 0 ||
-              filterBy.priceRange.max < Infinity )) clothes = this._filter(clothes, filterBy)
+              filterBy.priceRange.max < Infinity)) clothes = this._filter(clothes, filterBy)
           this._clothes$.next(this._sort(clothes))
         }),
         retry(1),
@@ -116,10 +117,10 @@ export class ClothingItemService {
   }
 
   private _filter(clothes: ClothingItem[], filterBy: FilterBy): ClothingItem[] {
-    filterBy.name = filterBy.name.toLocaleLowerCase()
+    if (filterBy.name) filterBy.name = filterBy.name.toLocaleLowerCase()
     const filteredClothes = clothes.filter(clothingItem => {
       return clothingItem.name.toLocaleLowerCase().includes(filterBy.name) &&
-        clothingItem.gender === filterBy.gender &&
+        (!filterBy.gender || clothingItem.gender === filterBy.gender) &&
         (!filterBy.style.length || clothingItem.style.some(style => filterBy.style.includes(style))) &&
         (!filterBy.type.length || filterBy.type.includes(clothingItem.type)) &&
         (clothingItem.price >= filterBy.priceRange.min && clothingItem.price <= filterBy.priceRange.max)
@@ -246,7 +247,7 @@ export class ClothingItemService {
         gender: 'unisex',
         price: 34.99,
         imgUrl: ['https://images.stockcake.com/public/0/7/d/07db86fa-d1ae-44e6-9cd4-784cd2f9fab2/black-hooded-sweatshirt-stockcake.jpg',
-           'https://images.stockcake.com/public/1/c/e/1ce8c606-469a-42de-b791-b7ec3d2c96f0/sleek-black-hoodie-stockcake.jpg',
+          'https://images.stockcake.com/public/1/c/e/1ce8c606-469a-42de-b791-b7ec3d2c96f0/sleek-black-hoodie-stockcake.jpg',
           'https://images.stockcake.com/public/d/f/6/df61f856-cdbe-4050-a4c4-ba0a54b9692b/casual-black-hoodie-stockcake.jpg'],
         quantity: 18,
         style: ['casual', 'streetwear'],
@@ -305,7 +306,7 @@ export class ClothingItemService {
         gender: 'unisex',
         price: 29.99,
         imgUrl: ['https://images.stockcake.com/public/3/2/9/3292131e-4d5a-4dcc-a325-c3bc8ff02069/festive-family-pajamas-stockcake.jpg',
-           'https://images.stockcake.com/public/0/a/b/0abe4667-cdf0-46d5-a369-f1b6a1927c2e/festive-family-portrait-stockcake.jpg'],
+          'https://images.stockcake.com/public/0/a/b/0abe4667-cdf0-46d5-a369-f1b6a1927c2e/festive-family-portrait-stockcake.jpg'],
         quantity: 15,
         style: ['sleepwear', 'loungewear'],
         type: 'set',
@@ -328,7 +329,7 @@ export class ClothingItemService {
         gender: 'men',
         price: 69.99,
         imgUrl: ['https://images.stockcake.com/public/a/2/d/a2d1bb61-f07b-4687-8f90-ea8f385877d0_large/savoring-aroma-intently-stockcake.jpg',
-        'https://images.stockcake.com/public/d/a/6/da68525e-ef77-4a6a-82eb-8c10eb106758_large/urban-digital-connection-stockcake.jpg'],
+          'https://images.stockcake.com/public/d/a/6/da68525e-ef77-4a6a-82eb-8c10eb106758_large/urban-digital-connection-stockcake.jpg'],
         quantity: 11,
         style: ['winter', 'outerwear'],
         type: 'jacket',
