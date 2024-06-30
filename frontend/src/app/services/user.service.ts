@@ -82,7 +82,6 @@ export class UserService {
 
   public addItemToOrder(item: ClothingItem): Observable<Order> {
     let userToUpdate = this._loggedInUser$.value
-    console.log(userToUpdate)
     if (!userToUpdate) return throwError('No logged in user found')
     userToUpdate.recentOrder = userToUpdate.recentOrder ?
       { ...userToUpdate.recentOrder, selectedItems: [...userToUpdate.recentOrder.selectedItems, item], sum: userToUpdate.recentOrder.sum + item.price } :
@@ -92,8 +91,21 @@ export class UserService {
     return from(Promise.resolve(userToUpdate))
       .pipe(
         map(user => {
-          console.log(user)
           return user.recentOrder!
+        })
+      )
+  }
+
+  public addItemToWishlist(item: ClothingItem) : Observable<ClothingItem[]> {
+    let userToUpdate = this._loggedInUser$.value
+    if (!userToUpdate) return throwError('No logged in user found')
+    userToUpdate.wishlist.unshift(item)
+    this._loggedInUser$.next(userToUpdate)
+    this.utilService.setToStorage(USER_DB, userToUpdate)
+    return from(Promise.resolve(userToUpdate))
+      .pipe(
+        map(user => {
+          return user.wishlist
         })
       )
   }
