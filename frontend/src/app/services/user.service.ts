@@ -8,7 +8,7 @@ import { ClothingItem } from '../models/clothingitem.model'
 import { Order } from '../models/order.model'
 
 const USER_DB = 'user'
-const USERS_DB = 'users'
+let users: User[]
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +25,10 @@ export class UserService {
     if (this._isValidUser(storedUser)) this._loggedInUser$.next(storedUser)
     else this._loggedInUser$.next(null)
 
-    const users = this.utilService.loadFromStorage(USERS_DB) as User[]
     if (!users || users.length === 0) this._setDefaultUsers(1000)
   }
 
-  public signup(credentials: Partial<User>): Observable<User | Error> {
+  public signup(credentials: Partial<User>): Observable<Partial<User> | Error> {
     if (!this._validateCredentials(credentials)) {
       return throwError(() => new Error('Invalid credentials. Please check your information.'))
     }
@@ -46,33 +45,31 @@ export class UserService {
       isSubscribed: credentials.isSubscribed ?? false,
       favoriteStyles: [],
       orders: [],
-      _id: ''
+      _id: this.utilService.makeId()
     }
 
-    return from(storageService.post<User>(USERS_DB, user))
+    return of(users.unshift(user))
       .pipe(
         map(() => {
           this._loggedInUser$.next(user)
-          this.utilService.setToStorage(USER_DB, user)
-          return user
+          const userToSave: Partial<User> = this._deleteUsersPrivateInfo(user)
+          this.utilService.setToStorage(USER_DB, userToSave)
+          return userToSave
         }),
         catchError(err => this._handleError(err))
       )
   }
 
-
-  public login(credentials: Partial<User>): Observable<User | undefined> {
-    return from(storageService.query<User>(USERS_DB))
-      .pipe(
-        map(users => users.find(_user => _user.username === credentials.username && _user.password === credentials.password)),
-        catchError(err => of(undefined).pipe(catchError((error) => throwError(error)))),
-        tap(user => {
-          if (user) {
-            this._loggedInUser$.next(user)
-            this.utilService.setToStorage(USER_DB, user)
-          }
-        })
-      )
+  public login(credentials: Partial<User>): Observable<Partial<User> | undefined>  {
+    const user = users.find(user => credentials.username === user.username && credentials.password === user.password)
+        if (user) {
+          this._loggedInUser$.next(user);
+          const userToSave: Partial<User> = this._deleteUsersPrivateInfo(user)
+          this.utilService.setToStorage(USER_DB, userToSave);
+          return of(userToSave);
+        } else {
+          return of(undefined);
+        }
   }
 
   public disconnect(): void {
@@ -110,8 +107,15 @@ export class UserService {
       )
   }
 
+  private _deleteUsersPrivateInfo(user: User) : Partial<User> {
+    let userToReturn: Partial<User> = user
+    delete userToReturn.password
+    delete userToReturn._id
+    return userToReturn
+  }
+
   private _setDefaultUsers(coins: number) {
-    const users: User[] = [
+    const _users: User[] = [
       {
         fullName: 'Shoval Sabag',
         username: 'Shovalit',
@@ -180,7 +184,7 @@ export class UserService {
         orders: []
       }
     ]
-    this.utilService.setToStorage(USERS_DB, users)
+    users = _users
   }
 
   private _validateCredentials(credentials: Partial<User>): boolean {
