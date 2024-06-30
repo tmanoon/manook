@@ -67,7 +67,7 @@ export class ClothingItemIndexComponent implements OnInit, OnDestroy {
   showDisconnectedUserPopUp(): void {
     this.disconnectedUserClicked = true
     setTimeout(() => {
-      this.disconnectedUserClicked = false
+      this.disconnectedUserClicked = !this.disconnectedUserClicked
     }, 1500)
   }
 
