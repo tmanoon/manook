@@ -3,6 +3,7 @@ import { ClothingItem } from '../../models/clothingitem.model';
 import { Observable, Subject, retry, take, takeUntil, tap } from 'rxjs';
 import { ClothingItemService } from '../../services/clothingitem.service';
 import { UserService } from '../../services/user.service';
+import { User } from '../../models/user.model';
 
 
 @Component({
@@ -16,6 +17,8 @@ export class ClothingItemIndexComponent implements OnInit, OnDestroy {
   private userService = inject(UserService)
   private destroySubject$ = new Subject()
   clothes!: ClothingItem[]
+  user! : User | null
+  disconnectedUserClicked: boolean = false
 
   ngOnInit(): void {
     this.clothingItemService.clothes$
@@ -30,6 +33,17 @@ export class ClothingItemIndexComponent implements OnInit, OnDestroy {
           throw err
         }
       })
+
+      this.userService.loggedInUser$
+        .pipe(
+          takeUntil(this.destroySubject$),
+          retry(1),
+          tap(user => this.user = user
+          )
+        )
+        .subscribe({
+          error: err => console.log('err', err)
+        })
   }
 
   onRemoveClothingItem(id: string) {
@@ -43,10 +57,22 @@ export class ClothingItemIndexComponent implements OnInit, OnDestroy {
   }
 
   OnAddItemToCart(item: ClothingItem) : void {
+    if(!this.user) this.showDisconnectedUserPopUp()
     this.userService.addItemToOrder(item)
     .subscribe({
       error: err => console.log('err', err)
     })
+  }
+
+  showDisconnectedUserPopUp(): void {
+    this.disconnectedUserClicked = true
+    setTimeout(() => {
+      this.disconnectedUserClicked = false
+    }, 1500)
+  }
+
+  onCloseMsg() : void {
+    this.disconnectedUserClicked = false
   }
 
   ngOnDestroy(): void {
