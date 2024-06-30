@@ -15,7 +15,6 @@ const CLOTHES_DB = 'clothes_db'
 export class ClothingItemService {
 
   private utilService = inject(UtilService)
-
   private _clothes$ = new BehaviorSubject<ClothingItem[]>([])
   public clothes$ = this._clothes$.asObservable()
   private _filterBy$ = new BehaviorSubject<FilterBy>({
@@ -34,7 +33,7 @@ export class ClothingItemService {
     }
   }
 
-  public loadClothes() {
+  public loadClothes(): Observable<ClothingItem[]> {
     return from(storageService.query<ClothingItem>(CLOTHES_DB))
       .pipe(
         tap(clothes => {
@@ -201,7 +200,7 @@ export class ClothingItemService {
         imgUrl: ['https://images.stockcake.com/public/2/9/e/29ec4245-68a0-4839-96d1-d60c860648dc_large/urban-morning-jog-stockcake.jpg',
           'https://images.stockcake.com/public/6/8/5/6855c71b-bbee-4760-9f1a-f2e8f1cb877b_large/athlete-sprinting-intensely-stockcake.jpg'],
         quantity: 12,
-        style: ['athleisure', 'sporty'],
+        style: ['sporty', 'activewear'],
         type: 'set',
         desc: 'A comfortable and stylish tracksuit for workouts or casual wear.',
         _id: this.utilService.makeId()
@@ -213,7 +212,7 @@ export class ClothingItemService {
         imgUrl: ['https://images.stockcake.com/public/a/0/d/a0d911ed-6190-4517-afb4-6966a9179709_large/stylish-winter-fashion-stockcake.jpg',
           'https://images.stockcake.com/public/e/c/2/ec25c922-822e-4c04-9761-2c98241e83e7_large/elegant-wrist-watch-stockcake.jpg'],
         quantity: 2,
-        style: ['winter', 'luxury'],
+        style: ['winter', 'luxurious'],
         type: 'sweater',
         desc: 'A soft and luxurious cashmere sweater for warmth and comfort in cooler weather.',
         _id: this.utilService.makeId()
@@ -273,7 +272,7 @@ export class ClothingItemService {
         price: 49.99,
         imgUrl: 'https://images.stockcake.com/public/8/5/d/85d9f11a-90da-459f-84f9-d10d78dbdbbc/dynamic-marathon-runners-stockcake.jpg',
         quantity: 6,
-        style: ['athletic', 'activewear'],
+        style: ['sporty', 'activewear'],
         type: 'bottoms',
         desc: 'Supportive and breathable running tights for optimal performance during workouts.',
         _id: this.utilService.makeId()
@@ -319,7 +318,7 @@ export class ClothingItemService {
         price: 84.99,
         imgUrl: 'https://images.stockcake.com/public/6/b/6/6b6e9f95-fc96-41f5-814e-a3a63ac02dd1/hiking-boots-outdoors-stockcake.jpg',
         quantity: 7,
-        style: ['outdoor', 'activewear'],
+        style: ['utility', 'activewear'],
         type: 'shoes',
         desc: 'Durable and supportive hiking boots for outdoor adventures.',
         _id: this.utilService.makeId()
@@ -343,7 +342,7 @@ export class ClothingItemService {
         imgUrl: ['https://images.stockcake.com/public/5/1/8/518192e2-a732-456b-a76a-ef178c745c76/elegant-summer-fashion-stockcake.jpg',
           'https://images.stockcake.com/public/5/1/c/51cd964b-b137-4091-91be-a23761374943/bohemian-style-outfit-stockcake.jpg'],
         quantity: 3,
-        style: ['summer', 'bohemian'],
+        style: ['summer', 'hippie'],
         type: 'dress',
         desc: 'A beautiful and flowy maxi dress for a relaxed and elegant look in warm weather.',
         _id: this.utilService.makeId()
