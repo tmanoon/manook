@@ -5,7 +5,8 @@
          [clothingItem]="clothingItem"
          [user]="user"
          (addToCart)="addToCart.emit($event)"
-         (remove)="remove.emit($event)">
+         (remove)="remove.emit($event)"
+         (wishlist)="wishlist.emit($event)">
         </clothing-item-preview>
     </section>
 </ng-container>

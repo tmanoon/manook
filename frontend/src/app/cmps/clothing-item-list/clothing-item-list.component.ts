@@ -13,6 +13,7 @@ export class ClothingItemListComponent  {
 
   @Output() addToCart = new EventEmitter<ClothingItem>()
   @Output() remove = new EventEmitter<string>()
+  @Output() wishlist = new EventEmitter<ClothingItem>()
   @Input() clothes!: ClothingItem[] | null
   @Input() user!: User | null
   disconnectedUserClicked: boolean = false
