@@ -3,5 +3,5 @@ export interface FilterBy {
     style: string[],
     type: string,
     name: string,
-    priceRange: { min: number, max: number }
+    maxPrice: number
 }
