@@ -1,1 +1,10 @@
-<p>clothing-item-filter works!</p>
+<section class="clothing-item-filter grid">
+<div class="preferred-styles">
+    <dynamic-style-input 
+    *ngFor="let style of styles; trackBy: trackByFn"
+    [filterBy]="filterBy"
+    [style]="style"
+    (select)="onSetStyle($event)">
+</dynamic-style-input>
+</div>
+</section>
