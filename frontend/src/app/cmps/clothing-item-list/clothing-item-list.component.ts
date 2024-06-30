@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, inject } fro
 import { ClothingItem } from '../../models/clothingitem.model';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
-import { Observable, Subject, retry, takeUntil } from 'rxjs';
+import { Observable, Subject, retry, take, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'clothing-item-list',
@@ -30,8 +30,14 @@ export class ClothingItemListComponent implements OnInit, OnDestroy {
   }
 
   onAddClothingItem(item: ClothingItem): void {
-    this.disconnectedUserClicked = this.userService.addItemToOrder(item)
-    if(this.disconnectedUserClicked) this.showDisconnectedUserPopUp
+    this.userService.addItemToOrder(item)
+      .pipe(
+        tap(order => {
+          if(!order) this.disconnectedUserClicked = true 
+        }),
+        take(1)
+      ).subscribe()
+    if(this.disconnectedUserClicked) this.showDisconnectedUserPopUp()
   }
 
   showDisconnectedUserPopUp(): void {
