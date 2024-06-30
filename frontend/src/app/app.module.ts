@@ -14,6 +14,7 @@ import { HomeClothingItemPreviewComponent } from './cmps/home-clothing-item-prev
 import { ClothingItemListComponent } from './cmps/clothing-item-list/clothing-item-list.component';
 import { ClothingItemPreviewComponent } from './cmps/clothing-item-preview/clothing-item-preview.component';
 import { ClothingItemFilterComponent } from './cmps/clothing-item-filter/clothing-item-filter.component';
+import { DynamicStyleInputComponent } from './cmps/dynamic-style-input/dynamic-style-input.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ClothingItemFilterComponent } from './cmps/clothing-item-filter/clothin
     HomeClothingItemPreviewComponent,
     ClothingItemListComponent,
     ClothingItemPreviewComponent,
-    ClothingItemFilterComponent
+    ClothingItemFilterComponent,
+    DynamicStyleInputComponent
   ],
   imports: [
     BrowserModule,
