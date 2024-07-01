@@ -22,7 +22,7 @@ export class ClothingItemService {
     style: [],
     type: '',
     name: '',
-    maxPrice: Infinity
+    maxPrice: 180
   })
   public filterBy$ = this._filterBy$.asObservable()
 
@@ -122,7 +122,7 @@ export class ClothingItemService {
         (!filterBy.gender || clothingItem.gender === filterBy.gender) &&
         (!filterBy.style.length || clothingItem.style.some(style => filterBy.style.includes(style))) &&
         (!filterBy.type|| filterBy.type === clothingItem.type) &&
-        clothingItem.price <= filterBy.maxPrice
+        (filterBy.maxPrice === 180 || clothingItem.price <= filterBy.maxPrice)
     })
     return filteredClothes
   }
