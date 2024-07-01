@@ -1,11 +1,14 @@
 .clothing-item-filter {
     grid-template-rows: repeat(2, 1fr);
     grid-template-columns: repeat(2, 1fr);
+    padding-block: .5rem;
+    gap: .5rem;
 
     .styles-selection {
         grid-column: 1 / -1;
         grid-row: 1;
         grid-template-columns: repeat(6, 1fr);
+        gap: .2em;
     }
 
     .type-selection {
@@ -21,17 +24,46 @@
 
         select {
             text-transform: capitalize;
+            padding: 3px .3rem;
+            background-color: var(--primary-clr1);
+            border-radius: 5px;
+            border: none; 
+
+            &:focus {
+                border: var(--primary-clr1) 2px solid;
+                outline: none;
+            }
         }
 
     }
 
     .range-selection {
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 1.5em;
         grid-row: 2;
         grid-column: 2;
         align-self: center;
+        padding-inline: 10px;
+        gap: .5rem;
 
         input {
             width: 100%;
+            grid-row: 1;
+
+            &::-webkit-slider-runnable-track {
+                background-color: var(--primary-clr1);
+                border-radius: 10px;
+            }
+
+            &::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                background-color: purple;
+            }
+        }
+
+        span {
+            grid-row: 1;
+            text-align: center;
         }
     }
 }
