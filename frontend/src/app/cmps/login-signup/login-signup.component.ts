@@ -75,6 +75,7 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
   }
 
   onRemoveItemFromWishlist(id: string) {
+    if(this.loggedInUser!.wishlist.find(item => item._id === id)) return
     this.userService.removeItemFromWishlist(id)
       .pipe(
         take(1)
