@@ -10,7 +10,8 @@
             <option *ngFor="let type of types; trackBy: trackByTermFn" [value]="type">{{type || 'choose'}}</option>
         </select>
     </div>
-    <div class="range-selection">
-        <input type="range" min="0" max="180" name="range" (change)="onChangeRange($event)" />
+    <div class="range-selection grid">
+        <input type="range" min="0" max="180" value="180" name="range" (change)="onChangeRange($event)" />
+        <span>{{filterBy.maxPrice > 180 ? '0' : filterBy.maxPrice}}</span>
     </div>
 </section>
