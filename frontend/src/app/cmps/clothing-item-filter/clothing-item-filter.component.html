@@ -1,10 +1,10 @@
 <section class="clothing-item-filter grid">
-    <div class="styles-selection grid">
+    <div class="styles-selection grid align-center">
         <dynamic-style-input *ngFor="let style of styles; trackBy: trackByTermFn" [filterBy]="filterBy" [style]="style"
             (select)="onSetStyle($event)">
         </dynamic-style-input>
     </div>
-    <div class="type-selection">
+    <div class="type-selection grid align-center">
         <label>Type</label>
         <select (change)="onSelectType($event)" name="clothing-item-type" id="clothing-item-type">
             <option *ngFor="let type of types; trackBy: trackByTermFn" [value]="type">{{type || 'choose'}}</option>
