@@ -110,7 +110,6 @@ export class UserService {
   public removeItemFromWishlist(id: string) {
     const user = this._loggedInUser$.value
     if (!user) return this._handleError(new Error('No logged in user found'))
-    if(user.wishlist.find(item => item._id === id)) return
     user.wishlist = user.wishlist.filter(item => item._id !== id)
     this.utilService.setToStorage(USER_DB, user)
     return this._loggedInUser$.pipe(
