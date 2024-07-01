@@ -9,7 +9,7 @@
 </clothing-item-list>
 </section>
 
-<div class="disconnected-user" *ngIf="disconnectedUserClicked">
-    <button (click)="onCloseMsg()">x</button>
-    <p>Please login to your user or create an account to do this action.</p>
-</div>
+<disconnected-user
+*ngIf="disconnectedUserClicked"
+(close)="closeMsg($event)">
+</disconnected-user>
