@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'login-signup',
@@ -14,13 +14,9 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
   private destroySubject$ = new Subject()
 
   loggedInUser: User | null = null
-  userClickAndState = {
-    isClicked: false,
-    sectionClicked: 'none',
-    isUserLoggedIn: false
-  }
+  sectionClicked: string = 'none'
+  disconnectedUserClicked: boolean = false
   user: Partial<User> = { username: '', password: '' }
-
   guestAcc: Partial<User> = {
     username: 'guest',
     password: 'shov99',
@@ -32,17 +28,11 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
       .subscribe(user => {
         this.loggedInUser = user
       })
-    this.userClickAndState.isUserLoggedIn = !!this.loggedInUser
   }
 
-  ngOnDestroy(): void {
-    this.destroySubject$.next(null)
-    this.destroySubject$.complete()
-  }
 
   onUserClick(): void {
-    this.userClickAndState.isClicked = !this.userClickAndState.isClicked
-    this.userClickAndState.sectionClicked = 'user'
+    this.sectionClicked = 'user'
   }
 
   onLogin() {
@@ -63,6 +53,44 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
         error: err => console.log('err', err)
       }
       )
+  }
+
+  onWishlistClick() {
+    if (!this.loggedInUser) this.showDisconnectedUserPopUp()
+    else this.sectionClicked = 'wishlist'
+  }
+
+  showDisconnectedUserPopUp(): void {
+    this.disconnectedUserClicked = true
+    this.sectionClicked = 'disconnected'
+    setTimeout(() => {
+      this.disconnectedUserClicked = false
+      this.sectionClicked = 'none'
+    }, 1500)
+  }
+
+  closeMsg(state: boolean): void {
+        this.sectionClicked = 'none'
+    this.disconnectedUserClicked = state
+  }
+
+  onRemoveItemFromWishlist(id: string) {
+    this.userService.removeItemFromWishlist(id)
+      .pipe(
+        take(1)
+      )
+      .subscribe({
+        error: err => console.log('err', err)
+      })
+  }
+
+  onCloseModal() {
+    this.sectionClicked = 'none'
+  }
+
+  ngOnDestroy(): void {
+    this.destroySubject$.next(null)
+    this.destroySubject$.complete()
   }
 
 }
