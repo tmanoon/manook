@@ -1,0 +1,20 @@
+.disconnected-user {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--white);
+    padding: 1rem;
+    border-radius: .5rem;
+
+    button {
+        position: absolute;
+        z-index: 5;
+        top: 0;
+        left: 6px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        font-family: fira-reg, Tahoma;
+    }
+}
