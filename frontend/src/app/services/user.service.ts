@@ -60,16 +60,16 @@ export class UserService {
       )
   }
 
-  public login(credentials: Partial<User>): Observable<Partial<User> | undefined>  {
+  public login(credentials: Partial<User>): Observable<Partial<User> | undefined> {
     const user = users.find(user => credentials.username === user.username && credentials.password === user.password)
-        if (user) {
-          this._loggedInUser$.next(user);
-          const userToSave: Partial<User> = this._deleteUsersPrivateInfo(user)
-          this.utilService.setToStorage(USER_DB, userToSave);
-          return of(userToSave);
-        } else {
-          return of(undefined);
-        }
+    if (user) {
+      this._loggedInUser$.next(user);
+      const userToSave: Partial<User> = this._deleteUsersPrivateInfo(user)
+      this.utilService.setToStorage(USER_DB, userToSave);
+      return of(userToSave);
+    } else {
+      return of(undefined);
+    }
   }
 
   public disconnect(): void {
@@ -82,7 +82,7 @@ export class UserService {
     if (!userToUpdate) return throwError('No logged in user found')
     userToUpdate.recentOrder = userToUpdate.recentOrder ?
       { ...userToUpdate.recentOrder, selectedItems: [...userToUpdate.recentOrder.selectedItems, item], sum: userToUpdate.recentOrder.sum + item.price } :
-      {  selectedItems: [item], sum: item.price }
+      { selectedItems: [item], sum: item.price }
     this._loggedInUser$.next(userToUpdate)
     this.utilService.setToStorage(USER_DB, userToUpdate)
     return of(userToUpdate)
@@ -93,7 +93,7 @@ export class UserService {
       )
   }
 
-  public addItemToWishlist(item: ClothingItem) : Observable<ClothingItem[]> {
+  public addItemToWishlist(item: ClothingItem): Observable<ClothingItem[]> {
     let userToUpdate = this._loggedInUser$.value
     if (!userToUpdate) return throwError('No logged in user found')
     userToUpdate.wishlist.unshift(item)
@@ -107,7 +107,22 @@ export class UserService {
       )
   }
 
-  private _deleteUsersPrivateInfo(user: User) : Partial<User> {
+  public removeItemFromWishlist(id: string) {
+    const user = this._loggedInUser$.value
+    if (!user) return this._handleError(new Error('No logged in user found'))
+    user.wishlist = user.wishlist.filter(item => item._id !== id)
+    this.utilService.setToStorage(USER_DB, user)
+    return this._loggedInUser$.pipe(
+      map(user => {
+        if (!user) return this._handleError(new Error('No logged in user found'))
+        const userToUpdate: User = { ...user }
+        userToUpdate.wishlist = userToUpdate.wishlist.filter(item => item._id !== id)
+        return userToUpdate
+      })
+    )
+  }
+
+  private _deleteUsersPrivateInfo(user: User): Partial<User> {
     let userToReturn: Partial<User> = user
     delete userToReturn.password
     delete userToReturn._id
