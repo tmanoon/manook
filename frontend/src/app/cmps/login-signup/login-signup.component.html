@@ -1,14 +1,13 @@
 <section class="login-signup grid align-center">
-    <div class="layout" *ngIf="userClickAndState.isClicked"></div>
+    <div class="layout" *ngIf="sectionClicked !== 'none'" (click)="onCloseModal()"></div>
     <span class="user" (click)="onUserClick()"></span>
-    <div class="user-login-signup grid" *ngIf="userClickAndState.isClicked && userClickAndState.sectionClicked === 'user'">
-        <button class="close-btn" (click)="onUserClick()">x</button>
+    <div class="user-login-signup grid" *ngIf="sectionClicked === 'user'">
+        <button class="close-btn" (click)="onCloseModal()">x</button>
         <div class="logged-in-user grid" *ngIf="loggedInUser">
             <h1>Hey {{loggedInUser.fullName}}! <br /> You have {{loggedInUser.coins}} coins.</h1>
             <button (click)="onLogout()">Logout</button>
         </div>
         <div class="login-info grid" *ngIf="!loggedInUser">
-
             <button class="guest-btn" (click)="onGuestClick()">Continue as Guest</button>
             <input type="text" placeholder="Username" [(ngModel)]="user.username">
             <input type="password" placeholder="Password" [(ngModel)]="user.password" />
@@ -19,6 +18,24 @@
             <button routerLink="signup" (click)="onUserClick()" class="signup-btn">Sign-up</button>
         </div>
     </div>
-    <span class="wishlist"></span>
+    <span class="wishlist" (click)="onWishlistClick()"></span>
+    <div class="user-wishlist grid" *ngIf="loggedInUser && sectionClicked === 'wishlist'">
+        <button (click)="onCloseModal()" class="close-btn">x</button>
+        <div class="no-items" *ngIf="!loggedInUser.wishlist.length">No items added to wishlist.</div>
+        <ul *ngIf="loggedInUser.wishlist.length" class="wishlist-items grid">
+            <li *ngFor="let item of loggedInUser!.wishlist" class="wishlist-item grid">
+                <img [src]="item.imgUrl || item.imgUrl[0]" [alt]="item.name" [title]="item.name" />
+                <div class="text grid">
+                    <h2>{{item.name}}</h2>
+                    <p>${{item.price}}</p>
+                    <button (click)="onRemoveItemFromWishlist(item._id)" class="remove">Remove</button>
+                </div>
+                
+            </li>
+        </ul>
+    </div>
     <span class="cart"></span>
 </section>
+
+<disconnected-user *ngIf="disconnectedUserClicked" (close)="closeMsg($event)">
+</disconnected-user>
