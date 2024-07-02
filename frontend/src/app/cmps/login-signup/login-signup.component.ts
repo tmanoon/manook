@@ -30,9 +30,6 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
       })
   }
 
-
-
-
   onLogin() {
     this.userService.login(this.user)
       .subscribe({
@@ -49,14 +46,13 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
     this.userService.login(this.guestAcc)
       .subscribe({
         error: err => console.log('err', err)
-      }
-      )
+      })
   }
 
   onActionClick(selectedAction: string) {
     if (selectedAction === 'user') this.sectionClicked = 'user'
     else {
-      if (!this.loggedInUser) this.showDisconnectedUserPopUp()
+      if (!this.loggedInUser && selectedAction !== 'none') this.showDisconnectedUserPopUp()
       else this.sectionClicked = selectedAction
     }
   }
