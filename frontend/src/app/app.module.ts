@@ -16,6 +16,7 @@ import { ClothingItemPreviewComponent } from './cmps/clothing-item-preview/cloth
 import { ClothingItemFilterComponent } from './cmps/clothing-item-filter/clothing-item-filter.component';
 import { DynamicStyleInputComponent } from './cmps/dynamic-style-input/dynamic-style-input.component';
 import { DisconnectedUserComponent } from './cmps/disconnected-user/disconnected-user.component';
+import { OrderPaymentComponent } from './pages/order-payment/order-payment.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { DisconnectedUserComponent } from './cmps/disconnected-user/disconnected
     ClothingItemFilterComponent,
     DynamicStyleInputComponent,
     DisconnectedUserComponent,
+    OrderPaymentComponent,
   ],
   imports: [
     BrowserModule,
