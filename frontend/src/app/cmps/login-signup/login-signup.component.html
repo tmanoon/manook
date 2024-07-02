@@ -1,6 +1,6 @@
 <section class="login-signup grid align-center">
     <div class="layout" *ngIf="sectionClicked !== 'none'" (click)="onCloseModal()"></div>
-    <span class="user" (click)="onUserClick()"></span>
+    <span class="user" (click)="onActionClick('user')"></span>
     <div class="user-login-signup grid" *ngIf="sectionClicked === 'user'">
         <button class="close-btn" (click)="onCloseModal()">x</button>
         <div class="logged-in-user grid" *ngIf="loggedInUser">
@@ -15,10 +15,10 @@
         </div>
         <div class="sign-up-info grid" *ngIf="!loggedInUser">
             <h3>New here? <br /> Let's sign up real quick!</h3>
-            <button routerLink="signup" (click)="onUserClick()" class="signup-btn">Sign-up</button>
+            <button routerLink="signup" (click)="onActionClick('user')" class="signup-btn">Sign-up</button>
         </div>
     </div>
-    <span class="wishlist" (click)="onWishlistClick()"></span>
+    <span class="wishlist" (click)="onActionClick('wishlist')"></span>
     <div class="user-wishlist grid" *ngIf="loggedInUser && sectionClicked === 'wishlist'">
         <button (click)="onCloseModal()" class="close-btn">x</button>
         <div class="no-wishlist-items" *ngIf="!loggedInUser.wishlist.length">No items added to wishlist.</div>
@@ -33,7 +33,7 @@
             </li>
         </ul>
     </div>
-    <span class="cart"></span>
+    <span class="cart" (click)="onActionClick('cart')"></span>
     <div class="user-cart grid" *ngIf="loggedInUser && sectionClicked === 'cart'">
         <ul class="cart-items grid">
             <div class="no-cart-items" *ngIf="!loggedInUser.recentOrder">No items added to order.</div>

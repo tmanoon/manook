@@ -31,9 +31,7 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
   }
 
 
-  onUserClick(): void {
-    this.sectionClicked = 'user'
-  }
+
 
   onLogin() {
     this.userService.login(this.user)
@@ -55,9 +53,12 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
       )
   }
 
-  onWishlistClick() {
-    if (!this.loggedInUser) this.showDisconnectedUserPopUp()
-    else this.sectionClicked = 'wishlist'
+  onActionClick(selectedAction: string) {
+    if (selectedAction === 'user') this.sectionClicked = 'user'
+    else {
+      if (!this.loggedInUser) this.showDisconnectedUserPopUp()
+      else this.sectionClicked = selectedAction
+    }
   }
 
   showDisconnectedUserPopUp(): void {
@@ -70,12 +71,12 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
   }
 
   closeMsg(state: boolean): void {
-        this.sectionClicked = 'none'
+    this.sectionClicked = 'none'
     this.disconnectedUserClicked = state
   }
 
   onRemoveItemFromWishlist(id: string) {
-    if(this.loggedInUser!.wishlist.find(item => item._id === id)) return
+    if (this.loggedInUser!.wishlist.find(item => item._id === id)) return
     this.userService.removeItemFromWishlist(id)
       .pipe(
         take(1)
