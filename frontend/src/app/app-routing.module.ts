@@ -5,12 +5,18 @@ import { UserSignupComponent } from './pages/user-signup/user-signup.component';
 import { ClothingItemIndexComponent } from './pages/clothing-item-index/clothing-item-index.component';
 import { ClothingItemDetailsComponent } from './pages/clothing-item-details/clothing-item-details.component';
 import { clothingItemResolver } from './resolvers/clothing-item.resolver';
+import { UserDetailsComponent } from './pages/user-details/user-details.component';
+import { UserWishlistComponent } from './pages/user-wishlist/user-wishlist.component';
 
 
 const routes: Routes = [
   {
     path: 'signup',
     component: UserSignupComponent
+  },
+  {
+    path: 'wishlist',
+    component: UserWishlistComponent,
   },
   {
     path: 'clothing-item',
