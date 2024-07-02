@@ -18,6 +18,7 @@ import { DynamicStyleInputComponent } from './cmps/dynamic-style-input/dynamic-s
 import { DisconnectedUserComponent } from './cmps/disconnected-user/disconnected-user.component';
 import { OrderPaymentComponent } from './pages/order-payment/order-payment.component';
 import { UserWishlistComponent } from './pages/user-wishlist/user-wishlist.component';
+import { UserDetailsComponent } from './pages/user-details/user-details.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { UserWishlistComponent } from './pages/user-wishlist/user-wishlist.compo
     DisconnectedUserComponent,
     OrderPaymentComponent,
     UserWishlistComponent,
+    UserDetailsComponent,
   ],
   imports: [
     BrowserModule,
