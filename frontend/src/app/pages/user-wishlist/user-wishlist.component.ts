@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { Observable, Subject, retry, take, takeUntil, tap } from 'rxjs';
+import { ClothingItem } from '../../models/clothingitem.model';
 
 @Component({
   selector: 'user-wishlist',
@@ -29,7 +30,7 @@ export class UserWishlistComponent implements OnInit, OnDestroy {
   }
 
   onRemoveItemFromWishlist(id: string) {
-    if (this.user!.wishlist.find(item => item._id === id)) return
+    if (!this.user.wishlist.find(item => item._id === id)) return
     this.userService.removeItemFromWishlist(id)
       .pipe(
         take(1)
@@ -37,6 +38,17 @@ export class UserWishlistComponent implements OnInit, OnDestroy {
       .subscribe({
         error: err => console.log('err', err)
       })
+  }
+
+  onAddItemToCart(item: ClothingItem) {
+    this.userService.addItemToOrder(item)
+    .pipe(
+      take(1),
+      retry(1)
+    )
+    .subscribe({
+      error: err => console.log('err', err)
+    })
   }
 
   ngOnDestroy(): void {
