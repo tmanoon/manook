@@ -148,7 +148,7 @@ export class UserService {
         username: 'guest',
         gender: 'Male',
         isAdmin: false,
-        password: 'shov99',
+        password: 'guest',
         _id: this.utilService.makeId(),
         coins,
         wishlist: [],

@@ -16,12 +16,11 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
 
   loggedInUser: User | null = null
   sectionClicked: string = 'none'
-  isUserHovering: boolean = false
   disconnectedUserClicked: boolean = false
   user: Partial<User> = { username: '', password: '' }
   guestAcc: Partial<User> = {
     username: 'guest',
-    password: 'shov99',
+    password: 'guest',
   }
 
   ngOnInit(): void {
