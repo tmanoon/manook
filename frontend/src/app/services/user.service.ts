@@ -6,6 +6,7 @@ import { User } from '../models/user.model'
 import { UtilService } from './util.service'
 import { ClothingItem } from '../models/clothingitem.model'
 import { Order } from '../models/order.model'
+import { ClothingItemService } from './clothingitem.service'
 
 const USER_DB = 'user'
 let users: User[]
@@ -17,6 +18,7 @@ let users: User[]
 export class UserService {
 
   private utilService = inject(UtilService)
+  private clothingService = inject(ClothingItemService)
   private _loggedInUser$ = new BehaviorSubject<User | null>(null)
   public loggedInUser$ = this._loggedInUser$.asObservable()
 
@@ -56,7 +58,6 @@ export class UserService {
           this.utilService.setToStorage(USER_DB, userToSave)
           return userToSave
         }),
-        catchError(err => this._handleError(err))
       )
   }
 
@@ -77,34 +78,44 @@ export class UserService {
     this._loggedInUser$.next(null)
   }
 
-  public addItemToOrder(item: ClothingItem): Observable<Order> {
-    let userToUpdate = this._loggedInUser$.value
-    if (!userToUpdate) return throwError('No logged in user found')
-    userToUpdate.recentOrder = userToUpdate.recentOrder ?
-      { ...userToUpdate.recentOrder, selectedItems: [...userToUpdate.recentOrder.selectedItems, item], sum: userToUpdate.recentOrder.sum + item.price } :
-      { selectedItems: [item], sum: item.price }
-    this._loggedInUser$.next(userToUpdate)
-    this.utilService.setToStorage(USER_DB, userToUpdate)
-    return of(userToUpdate)
-      .pipe(
-        map(user => {
-          return user.recentOrder!
-        })
-      )
-  }
 
-  public addItemToWishlist(item: ClothingItem): Observable<ClothingItem[]> {
+  // public removeItemFromWishlist(id: string) {
+  //   const user = this._loggedInUser$.value
+  //   if (!user) return this._handleError(new Error('No logged in user found'))
+  //   user.wishlist = user.wishlist.filter(item => item._id !== id)
+  //   this.utilService.setToStorage(USER_DB, user)
+  //   return this._loggedInUser$.pipe(
+  //     map(user => {
+  //       if (!user) return this._handleError(new Error('No logged in user found'))
+  //       const userToUpdate: User = { ...user }
+  //       userToUpdate.wishlist = userToUpdate.wishlist.filter(item => item._id !== id)
+  //       return userToUpdate
+  //     })
+  //   )
+  // }
+
+  public addItemToList(item: ClothingItem, listName: 'wishlist' | 'recentOrder'): Observable<ClothingItem[] | Order> {
     let userToUpdate = this._loggedInUser$.value
     if (!userToUpdate) return throwError('No logged in user found')
-    userToUpdate.wishlist.unshift(item)
-    this._loggedInUser$.next(userToUpdate)
+    if (listName === 'wishlist') userToUpdate[listName].unshift(item)
+    else {
+      userToUpdate.recentOrder = userToUpdate.recentOrder ?
+        { ...userToUpdate.recentOrder, selectedItems: [...userToUpdate.recentOrder.selectedItems, item], sum: userToUpdate.recentOrder.sum + item.price } :
+        { selectedItems: [item], sum: item.price }
+      const quantityToUpdate: number = item.quantity ? item.quantity++ : 1
+      const itemToUpdate: ClothingItem = { ...item, quantity: quantityToUpdate }
+      this.clothingService.saveClothingItem(itemToUpdate).subscribe()
+    }
+    
     this.utilService.setToStorage(USER_DB, userToUpdate)
+    this._loggedInUser$.next(userToUpdate)
     return of(userToUpdate)
       .pipe(
         map(user => {
-          return user.wishlist
+          return user[listName]!
         })
       )
+
   }
 
   public removeItemFromWishlist(id: string) {
