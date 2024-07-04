@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Subject, retry, take, takeUntil, tap } from 'rxjs';
 import { User } from '../../models/user.model';
+import { ClothingItem } from '../../models/clothingitem.model';
 
 @Component({
   selector: 'user-order',
@@ -28,8 +29,8 @@ export class UserOrderComponent {
       })
   }
 
-  onRemoveItemFromWishlist(id: string) {
-    this.userService.removeItemFromWishlist(id)
+  onRemoveItemFromOrder(item: ClothingItem) {
+    this.userService.removeItemFromList(item, 'recentOrder')
       .pipe(
         take(1),
         retry(1)
