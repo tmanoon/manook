@@ -4,9 +4,10 @@ export interface ClothingItem {
     gender: string,
     price: number,
     imgUrl: string | string[],
-    quantity: number,
+    stock: number,
     style: string[],
     type: string,
     desc: string,
-    _id: string
+    _id: string,
+    quantity?: number
 }

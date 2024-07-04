@@ -2,7 +2,7 @@
     <img [src]="clothingItem.imgUrl" [alt]="clothingItem.name"/>
     <h1>{{clothingItem.name}}</h1>
     <h3>{{clothingItem.gender}}</h3>
-    <h3 *ngIf="clothingItem.quantity < 4">{{clothingItem.quantity}} left</h3>
+    <h3 *ngIf="clothingItem.stock < 4">{{clothingItem.stock}} left</h3>
     <h3>Main style: {{clothingItem.style[0]}}</h3>
     <h3>{{clothingItem.type}}</h3>
     <p>{{clothingItem.desc}}</p>
