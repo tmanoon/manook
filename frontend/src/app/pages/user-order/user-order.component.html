@@ -1,18 +1,18 @@
-<section class="user-cart">
-    <h1 class="cart-header">Cart</h1>
-    <div class="no-items" *ngIf="!loggedInUser.recentOrder">No items added to order.</div>
-    <ul class="cart-items grid" *ngIf="loggedInUser.recentOrder!.selectedItems.length">
-        <li *ngFor="let item of loggedInUser.recentOrder!.selectedItems" class="cart-item grid">
-            <img [src]="item.imgUrl || item.imgUrl[0]" [alt]="item.name" [title]="item.name" />
-            <div class="text grid">
-                <h2>{{item.name}}</h2>
-                <p>${{item.price}}</p>
-                <button (click)="onRemoveItemFromWishlist(item._id)" class="remove">Remove</button>
+    <div class="user-order">
+        <h1 class="cart-header">Cart</h1>
+        <div class="no-items" *ngIf="!loggedInUser.recentOrder">No items added to order.</div>
+        <ul class="cart-items grid" *ngIf="loggedInUser.recentOrder && loggedInUser.recentOrder.selectedItems.length">
+            <li *ngFor="let item of loggedInUser.recentOrder.selectedItems" class="cart-item grid">
+                <img [src]="item.imgUrl || item.imgUrl[0]" [alt]="item.name" [title]="item.name" />
+                <div class="text grid">
+                    <h2>{{item.name}}</h2>
+                    <p>${{item.price}}</p>
+                    <button (click)="onRemoveItemFromOrder(item)" class="remove">Remove</button>
+                </div>
+            </li>
+            <div class="cart-summary">
+                <h1>Sum: {{loggedInUser.recentOrder!.sum}}</h1>
+                <button>Checkout</button>
             </div>
-        </li>
-        <div class="cart-summary">
-            <h1>Sum: {{loggedInUser.recentOrder!.sum}}</h1>
-            <button>Checkout</button>
-        </div>
-    </ul>
-</section>
+        </ul>
+    </div>
