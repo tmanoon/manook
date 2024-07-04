@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core'
-import { Observable, BehaviorSubject, throwError, from, tap, retry, catchError, map, Subscription, of } from 'rxjs'
+import { Observable, BehaviorSubject, throwError, from, tap, retry, catchError, map, Subscription, of, take } from 'rxjs'
 import { storageService } from './local.storage.service'
 import { HttpErrorResponse } from '@angular/common/http'
 import { User } from '../models/user.model'
@@ -104,9 +104,9 @@ export class UserService {
         { selectedItems: [item], sum: item.price }
       const quantityToUpdate: number = item.quantity ? item.quantity++ : 1
       const itemToUpdate: ClothingItem = { ...item, quantity: quantityToUpdate }
-      this.clothingService.saveClothingItem(itemToUpdate).subscribe()
+      this.clothingService.saveClothingItem(itemToUpdate).pipe(take(1)).subscribe()
     }
-    
+
     this.utilService.setToStorage(USER_DB, userToUpdate)
     this._loggedInUser$.next(userToUpdate)
     return of(userToUpdate)
@@ -118,19 +118,23 @@ export class UserService {
 
   }
 
-  public removeItemFromWishlist(id: string) {
+  public removeItemFromList(itemToRemove: ClothingItem, listName: 'wishlist' | 'recentOrder'): Observable<User> {
     const user = this._loggedInUser$.value
     if (!user) return this._handleError(new Error('No logged in user found'))
-    user.wishlist = user.wishlist.filter(item => item._id !== id)
+    if (listName === 'wishlist') user.wishlist = user.wishlist.filter(item => item._id !== itemToRemove._id)
+    else {
+      user.recentOrder = {
+        ...user.recentOrder, selectedItems: user.recentOrder!.selectedItems.filter(item => item._id !== itemToRemove._id),
+        sum: user.recentOrder!.sum - itemToRemove.price
+      }
+      const itemToUpdate: ClothingItem = { ...itemToRemove }
+      if (itemToUpdate.quantity! > 1) itemToUpdate.quantity! -= 1
+      else delete itemToUpdate.quantity
+      this.clothingService.saveClothingItem(itemToUpdate).subscribe()
+    }
     this.utilService.setToStorage(USER_DB, user)
-    return this._loggedInUser$.pipe(
-      map(user => {
-        if (!user) return this._handleError(new Error('No logged in user found'))
-        const userToUpdate: User = { ...user }
-        userToUpdate.wishlist = userToUpdate.wishlist.filter(item => item._id !== id)
-        return userToUpdate
-      })
-    )
+    this._loggedInUser$.next(user)
+    return of(this._loggedInUser$.value!)
   }
 
   private _deleteUsersPrivateInfo(user: User): Partial<User> {
