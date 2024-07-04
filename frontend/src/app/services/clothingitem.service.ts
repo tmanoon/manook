@@ -84,7 +84,7 @@ export class ClothingItemService {
       .pipe(
         tap(updatedClothingItem => {
           const clothes = this._clothes$.value as ClothingItem[]
-          this._clothes$.next(clothes.map(clothingItem => clothingItem._id === clothingItem._id ? updatedClothingItem : clothingItem))
+          this._clothes$.next(clothes.map(item => item._id === clothingItem._id ? updatedClothingItem : item))
         }),
         retry(1),
         catchError(this._handleError)
