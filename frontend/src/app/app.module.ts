@@ -19,6 +19,7 @@ import { DisconnectedUserComponent } from './cmps/disconnected-user/disconnected
 import { OrderPaymentComponent } from './pages/order-payment/order-payment.component';
 import { UserWishlistComponent } from './pages/user-wishlist/user-wishlist.component';
 import { UserDetailsComponent } from './pages/user-details/user-details.component';
+import { UserOrderComponent } from './pages/user-order/user-order.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { UserDetailsComponent } from './pages/user-details/user-details.componen
     OrderPaymentComponent,
     UserWishlistComponent,
     UserDetailsComponent,
+    UserOrderComponent,
   ],
   imports: [
     BrowserModule,
