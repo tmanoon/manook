@@ -1,6 +1,6 @@
 <section class="user-wishlist" *ngIf="user">
     <h1 class="wishlist-header">Wishlist</h1>
-    <div class="no-items" *ngIf="!user.wishlist.length">No items added to wishlist.</div>
+    <p class="no-items" *ngIf="!user.wishlist.length">No items added to wishlist.</p>
     <ul *ngIf="user.wishlist.length" class="wishlist-items grid">
         <li *ngFor="let item of user!.wishlist" class="wishlist-item grid">
             <img [src]="item.imgUrl || item.imgUrl[0]" [alt]="item.name" [title]="item.name" />
