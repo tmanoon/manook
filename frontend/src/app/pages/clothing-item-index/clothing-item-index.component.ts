@@ -17,7 +17,7 @@ export class ClothingItemIndexComponent implements OnInit, OnDestroy {
   private userService = inject(UserService)
   private destroySubject$ = new Subject()
   clothes!: ClothingItem[]
-  user! : User | null
+  user!: User | null
   disconnectedUserClicked: boolean = false
 
   ngOnInit(): void {
@@ -34,16 +34,16 @@ export class ClothingItemIndexComponent implements OnInit, OnDestroy {
         }
       })
 
-      this.userService.loggedInUser$
-        .pipe(
-          takeUntil(this.destroySubject$),
-          retry(1),
-          tap(user => this.user = user
-          )
+    this.userService.loggedInUser$
+      .pipe(
+        takeUntil(this.destroySubject$),
+        retry(1),
+        tap(user => this.user = user
         )
-        .subscribe({
-          error: err => console.log('err', err)
-        })
+      )
+      .subscribe({
+        error: err => console.log('err', err)
+      })
   }
 
   onRemoveClothingItem(id: string) {
@@ -56,12 +56,22 @@ export class ClothingItemIndexComponent implements OnInit, OnDestroy {
       })
   }
 
-  OnAddItemToCart(item: ClothingItem) : void {
-    if(!this.user) this.showDisconnectedUserPopUp()
-    this.userService.addItemToOrder(item)
-    .subscribe({
-      error: err => console.log('err', err)
-    })
+  // OnAddItemToCart(item: ClothingItem) : void {
+  //   if(!this.user) this.showDisconnectedUserPopUp()
+  //   else this.userService.addItemToOrder(item)
+  //   .subscribe({
+  //     error: err => console.log('err', err)
+  //   })
+  // }
+  OnAddItemToCart(item: ClothingItem): void {
+    if (!this.user) this.showDisconnectedUserPopUp()
+    else this.userService.addItemToList(item, 'recentOrder')
+      .pipe(
+        take(1)
+      )
+      .subscribe({
+        error: err => console.log('err', err)
+      })
   }
 
   showDisconnectedUserPopUp(): void {
@@ -71,13 +81,13 @@ export class ClothingItemIndexComponent implements OnInit, OnDestroy {
     }, 1500)
   }
 
-  closeMsg(state: boolean) : void {
+  closeMsg(state: boolean): void {
     this.disconnectedUserClicked = state
   }
 
-  onAddItemToWishlist(item: ClothingItem) : void {
-    if(!this.user) this.showDisconnectedUserPopUp()
-    this.userService.addItemToWishlist(item)
+  onAddItemToWishlist(item: ClothingItem): void {
+    if (!this.user) this.showDisconnectedUserPopUp()
+    this.userService.addItemToList(item, 'wishlist')
       .pipe(
         take(1),
         retry(1)
