@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { Subject, take, takeUntil } from 'rxjs';
+import { ClothingItem } from '../../models/clothingitem.model';
 
 @Component({
   selector: 'login-signup',
@@ -15,6 +16,7 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
 
   loggedInUser: User | null = null
   sectionClicked: string = 'none'
+  isUserHovering: boolean = false
   disconnectedUserClicked: boolean = false
   user: Partial<User> = { username: '', password: '' }
   guestAcc: Partial<User> = {
@@ -71,9 +73,9 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
     this.disconnectedUserClicked = state
   }
 
-  onRemoveItemFromWishlist(id: string) {
-    if (this.loggedInUser!.wishlist.find(item => item._id === id)) return
-    this.userService.removeItemFromWishlist(id)
+  onRemoveItemFromList(item: ClothingItem, listName: 'wishlist' | 'recentOrder') {
+    if (this.loggedInUser!.wishlist.find(item => item._id === item._id)) return
+    this.userService.removeItemFromList(item, listName)
       .pipe(
         take(1)
       )
