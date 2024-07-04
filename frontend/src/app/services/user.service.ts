@@ -78,22 +78,6 @@ export class UserService {
     this._loggedInUser$.next(null)
   }
 
-
-  // public removeItemFromWishlist(id: string) {
-  //   const user = this._loggedInUser$.value
-  //   if (!user) return this._handleError(new Error('No logged in user found'))
-  //   user.wishlist = user.wishlist.filter(item => item._id !== id)
-  //   this.utilService.setToStorage(USER_DB, user)
-  //   return this._loggedInUser$.pipe(
-  //     map(user => {
-  //       if (!user) return this._handleError(new Error('No logged in user found'))
-  //       const userToUpdate: User = { ...user }
-  //       userToUpdate.wishlist = userToUpdate.wishlist.filter(item => item._id !== id)
-  //       return userToUpdate
-  //     })
-  //   )
-  // }
-
   public addItemToList(item: ClothingItem, listName: 'wishlist' | 'recentOrder'): Observable<ClothingItem[] | Order> {
     let userToUpdate = this._loggedInUser$.value
     if (!userToUpdate) return throwError('No logged in user found')
@@ -115,7 +99,6 @@ export class UserService {
           return user[listName]!
         })
       )
-
   }
 
   public removeItemFromList(itemToRemove: ClothingItem, listName: 'wishlist' | 'recentOrder'): Observable<User> {
