@@ -7,6 +7,7 @@ import { ClothingItemDetailsComponent } from './pages/clothing-item-details/clot
 import { clothingItemResolver } from './resolvers/clothing-item.resolver';
 import { UserDetailsComponent } from './pages/user-details/user-details.component';
 import { UserWishlistComponent } from './pages/user-wishlist/user-wishlist.component';
+import { UserOrderComponent } from './pages/user-order/user-order.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'wishlist',
     component: UserWishlistComponent,
+  },
+  {
+    path: 'order',
+    component: UserOrderComponent
   },
   {
     path: 'clothing-item',
