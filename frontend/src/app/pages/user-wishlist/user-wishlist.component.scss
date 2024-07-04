@@ -9,6 +9,10 @@
         text-align: center;
     }
 
+    .no-items {
+        text-align: center;
+    }
+
     .wishlist-items {
         grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
