@@ -1,0 +1,16 @@
+:host {
+    display: grid;
+    grid-template-columns: minmax(20px, 5%) 1fr minmax(20px, 5%);
+
+    app-header {
+        grid-column: 1 / -1;
+    }
+
+    .main-app {
+        grid-column: 2;
+    }
+
+    app-footer {
+        grid-column: 1 / -1;
+    }
+} 
