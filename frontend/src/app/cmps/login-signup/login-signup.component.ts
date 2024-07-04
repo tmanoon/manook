@@ -22,12 +22,18 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
     username: 'guest',
     password: 'guest',
   }
+  previewWishlist: ClothingItem[] = []
+  previewOrder: ClothingItem[] = []
 
   ngOnInit(): void {
     this.userService.loggedInUser$
       .pipe(takeUntil(this.destroySubject$))
       .subscribe(user => {
         this.loggedInUser = user
+        if(user) {
+          if(user.wishlist) this.previewWishlist = user.wishlist.slice(0, 4)
+          if(user.recentOrder) this.previewOrder = user.recentOrder.selectedItems.slice(0, 4)
+        }
       })
   }
 
@@ -35,8 +41,7 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
     this.userService.login(this.user)
       .subscribe({
         error: err => console.log('err', err)
-      }
-      )
+      })
   }
 
   onLogout() {
@@ -86,6 +91,10 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
   onCloseModal() {
     this.sectionClicked = 'none'
     if(this.disconnectedUserClicked) this.closeMsg(false)
+  }
+
+  trackByFn(idx: number, item: ClothingItem) {
+    return item._id
   }
 
   ngOnDestroy(): void {
