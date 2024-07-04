@@ -29,9 +29,9 @@ export class UserWishlistComponent implements OnInit, OnDestroy {
       })
   }
 
-  onRemoveItemFromWishlist(id: string) {
-    if (!this.user.wishlist.find(item => item._id === id)) return
-    this.userService.removeItemFromWishlist(id)
+  onRemoveItemFromWishlist(item: ClothingItem) {
+    if (!this.user.wishlist.find(item => item._id === item._id)) return
+    this.userService.removeItemFromList(item, 'wishlist')
       .pipe(
         take(1)
       )
@@ -41,7 +41,7 @@ export class UserWishlistComponent implements OnInit, OnDestroy {
   }
 
   onAddItemToCart(item: ClothingItem) {
-    this.userService.addItemToOrder(item)
+    this.userService.addItemToList(item, 'recentOrder')
     .pipe(
       take(1),
       retry(1)
