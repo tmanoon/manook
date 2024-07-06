@@ -15,15 +15,34 @@
         </div>
         <div class="sign-up-info grid" *ngIf="!loggedInUser">
             <h3>New here? <br /> Let's sign up real quick!</h3>
-            <button routerLink="signup" (click)="onActionClick('user')" class="signup-btn">Sign-up</button>
+            <button routerLink="signup" class="signup-btn" (click)="onActionClick('none')">Sign-up</button>
         </div>
     </div>
-    <span class="wishlist" (click)="onActionClick('wishlist')"></span>
-    <div class="user-wishlist grid" *ngIf="loggedInUser && sectionClicked === 'wishlist'">
+    <span class="wishlist" 
+    (mouseover)="onActionClick('wishlist')"
+    ></span>
+    <div class="user-wishlist" *ngIf="loggedInUser && sectionClicked === 'wishlist'" (mouseleave)="onCloseModal()">
         <button (click)="onCloseModal()" class="close-btn">x</button>
-        <div class="no-wishlist-items" *ngIf="!loggedInUser.wishlist.length">No items added to wishlist.</div>
+        <h1 class="wishlist-header">Wishlist</h1>
+        <div class="no-items" *ngIf="!loggedInUser.wishlist.length">No items added to wishlist.</div>
         <ul *ngIf="loggedInUser.wishlist.length" class="wishlist-items grid">
-            <li *ngFor="let item of loggedInUser!.wishlist" class="wishlist-item grid">
+            <li *ngFor="let item of previewWishlist; trackBy: trackByFn" class="wishlist-item grid">
+                <img [src]="item.imgUrl || item.imgUrl[0]" [alt]="item.name" [title]="item.name" />
+                <div class="text grid">
+                    <h2>{{item.name}}</h2>
+                    <p>${{item.price}}</p>
+                    <button (click)="onRemoveItemFromList(item, 'wishlist')" class="remove">Remove</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <span class="cart" routerLink="order" (click)="onActionClick('cart')"></span>
+    <!-- <div class="user-cart" *ngIf="loggedInUser && sectionClicked === 'cart'">
+        <button (click)="onCloseModal()" class="close-btn">x</button>
+        <h1 class="cart-header">Cart</h1>
+        <div class="no-items" *ngIf="!loggedInUser.recentOrder">No items added to order.</div>
+        <ul class="cart-items grid" *ngIf="loggedInUser.recentOrder && loggedInUser.recentOrder.selectedItems.length">
+            <li *ngFor="let item of loggedInUser.recentOrder.selectedItems" class="cart-item grid">
                 <img [src]="item.imgUrl || item.imgUrl[0]" [alt]="item.name" [title]="item.name" />
                 <div class="text grid">
                     <h2>{{item.name}}</h2>
@@ -31,23 +50,12 @@
                     <button (click)="onRemoveItemFromWishlist(item._id)" class="remove">Remove</button>
                 </div>
             </li>
+            <div class="cart-summary">
+                <h1>Sum: {{loggedInUser.recentOrder!.sum}}</h1>
+                <button>Checkout</button>
+            </div>
         </ul>
-    </div>
-    <span class="cart" (click)="onActionClick('cart')"></span>
-    <div class="user-cart grid" *ngIf="loggedInUser && sectionClicked === 'cart'">
-        <ul class="cart-items grid">
-            <div class="no-cart-items" *ngIf="!loggedInUser.recentOrder">No items added to order.</div>
-            <li *ngFor="let item of loggedInUser.recentOrder!.selectedItems" class="cart-item">
-                <img [src]="item.imgUrl || item.imgUrl[0]" [alt]="item.name" [title]="item.name" />
-                <div class="text grid">
-                    <h2>{{item.name}}</h2>
-                    <p>${{item.price}}</p>
-                    <button (click)="onRemoveItemFromWishlist(item._id)" class="remove">Remove</button>
-                </div> 
-            </li>
-            <h1>Sum: {{loggedInUser.recentOrder!.sum}}</h1>
-        </ul>
-    </div> 
+    </div> -->
 </section>
 
 <disconnected-user *ngIf="disconnectedUserClicked" (close)="closeMsg($event)">
