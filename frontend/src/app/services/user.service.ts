@@ -83,10 +83,17 @@ export class UserService {
     if (!userToUpdate) return throwError('No logged in user found')
     if (listName === 'wishlist') userToUpdate[listName].unshift(item)
     else {
-      userToUpdate.recentOrder = userToUpdate.recentOrder ?
-        { ...userToUpdate.recentOrder, selectedItems: [...userToUpdate.recentOrder.selectedItems, item], sum: userToUpdate.recentOrder.sum + item.price } :
-        { selectedItems: [item], sum: item.price }
-      const quantityToUpdate: number = item.quantity ? item.quantity++ : 1
+      if (userToUpdate.recentOrder) {
+        const idxOfItemInOrder = userToUpdate.recentOrder.selectedItems.findIndex(_item => _item._id === item._id)
+        if (idxOfItemInOrder >= 0) {
+          userToUpdate.recentOrder = { ...userToUpdate.recentOrder, sum: userToUpdate.recentOrder.sum + item.price }
+        } else userToUpdate.recentOrder = {
+          ...userToUpdate.recentOrder,
+          selectedItems: [...userToUpdate.recentOrder.selectedItems, item],
+          sum: userToUpdate.recentOrder.sum + item.price
+        }
+      } else userToUpdate.recentOrder = { selectedItems: [item], sum: item.price }
+      const quantityToUpdate: number = item.quantity ? ++item.quantity : 1
       const itemToUpdate: ClothingItem = { ...item, quantity: quantityToUpdate }
       this.clothingService.saveClothingItem(itemToUpdate).pipe(take(1)).subscribe()
     }
@@ -220,7 +227,6 @@ export class UserService {
     return (
       typeof user.fullName === 'string' &&
       typeof user.email === 'string' &&
-      typeof user._id === 'string' &&
       Array.isArray(user.wishlist) &&
       typeof user.isSubscribed === 'boolean' &&
       (user.favoriteStyles === undefined || Array.isArray(user.favoriteStyles))
