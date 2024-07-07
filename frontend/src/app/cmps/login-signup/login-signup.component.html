@@ -1,6 +1,6 @@
 <section class="login-signup grid align-center">
     <div class="layout" *ngIf="sectionClicked !== 'none'" (click)="onCloseModal()"></div>
-    <span class="user" (click)="onActionClick('user')"></span>
+    <span class="user" (click)="onActionClick('user', $event)"></span>
     <div class="user-login-signup grid" *ngIf="sectionClicked === 'user'">
         <button class="close-btn" (click)="onCloseModal()">x</button>
         <div class="logged-in-user grid" *ngIf="loggedInUser">
@@ -15,11 +15,11 @@
         </div>
         <div class="sign-up-info grid" *ngIf="!loggedInUser">
             <h3>New here? <br /> Let's sign up real quick!</h3>
-            <button routerLink="signup" class="signup-btn" (click)="onActionClick('none')">Sign-up</button>
+            <button routerLink="signup" class="signup-btn" (click)="onActionClick('none', $event)">Sign-up</button>
         </div>
     </div>
     <span class="wishlist" 
-    (mouseover)="onActionClick('wishlist')"
+    (mouseover)="onActionClick('wishlist', $event)"
     ></span>
     <div class="user-wishlist" *ngIf="loggedInUser && sectionClicked === 'wishlist'" (mouseleave)="onCloseModal()">
         <button (click)="onCloseModal()" class="close-btn">x</button>
@@ -36,26 +36,28 @@
             </li>
         </ul>
     </div>
-    <span class="cart" routerLink="order" (click)="onActionClick('cart')"></span>
-    <!-- <div class="user-cart" *ngIf="loggedInUser && sectionClicked === 'cart'">
+    <span class="order"
+      (mouseover)="onActionClick('order', $event)"
+      ></span>
+    <div class="user-order" *ngIf="loggedInUser && sectionClicked === 'order'" (mouseleave)="onCloseModal()">
         <button (click)="onCloseModal()" class="close-btn">x</button>
-        <h1 class="cart-header">Cart</h1>
+        <h1 class="order-header">Order</h1>
         <div class="no-items" *ngIf="!loggedInUser.recentOrder">No items added to order.</div>
-        <ul class="cart-items grid" *ngIf="loggedInUser.recentOrder && loggedInUser.recentOrder.selectedItems.length">
-            <li *ngFor="let item of loggedInUser.recentOrder.selectedItems" class="cart-item grid">
+        <ul class="order-items grid" *ngIf="loggedInUser.recentOrder && loggedInUser.recentOrder.selectedItems.length">
+            <li *ngFor="let item of previewOrder" class="order-item grid">
                 <img [src]="item.imgUrl || item.imgUrl[0]" [alt]="item.name" [title]="item.name" />
                 <div class="text grid">
                     <h2>{{item.name}}</h2>
                     <p>${{item.price}}</p>
-                    <button (click)="onRemoveItemFromWishlist(item._id)" class="remove">Remove</button>
+                    <button (click)="onRemoveItemFromList(item, 'recentOrder')" class="remove">Remove</button>
                 </div>
             </li>
-            <div class="cart-summary">
+            <div class="order-summary">
                 <h1>Sum: {{loggedInUser.recentOrder!.sum}}</h1>
-                <button>Checkout</button>
+                <button routerLink="order">Checkout</button>
             </div>
         </ul>
-    </div> -->
+    </div>
 </section>
 
 <disconnected-user *ngIf="disconnectedUserClicked" (close)="closeMsg($event)">
