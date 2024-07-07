@@ -55,10 +55,12 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
       })
   }
 
-  onActionClick(selectedAction: string) {
+  onActionClick(selectedAction: string, ev: Event) {
+    const evType = ev.type
     if (selectedAction === 'user') this.sectionClicked = 'user'
     else {
-      if (!this.loggedInUser && selectedAction !== 'none') this.showDisconnectedUserPopUp()
+      if(!this.loggedInUser && evType === 'mouseover') return
+      else if (!this.loggedInUser && selectedAction !== 'none') this.showDisconnectedUserPopUp()
       else this.sectionClicked = selectedAction
     }
   }
