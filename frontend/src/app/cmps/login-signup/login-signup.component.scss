@@ -17,7 +17,8 @@
     }
 
     .user-login-signup,
-    .user-wishlist {
+    .user-wishlist,
+    .user-order {
         box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
         background-color: var(--white);
         padding: 1rem;
@@ -43,7 +44,7 @@
         content: '\f004';
     }
 
-    .cart::before {
+    .order::before {
         content: '\f07a';
     }
 
@@ -123,7 +124,7 @@
     }
 
     .user-wishlist,
-    .user-cart {
+    .user-order {
         width: 200px;
         height: 100%;
         position: fixed;
@@ -142,7 +143,7 @@
     }
 
     .wishlist-header,
-    .cart-header {
+    .order-header {
         text-align: center;
         margin-block: 1rem;
         font-family: fira-reg, Tahoma;
@@ -198,16 +199,16 @@
         }
     }
 
-    .user-cart {
+    .user-order {
 
         background-color: var(--white);
 
-        .cart-items {
+        .order-items {
             grid-auto-flow: row;
             grid-template-rows: 160px;
             gap: .5rem;
 
-            .cart-item {
+            .order-item {
 
                 grid-template-columns: 120px 1fr;
                 height: 100%;
@@ -245,7 +246,7 @@
                 }
             }
 
-            .cart-summary {
+            .order-summary {
 
                 button {
                     @include buttons1;
@@ -258,12 +259,12 @@
     }
 }
 
-// <div class="user-cart grid" *ngIf="loggedInUser && sectionClicked === 'cart'">         
+// <div class="user-order grid" *ngIf="loggedInUser && sectionClicked === 'order'">         
 //     <button (click)="onCloseModal()" class="close-btn">x</button>
-//     <h1 class="cart-header">Cart</h1>           
+//     <h1 class="order-header">order</h1>           
 //     <div class="no-items" *ngIf="!loggedInUser.recentOrder">No items added to order.</div>
-//     <ul class="cart-items grid" *ngIf="loggedInUser.recentOrder && loggedInUser.recentOrder.selectedItems.length">
-//         <li *ngFor="let item of loggedInUser.recentOrder.selectedItems" class="cart-item">
+//     <ul class="order-items grid" *ngIf="loggedInUser.recentOrder && loggedInUser.recentOrder.selectedItems.length">
+//         <li *ngFor="let item of loggedInUser.recentOrder.selectedItems" class="order-item">
 //             <img [src]="item.imgUrl || item.imgUrl[0]" [alt]="item.name" [title]="item.name" />
 //             <div class="text grid">
 //                 <h2>{{item.name}}</h2>
