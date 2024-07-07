@@ -38,7 +38,6 @@ export class ClothingItemService {
       .pipe(
         tap(clothes => {
           const filterBy = this._filterBy$.value
-          console.log(filterBy)
           if (filterBy &&
             ((filterBy.gender && filterBy.gender !== 'unisex') ||
               filterBy.style.length ||
