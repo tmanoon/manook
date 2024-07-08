@@ -1,0 +1,25 @@
+.clothing-item-details {
+    padding-inline: 120px;
+    grid-auto-flow: row;
+    justify-items: center;
+    gap: 1rem;
+
+    img {
+        margin-block-start: 32px;
+    }
+
+    h1 {
+        font-size: 3em;
+        margin-block: 32px;
+    }
+
+    .gender, .style > span, .type {
+        text-transform: capitalize;
+    }
+
+    .price {
+        font-size: 1.5em;
+        margin-block-start: 1rem;
+    }
+
+}
