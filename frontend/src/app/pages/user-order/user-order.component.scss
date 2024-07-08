@@ -1,0 +1,112 @@
+@import '../../../assets/style/setup/mixins';
+
+$_red: rgb(180, 0, 0);
+
+.user-order {
+    h1 {
+        font-size: 3em;
+        margin-block: 1rem 1.5em;
+        text-align: center;
+    }
+
+    .no-items {
+        text-align: center;
+    }
+
+    .order-items {
+        grid-auto-flow: row;
+        gap: 1.5rem;
+        padding-inline: 120px;
+
+        .order-item {
+            grid-auto-columns: minmax(250px, 350px) 1fr;
+            gap: 1em;
+
+            &>* {
+                text-align: center;
+            }
+
+            img {
+                grid-column: 1;
+                object-fit: cover;
+                width: 100%;
+                height: 380px;
+            }
+
+            .text {
+                grid-auto-flow: row;
+                grid-column: 2;
+                gap: 1em;
+
+                h2 {
+                    font-family: fira-reg, Tahoma;
+                }
+
+                p {
+                    font-size: 1.5em;
+                }
+
+                .item-type {
+                    text-transform: capitalize;
+                }
+
+                .item-stock {
+                    color: $_red;
+                }
+            }
+
+            .user-actions {
+                justify-self: self-end;
+                align-self: self-end;
+                gap: 1.5rem;
+                margin-inline-start: 24px;
+                font-size: 27px;
+
+                span {
+                    font-family: fa-solid;
+                    cursor: pointer;
+                    grid-row: 1;
+                    color: var(--primary-clr2);
+
+                    &:hover {
+                        color: var(--primary-clr1);
+                    }
+                }
+
+                .remove-btn::before {
+                    content: '\f1f8';
+                }
+
+                .details-btn::before {
+                    content: '\f141';
+                }
+
+            }
+
+        }
+
+    }
+
+    .order-summary {
+        grid-template-rows: 1fr;
+        align-content: center;
+        gap: 1rem;
+        margin-block: 64px;
+
+        h1 {
+            grid-row: 1;
+            margin-block-end: 0;
+            font-size: 32px;
+            justify-self: self-end;
+            font-family: fira-reg, Tahoma;
+        }
+
+        button {
+            grid-row: 1;
+            @include buttons2;
+            justify-self: self-start;
+            padding-block: 10px;
+            padding-inline: 24px;
+        }
+    }
+}
