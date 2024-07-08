@@ -12,13 +12,13 @@
                 <p>{{item.desc}}</p>
                 <div class="user-actions grid">
                     <span (click)="onRemoveItemFromOrder(item)" class="remove-btn"></span>
-                    <span class="details-btn" routerLink="{{ item._id }}"></span>
+                    <span class="details-btn" routerLink="/clothing-item/{{ item._id }}"></span>
                 </div>
             </div>
         </li>
     </ul>
     <div class="order-summary grid">
         <h1>Sum: ${{loggedInUser.recentOrder!.sum}}</h1>
-        <button routerLink="payment">Checkout</button>
+        <button routerLink="/payment">Checkout</button>
     </div>
 </div>
