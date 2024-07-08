@@ -1,11 +1,15 @@
 .footer {
-    grid-template-rows: 1fr;
     position: relative;
     bottom: 0;
     padding: 1rem;
 
     pre {
-        grid-row: 1;
+        grid-template-rows: 1fr;
+        gap: 1rem;
+
+        & > * {
+            grid-row: 1;
+        }
 
         .logo-in-footer {
             font-family: jersey, Tahoma;
