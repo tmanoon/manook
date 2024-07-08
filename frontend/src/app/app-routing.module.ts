@@ -8,6 +8,7 @@ import { clothingItemResolver } from './resolvers/clothing-item.resolver';
 import { UserDetailsComponent } from './pages/user-details/user-details.component';
 import { UserWishlistComponent } from './pages/user-wishlist/user-wishlist.component';
 import { UserOrderComponent } from './pages/user-order/user-order.component';
+import { OrderPaymentComponent } from './pages/order-payment/order-payment.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'wishlist',
     component: UserWishlistComponent,
+  },
+  {
+    path: 'payment',
+    component: OrderPaymentComponent
   },
   {
     path: 'order',
