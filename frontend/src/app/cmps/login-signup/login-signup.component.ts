@@ -3,6 +3,7 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { Subject, take, takeUntil } from 'rxjs';
 import { ClothingItem } from '../../models/clothingitem.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'login-signup',
@@ -13,7 +14,7 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
 
   private userService = inject(UserService)
   private destroySubject$ = new Subject()
-
+  private router = inject(Router)
   loggedInUser: User | null = null
   sectionClicked: string = 'none'
   disconnectedUserClicked: boolean = false
@@ -46,6 +47,7 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
 
   onLogout() {
     this.userService.disconnect()
+    this.router.navigateByUrl('/')
   }
 
   onGuestClick() {
