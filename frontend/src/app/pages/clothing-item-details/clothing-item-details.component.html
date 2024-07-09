@@ -7,4 +7,5 @@
     <p class="type">{{clothingItem.type}}</p>
     <p>{{clothingItem.desc}}</p>
     <h3 class="price">${{clothingItem.price}}</h3>
+    <button *ngIf="loggedInUser$ | async" class="add-item-btn">Add to order</button>
 </section>
