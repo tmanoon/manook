@@ -2,10 +2,14 @@
     <img [src]="clothingItem.imgUrl" [alt]="clothingItem.name"/>
     <h1>{{clothingItem.name}}</h1>
     <h3 class="gender">{{clothingItem.gender}}</h3>
-    <h3 *ngIf="clothingItem.stock < 4">{{clothingItem.stock}} left</h3>
+    <h3 class="stock" *ngIf="clothingItem.stock < 4">{{clothingItem.stock}} left</h3>
     <p class="style">Main style: <span>{{clothingItem.style[0]}}</span></p>
     <p class="type">{{clothingItem.type}}</p>
     <p>{{clothingItem.desc}}</p>
     <h3 class="price">${{clothingItem.price}}</h3>
-    <button *ngIf="loggedInUser$ | async" class="add-item-btn">Add to order</button>
+    <div class="user-actions grid" *ngIf="loggedInUser$ | async">
+        <button  class="add-item-btn" (click)="onAddItemToList('recentOrder')">Add to order</button>
+        <button  class="add-item-btn" (click)="onAddItemToList('wishlist')">Add to wishlist</button>
+    </div>
+    
 </section>
