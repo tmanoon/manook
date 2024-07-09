@@ -1,3 +1,5 @@
+@import '../../../assets/style/setup/mixins';
+
 .clothing-item-details {
     padding-inline: 120px;
     grid-auto-flow: row;
@@ -10,7 +12,7 @@
 
     h1 {
         font-size: 3em;
-        margin-block: 32px;
+        margin-block: 32px 20px;
     }
 
     .gender, .style > span, .type {
@@ -20,6 +22,12 @@
     .price {
         font-size: 1.5em;
         margin-block-start: 1rem;
+    }
+
+    .add-item-btn {
+        @include buttons2;
+        padding: 1em;
+        margin-block-start: 24px;
     }
 
 }
