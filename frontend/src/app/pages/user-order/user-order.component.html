@@ -17,8 +17,8 @@
             </div>
         </li>
     </ul>
-    <div class="order-summary grid">
-        <h1>Sum: ${{loggedInUser.recentOrder!.sum}}</h1>
+    <div class="order-summary grid" *ngIf="loggedInUser.recentOrder">
+        <h1>Sum: ${{loggedInUser.recentOrder.sum}}</h1>
         <button routerLink="/payment">Checkout</button>
     </div>
 </div>
