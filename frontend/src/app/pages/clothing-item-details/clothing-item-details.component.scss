@@ -1,4 +1,5 @@
 @import '../../../assets/style/setup/mixins';
+$_red: rgb(180, 0, 0);
 
 .clothing-item-details {
     padding-inline: 120px;
@@ -10,12 +11,19 @@
         margin-block-start: 32px;
     }
 
+    .stock {
+        color: $_red;
+        font-family: fira-reg, Tahoma;
+    }
+
     h1 {
         font-size: 3em;
         margin-block: 32px 20px;
     }
 
-    .gender, .style > span, .type {
+    .gender,
+    .style>span,
+    .type {
         text-transform: capitalize;
     }
 
@@ -24,10 +32,19 @@
         margin-block-start: 1rem;
     }
 
-    .add-item-btn {
-        @include buttons2;
-        padding: 1em;
-        margin-block-start: 24px;
+    .user-actions {
+        grid-template-rows: 1fr;
+        gap: 1rem;
+
+        &>* {
+            grid-row: 1;
+        }
+
+        .add-item-btn {
+            @include buttons2;
+            padding: 1em;
+            margin-block-start: 24px;
+        }
     }
 
 }
