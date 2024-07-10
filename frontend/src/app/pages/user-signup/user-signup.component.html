@@ -1,29 +1,8 @@
 <section class="user-signup">
     <h1>Create an account</h1>
-    <!-- <form class="signup-form grid center" (submit)="onSubmitSignup($event)">
+    <form [formGroup]="signupForm" class="signup-form grid center" (ngSubmit)="onSubmitSignup($event)" [formGroup]="signupForm">
         <label for="fullname" >Full name</label>
-        <input type="text" id="fullname" name="fullname" placeholder="Full name" [(ngModel)]="newUser.fullName"/>
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" placeholder="Username" [(ngModel)]="newUser.username" />
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Password" [(ngModel)]="newUser.password"/>
-        <label for="email">Email</label>
-        <input type="text" id="email" name="email" placeholder="Email" [(ngModel)]="newUser.email"/>
-        <label for="email">Gender</label>
-        <select id="gender" name="gender" [(ngModel)]="newUser.gender">
-            <option value="male">Male</option>
-            <option value="woman">Woman</option>
-            <option value="other">Other</option>
-        </select>
-        <div class="subscription-container grid">
-            <label for="subscription">Do you wish to subscribe to our newsletter?</label>
-            <input type="checkbox" id="subscription" name="subscription" [(ngModel)]="newUser.isSubscribed"/>
-        </div>
-        <button class="subscription-btn">Submit</button>
-    </form> -->
-    <form class="signup-form grid center" (ngSubmit)="onSubmitSignup($event)" [formGroup]="signupForm">
-        <label for="fullname" >Full name</label>
-        <input type="text" id="fullname" formControlName="fullname" placeholder="Full name"/>
+        <input type="text" id="fullname" formControlName="fullName" placeholder="Full name"/>
         <label for="username">Username</label>
         <input type="text" id="username" formControlName="username" placeholder="Username"  />
         <label for="password">Password</label>
@@ -38,7 +17,7 @@
         </select>
         <div class="subscription-container grid">
             <label for="subscription">Do you wish to subscribe to our newsletter?</label>
-            <input type="checkbox" id="subscription" formControlName="subscription"/>
+            <input type="checkbox" id="subscription" formControlName="isSubscribed" />
         </div>
         <button class="subscription-btn">Submit</button>
     </form>
