@@ -127,6 +127,11 @@ export class UserService {
     return of(this._loggedInUser$.value!)
   }
 
+  public getUser(): Partial<User> {
+    const user = this._loggedInUser$.value
+    return this._deleteUsersPrivateInfo(user!)
+  }
+
   private _deleteUsersPrivateInfo(user: User): Partial<User> {
     let userToReturn: Partial<User> = user
     delete userToReturn.password
