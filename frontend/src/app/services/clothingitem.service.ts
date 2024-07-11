@@ -120,7 +120,7 @@ export class ClothingItemService {
       return clothingItem.name.toLocaleLowerCase().includes(filterBy.name) &&
         (!filterBy.gender || clothingItem.gender === filterBy.gender) &&
         (!filterBy.style.length || clothingItem.style.some(style => filterBy.style.includes(style))) &&
-        (!filterBy.type|| filterBy.type === clothingItem.type) &&
+        (!filterBy.type || filterBy.type === clothingItem.type) &&
         (filterBy.maxPrice === 180 || clothingItem.price <= filterBy.maxPrice)
     })
     return filteredClothes
@@ -130,6 +130,15 @@ export class ClothingItemService {
     return user.pipe(
       map(user => user.wishlist)
     )
+  }
+
+  public removeQuantitiesFromClothes() {
+    const clothes = this._clothes$.value
+    for (const item of clothes) {
+      delete item.quantity
+    }
+    this.utilService.setToStorage(CLOTHES_DB, clothes)
+    this._clothes$.next(clothes)
   }
 
   private _createClothes(): ClothingItem[] {
