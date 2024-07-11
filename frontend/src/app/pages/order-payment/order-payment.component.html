@@ -1,0 +1,18 @@
+<section class="order-payment grid">
+    <span class="back">Back to cart</span>
+    <h1>Payment</h1>
+    <h2>Sum to pay: {{this.user.recentOrder!.sum}}</h2>
+    <form [formGroup]="paymentForm" (ngSubmit)="onCompletePayment()">
+        <label for="fullName">Full name</label>
+        <input formControlName="fullName" id="fullName" placeholder="Full name"/>
+        <label for="email">Email</label>
+        <input formControlName="email" id="email" placeholder="Email" />
+        <label for="address">Address</label>
+        <input formControlName="address" id="address" placeholder="Address" />
+        <label>Phone</label>
+        <input formControlName="phone" type="tel" id="phone" placeholder="Phone"/>
+        <button class="subscription-btn">Submit</button>
+    </form>
+</section>
+
+<!-- add too pricey if not enough money  -->
