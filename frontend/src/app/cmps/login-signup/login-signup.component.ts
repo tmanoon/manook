@@ -97,6 +97,11 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
     if(this.disconnectedUserClicked) this.closeMsg(false)
   }
 
+  onMovePage(page: string) {
+    if(!this.loggedInUser) this.showDisconnectedUserPopUp()
+    else this.router.navigateByUrl('/' + page)
+  }
+
   trackByFn(idx: number, item: ClothingItem) {
     return item._id
   }
