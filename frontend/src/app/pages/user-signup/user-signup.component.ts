@@ -15,14 +15,6 @@ export class UserSignupComponent {
   private router = inject(Router)
   private fb = inject(FormBuilder)
   signupForm!: FormGroup
-  // newUser: Partial<User> = {
-  //   fullName: '',
-  //   username: '',
-  //   gender: undefined,
-  //   password: '',
-  //   email: '',
-  //   isSubscribed: false,
-  // }
 
   constructor() {
     this.signupForm = this.fb.group({
@@ -42,6 +34,5 @@ export class UserSignupComponent {
       next: () => this.router.navigateByUrl('/'),
       error: err => console.log('err', err)
     })
-    // this.router.navigateByUrl('/')
   }
 }
