@@ -76,6 +76,7 @@ export class UserService {
 
   public disconnect(): void {
     this.utilService.removeFromStorage(USER_DB)
+    this.clothingService.removeQuantitiesFromClothes()
     this._loggedInUser$.next(null)
   }
 
@@ -84,25 +85,31 @@ export class UserService {
     if (!userToUpdate) return throwError('No logged in user found')
     if (listName === 'wishlist') userToUpdate[listName].unshift(item)
     else {
-      if(item.stock > 0) {
-             if (userToUpdate.recentOrder) {
-        const idxOfItemInOrder = userToUpdate.recentOrder.selectedItems.findIndex(_item => _item._id === item._id)
-        if (idxOfItemInOrder >= 0) {
-          userToUpdate.recentOrder = { ...userToUpdate.recentOrder, sum: userToUpdate.recentOrder.sum + item.price }
-        } else userToUpdate.recentOrder = {
-          ...userToUpdate.recentOrder,
-          selectedItems: [...userToUpdate.recentOrder.selectedItems, item],
-          sum: userToUpdate.recentOrder.sum + item.price
-        }
-      } else userToUpdate.recentOrder = { selectedItems: [item], sum: item.price, _id: this.utilService.makeId() }
-      const quantityToUpdate: number = item.quantity ? ++item.quantity : 1
-      const itemToUpdate: ClothingItem = { ...item, quantity: quantityToUpdate, stock: --item.stock }
-      this.clothingService.saveClothingItem(itemToUpdate).pipe(take(1)).subscribe()
+      const order = userToUpdate.recentOrder
+      if (item.stock > 0) {
+        if (order) {
+          const idxOfItemInOrder = order.selectedItems.findIndex(_item => _item._id === item._id)
+          if (idxOfItemInOrder >= 0) {
+            userToUpdate.recentOrder = { ...order, sum: order.sum + item.price }
+          } else userToUpdate.recentOrder = {
+            ...order,
+            selectedItems: [...order.selectedItems, item],
+            sum: +(order.sum + item.price).toFixed(2)
+          }
+        } else userToUpdate.recentOrder = { 
+          selectedItems: [item],
+           sum: item.price,
+            _id: this.utilService.makeId()
+          }
+        this.utilService.setToStorage(USER_DB, userToUpdate)
+        this._loggedInUser$.next(userToUpdate)
+        console.log(this._loggedInUser$.value)
+        const quantityToUpdate: number = item.quantity ? ++item.quantity : 1
+        const itemToUpdate: ClothingItem = { ...item, quantity: quantityToUpdate, stock: --item.stock }
+        this.clothingService.saveClothingItem(itemToUpdate).pipe(take(1)).subscribe()
       } else return throwError('The item is out stock')
     }
 
-    this.utilService.setToStorage(USER_DB, userToUpdate)
-    this._loggedInUser$.next(userToUpdate)
     return of(userToUpdate)
       .pipe(
         map(user => {
@@ -137,28 +144,29 @@ export class UserService {
     return this._deleteUsersPrivateInfo(user!)
   }
 
-  public addOrder(buyerDetails: Buyer) : Observable<User> {
+  public addOrder(buyerDetails: Buyer): Observable<User> {
     const user = this._loggedInUser$.value as User
+    const userToUpdate = { ...user }
     const currOrder = { ...user.recentOrder! }
     const orderToAdd: Order = {
       selectedItems: currOrder.selectedItems,
       sum: currOrder.sum,
-      orderNumber:  `o10${(++user!.orders.length)}`,
+      orderNumber: `o10${++user.orders.length}`,
       orderDetails: {
         buyer: { ...buyerDetails }
       },
       _id: currOrder._id
     }
-    user.orders.push(orderToAdd)
-    user.coins -= currOrder.sum
-    delete user.recentOrder
-    this.utilService.setToStorage(USER_DB, user)
-    this._loggedInUser$.next(user)
-    return of(user)
+    userToUpdate.orders.push(orderToAdd)
+    userToUpdate.coins -= currOrder.sum
+    delete userToUpdate.recentOrder
+    this.utilService.setToStorage(USER_DB, userToUpdate)
+    this._loggedInUser$.next(userToUpdate)
+    return of(userToUpdate)
   }
 
   private _deleteUsersPrivateInfo(user: User): Partial<User> {
-    let userToReturn: Partial<User> = user
+    let userToReturn: Partial<User> = { ...user }
     delete userToReturn.password
     delete userToReturn._id
     return userToReturn
