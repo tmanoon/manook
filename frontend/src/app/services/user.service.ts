@@ -7,6 +7,7 @@ import { UtilService } from './util.service'
 import { ClothingItem } from '../models/clothingitem.model'
 import { Order } from '../models/order.model'
 import { ClothingItemService } from './clothingitem.service'
+import { Buyer } from '../models/buyer.model'
 
 const USER_DB = 'user'
 let users: User[]
@@ -83,7 +84,8 @@ export class UserService {
     if (!userToUpdate) return throwError('No logged in user found')
     if (listName === 'wishlist') userToUpdate[listName].unshift(item)
     else {
-      if (userToUpdate.recentOrder) {
+      if(item.stock > 0) {
+             if (userToUpdate.recentOrder) {
         const idxOfItemInOrder = userToUpdate.recentOrder.selectedItems.findIndex(_item => _item._id === item._id)
         if (idxOfItemInOrder >= 0) {
           userToUpdate.recentOrder = { ...userToUpdate.recentOrder, sum: userToUpdate.recentOrder.sum + item.price }
@@ -92,10 +94,11 @@ export class UserService {
           selectedItems: [...userToUpdate.recentOrder.selectedItems, item],
           sum: userToUpdate.recentOrder.sum + item.price
         }
-      } else userToUpdate.recentOrder = { selectedItems: [item], sum: item.price }
+      } else userToUpdate.recentOrder = { selectedItems: [item], sum: item.price, _id: this.utilService.makeId() }
       const quantityToUpdate: number = item.quantity ? ++item.quantity : 1
-      const itemToUpdate: ClothingItem = { ...item, quantity: quantityToUpdate }
+      const itemToUpdate: ClothingItem = { ...item, quantity: quantityToUpdate, stock: --item.stock }
       this.clothingService.saveClothingItem(itemToUpdate).pipe(take(1)).subscribe()
+      } else return throwError('The item is out stock')
     }
 
     this.utilService.setToStorage(USER_DB, userToUpdate)
@@ -113,13 +116,15 @@ export class UserService {
     if (!user) return this._handleError(new Error('No logged in user found'))
     if (listName === 'wishlist') user.wishlist = user.wishlist.filter(item => item._id !== itemToRemove._id)
     else {
+      const order = user.recentOrder!
       user.recentOrder = {
-        ...user.recentOrder, selectedItems: user.recentOrder!.selectedItems.filter(item => item._id !== itemToRemove._id),
-        sum: user.recentOrder!.sum - itemToRemove.price
+        ...order, selectedItems: order!.selectedItems.filter(item => item._id !== itemToRemove._id),
+        sum: order!.sum - itemToRemove.price, _id: order._id
       }
       const itemToUpdate: ClothingItem = { ...itemToRemove }
       if (itemToUpdate.quantity! > 1) itemToUpdate.quantity! -= 1
       else delete itemToUpdate.quantity
+      itemToUpdate.stock += 1
       this.clothingService.saveClothingItem(itemToUpdate).subscribe()
     }
     this.utilService.setToStorage(USER_DB, user)
@@ -130,6 +135,26 @@ export class UserService {
   public getUser(): Partial<User> {
     const user = this._loggedInUser$.value
     return this._deleteUsersPrivateInfo(user!)
+  }
+
+  public addOrder(buyerDetails: Buyer) : Observable<User> {
+    const user = this._loggedInUser$.value as User
+    const currOrder = { ...user.recentOrder! }
+    const orderToAdd: Order = {
+      selectedItems: currOrder.selectedItems,
+      sum: currOrder.sum,
+      orderNumber:  `o10${(++user!.orders.length)}`,
+      orderDetails: {
+        buyer: { ...buyerDetails }
+      },
+      _id: currOrder._id
+    }
+    user.orders.push(orderToAdd)
+    user.coins -= currOrder.sum
+    delete user.recentOrder
+    this.utilService.setToStorage(USER_DB, user)
+    this._loggedInUser$.next(user)
+    return of(user)
   }
 
   private _deleteUsersPrivateInfo(user: User): Partial<User> {
