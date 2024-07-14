@@ -103,7 +103,6 @@ export class UserService {
           }
         this.utilService.setToStorage(USER_DB, userToUpdate)
         this._loggedInUser$.next(userToUpdate)
-        console.log(this._loggedInUser$.value)
         const quantityToUpdate: number = item.quantity ? ++item.quantity : 1
         const itemToUpdate: ClothingItem = { ...item, quantity: quantityToUpdate, stock: --item.stock }
         this.clothingService.saveClothingItem(itemToUpdate).pipe(take(1)).subscribe()
