@@ -1,0 +1,30 @@
+.order-payment {
+    grid-auto-flow: row;
+
+    .back {
+        cursor: pointer;
+
+        &:hover {
+            font-family: fira-reg, Tahoma;
+        }
+    }
+    h1, h2 {
+           text-align: center; 
+    }    
+
+    h1 {
+        font-size: 3em;
+        margin-block: 1.5rem 1em;
+    }
+
+    h2 {
+
+        span {
+            font-family: fira-reg, Tahoma;
+        }
+    }
+
+    form {
+        grid-auto-flow: row;
+    }
+}
