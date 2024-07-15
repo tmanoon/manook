@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Order } from '../../models/order.model';
 
 @Component({
   selector: 'order-preview',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './order-preview.component.scss'
 })
 export class OrderPreviewComponent {
-
+  @Input() order!: Order
+  
 }
