@@ -20,6 +20,7 @@ import { OrderPaymentComponent } from './pages/order-payment/order-payment.compo
 import { UserWishlistComponent } from './pages/user-wishlist/user-wishlist.component';
 import { UserDetailsComponent } from './pages/user-details/user-details.component';
 import { UserOrderComponent } from './pages/user-order/user-order.component';
+import { OrderPreviewComponent } from './cmps/order-preview/order-preview.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { UserOrderComponent } from './pages/user-order/user-order.component';
     UserWishlistComponent,
     UserDetailsComponent,
     UserOrderComponent,
+    OrderPreviewComponent,
   ],
   imports: [
     BrowserModule,
