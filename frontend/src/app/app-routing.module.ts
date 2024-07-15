@@ -29,6 +29,10 @@ const routes: Routes = [
     component: UserOrderComponent
   },
   {
+    path: 'user',
+    component: UserDetailsComponent
+  },
+  {
     path: 'clothing-item',
     component: ClothingItemIndexComponent
   },
