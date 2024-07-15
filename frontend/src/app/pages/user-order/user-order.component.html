@@ -19,6 +19,7 @@
     </ul>
     <div class="order-summary grid" *ngIf="loggedInUser.recentOrder && loggedInUser.recentOrder.selectedItems.length">
         <h1>Sum: ${{loggedInUser.recentOrder.sum}}</h1>
-        <button routerLink="/payment">Checkout</button>
+        <span class="too-expensive" *ngIf="loggedInUser.coins < loggedInUser.recentOrder.sum">Not enough money.</span>
+        <button routerLink="/payment" *ngIf="loggedInUser.coins >= loggedInUser.recentOrder.sum">Checkout</button>
     </div>
 </div>
