@@ -1,3 +1,5 @@
+@import '../../../assets/style/setup/mixins';
+
 .order-payment {
     grid-auto-flow: row;
 
@@ -26,5 +28,23 @@
 
     form {
         grid-auto-flow: row;
+        padding-inline: 15%;
+        gap: .8rem;
+
+        label {
+            font-family: fira-reg, Tahoma;
+        }
+
+        input {
+            @include input1;
+            position: static;
+        }
+
+        .subscription-btn {
+            @include buttons2;
+            justify-self: center;
+            padding: .5rem 1rem;
+            margin-block-start: 24px;
+        }
     }
 }
