@@ -1,1 +1,46 @@
-<p>user-details works!</p>
+<section class="user-details">
+    <form [formGroup]="userForm" *ngIf="isEditMode">
+        <label for="fullName">Fullname</label>
+        <input formControlName="fullName" placeholder="Your fullname" id="fullName" />
+        <label for="gender">Fullname</label>
+        <select formControlName="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        <label for="password">Password</label>
+        <input type="password" formControlName="password" placeholder="Your password" id="password" />
+        <label for="email">Email</label>
+        <input formControlName="email" placeholder="Your email" id="email" />
+        <label for="isSubscribed">Are you subscribed to our newsletter?</label>
+        <div class="subscription-container grid">
+            <label for="isSubscribed">Do you wish to subscribe to our newsletter?</label>
+            <input type="checkbox" id="subscription" formControlName="isSubscribed" />
+        </div>
+    </form>
+    <section class="user-orders" *ngIf="user.orders.length">
+        <order-preview *ngFor="let order of user.orders; trackBy: trackByFn" [order]="order"></order-preview>
+    </section>
+</section>
+
+<!-- username: [''],
+gender: [''],
+password: [''],
+email: [''],
+isSubscribed: [false],
+orders: [[]]
+
+
+fullName: string,
+username: string,
+gender: string,
+isAdmin: boolean,
+password: string,
+_id: string,
+coins: number,
+wishlist: ClothingItem[],
+email: string,
+isSubscribed: boolean,
+favoriteStyles?: string[]
+orders: Order[]
+recentOrder?: Order -->
