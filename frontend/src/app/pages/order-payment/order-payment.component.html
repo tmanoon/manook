@@ -1,5 +1,5 @@
 <section class="order-payment grid">
-    <span class="back" routerLink="order">Back to cart</span>
+    <span class="back" routerLink="/order">Back to cart</span>
     <h1>Payment</h1>
     <h2>Sum to pay: <span>${{this.user.recentOrder!.sum}}</span></h2>
     <form class="grid" [formGroup]="paymentForm" (ngSubmit)="onCompletePayment()">
@@ -14,5 +14,3 @@
         <button class="subscription-btn">Order</button>
     </form>
 </section>
-
-<!-- add too pricey if not enough money  -->
