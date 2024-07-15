@@ -1,6 +1,7 @@
 :host {
     display: grid;
     grid-template-columns: minmax(20px, 5%) 1fr minmax(20px, 5%);
+    height: 100vh;
 
     app-header {
         grid-column: 1 / -1;
