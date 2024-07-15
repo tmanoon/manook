@@ -3,5 +3,6 @@
         <img routerLink="/clothing-item/{{clothingItem._id}}" [src]="clothingItem.imgUrl || clothingItem.imgUrl[0]" [title]="clothingItem.name" />
         <h1>{{clothingItem.name}}</h1>
         <p>{{clothingItem.desc}}</p>
+        <p class="price">${{clothingItem.price}}</p>
     </article>
 </section>
