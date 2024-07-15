@@ -19,45 +19,11 @@
         </div>
     </div>
     <span class="wishlist" 
-    (mouseover)="onActionClick('wishlist', $event)"
+    (click)="onMovePage('wishlist')"
     ></span>
-    <div class="user-wishlist" *ngIf="loggedInUser && sectionClicked === 'wishlist'" (mouseleave)="onCloseModal()">
-        <button (click)="onCloseModal()" class="close-btn">x</button>
-        <h1 class="wishlist-header">Wishlist</h1>
-        <div class="no-items" *ngIf="!loggedInUser.wishlist.length">No items added to wishlist.</div>
-        <ul *ngIf="loggedInUser.wishlist.length" class="wishlist-items grid">
-            <li *ngFor="let item of previewWishlist; trackBy: trackByFn" class="wishlist-item grid">
-                <img [src]="item.imgUrl || item.imgUrl[0]" [alt]="item.name" [title]="item.name" />
-                <div class="text grid">
-                    <h2>{{item.name}}</h2>
-                    <p>${{item.price}}</p>
-                    <button (click)="onRemoveItemFromList(item, 'wishlist')" class="remove">Remove</button>
-                </div>
-            </li>
-        </ul>
-    </div>
     <span class="order"
-      (mouseover)="onActionClick('order', $event)"
+    (click)="onMovePage('order')"
       ></span>
-    <div class="user-order" *ngIf="loggedInUser && sectionClicked === 'order'" (mouseleave)="onCloseModal()">
-        <button (click)="onCloseModal()" class="close-btn">x</button>
-        <h1 class="order-header">Order</h1>
-        <div class="no-items" *ngIf="!loggedInUser.recentOrder">No items added to order.</div>
-        <ul class="order-items grid" *ngIf="loggedInUser.recentOrder && loggedInUser.recentOrder.selectedItems.length">
-            <li *ngFor="let item of previewOrder" class="order-item grid">
-                <img [src]="item.imgUrl || item.imgUrl[0]" [alt]="item.name" [title]="item.name" />
-                <div class="text grid">
-                    <h2>{{item.name}}</h2>
-                    <p>${{item.price}}</p>
-                    <button (click)="onRemoveItemFromList(item, 'recentOrder')" class="remove">Remove</button>
-                </div>
-            </li>
-            <div class="order-summary">
-                <h1>Sum: {{loggedInUser.recentOrder!.sum}}</h1>
-                <button routerLink="order">Checkout</button>
-            </div>
-        </ul>
-    </div>
 </section>
 
 <disconnected-user *ngIf="disconnectedUserClicked" (close)="closeMsg($event)">
