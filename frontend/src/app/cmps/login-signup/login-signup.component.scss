@@ -120,6 +120,11 @@
             h1 {
                 margin-block-start: 8px;
             }
+
+            .user-fullname {
+                cursor: pointer;
+                font-family: fira-reg, Tahoma;
+            }
         }
     }
 }
