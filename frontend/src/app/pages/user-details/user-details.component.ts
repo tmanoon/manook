@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { Observable, Subject, take, takeUntil, tap } from 'rxjs';
+import {  Subject,  takeUntil, tap } from 'rxjs';
 import { User } from '../../models/user.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Order } from '../../models/order.model';
