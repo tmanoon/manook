@@ -4,7 +4,9 @@
     <div class="user-login-signup grid" *ngIf="sectionClicked === 'user'">
         <button class="close-btn" (click)="onCloseModal()">x</button>
         <div class="logged-in-user grid" *ngIf="loggedInUser">
-            <h1>Hey <span class="user-fullname" routerLink="/user" (click)="onCloseModal()">{{loggedInUser.fullName}}!</span> <br /> You have {{loggedInUser.coins}} coins.</h1>
+            <h1>Hey <span class="user-fullname" routerLink="/user" (click)="onCloseModal()">{{loggedInUser.fullName}}!</span> 
+            <br /> You have {{loggedInUser.coins}} coins.</h1>
+            <br /> <button (click)="onUserProfile()">Your profile</button> 
             <button (click)="onLogout()">Logout</button>
         </div>
         <div class="login-info grid" *ngIf="!loggedInUser">
