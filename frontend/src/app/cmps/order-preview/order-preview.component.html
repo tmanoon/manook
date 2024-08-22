@@ -1,1 +1,10 @@
-<p>order-preview works!</p>
+<article class="user-order">
+    <h2>{{order._id}}</h2>
+    <ul class="order-clothing-items">
+        <li *ngFor="let item of order.selectedItems; trackBy: trackByFn">
+            <h1>{{item.name}}</h1>
+            <img [src]="item.imgUrl || item.imgUrl[0]" [title]="item.name" />
+            <p>{{item.price}}</p>
+        </li>
+    </ul>
+</article> 
