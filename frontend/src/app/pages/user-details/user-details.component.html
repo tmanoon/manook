@@ -1,4 +1,5 @@
 <section class="user-details">
+    <h1>My Profile</h1>
     <form [formGroup]="userForm" *ngIf="isEditMode">
         <label for="fullName">Full name</label>
         <input formControlName="fullName" placeholder="Your fullname" id="fullName" />
@@ -31,7 +32,7 @@
         <input type="checkbox" [value]="user.isSubscribed" disabled />
     </div>
     <section class="user-orders" *ngIf="user.orders.length">
-        <order-preview *ngFor="let order of user.orders; trackBy: trackByFn" [order]="order"></order-preview>
+        <order-list [orders]="user.orders"></order-list>
     </section>
     <button *ngIf="!isEditMode">Edit</button>
     <button *ngIf="isEditMode">Save</button>
