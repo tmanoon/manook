@@ -96,11 +96,11 @@ export class UserService {
             selectedItems: [...order.selectedItems, item],
             sum: +(order.sum + item.price).toFixed(2)
           }
-        } else userToUpdate.recentOrder = { 
+        } else userToUpdate.recentOrder = {
           selectedItems: [item],
-           sum: item.price,
-            _id: this.utilService.makeId()
-          }
+          sum: item.price,
+          _id: this.utilService.makeId()
+        }
         this.utilService.setToStorage(USER_DB, userToUpdate)
         this._loggedInUser$.next(userToUpdate)
         const quantityToUpdate: number = item.quantity ? ++item.quantity : 1
@@ -141,6 +141,20 @@ export class UserService {
   public getUser(): Partial<User> {
     const user = this._loggedInUser$.value
     return this._deleteUsersPrivateInfo(user!)
+  }
+
+  public updateUser(user: Partial<User>): Observable<Partial<User>> | undefined {
+    const userToEdit = users.find(_user => _user.username === user.username)
+    if (!userToEdit) return undefined
+    const userToUpdate = { ...userToEdit, ...user } as User
+    users = users.map(user => {
+      if (user.username === userToUpdate.username) return userToUpdate
+      return user
+    })
+    this._loggedInUser$.next(userToUpdate)
+    delete (userToUpdate as Partial<User>).password
+    this.utilService.setToStorage(USER_DB, userToUpdate)
+    return of(userToUpdate)
   }
 
   public addOrder(buyerDetails: Buyer): Observable<User> {
