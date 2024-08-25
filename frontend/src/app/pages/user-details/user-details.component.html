@@ -34,6 +34,8 @@
     <section class="user-orders" *ngIf="user.orders.length">
         <order-list [orders]="user.orders"></order-list>
     </section>
-    <button *ngIf="!isEditMode">Edit</button>
-    <button *ngIf="isEditMode">Save</button>
+    <button (click)="onModifyUser(isEditMode ? 'save' : 'edit')">
+        {{ isEditMode ? 'Save' : 'Edit' }}
+    </button>
+    <button *ngIf="isEditMode" (click)="onModifyUser('cancel')">Cancel</button>
 </section>
