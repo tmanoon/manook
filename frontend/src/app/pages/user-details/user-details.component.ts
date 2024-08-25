@@ -47,6 +47,24 @@ export class UserDetailsComponent implements OnInit, OnDestroy{
     return item._id
   }
 
+  onModifyUser(action: string) {
+    if(action === 'edit') this.isEditMode = true
+    else if(action === 'save') {
+      const updatedUser = this.userForm.value
+      this.userService.updateUser(updatedUser)
+      ?.subscribe(
+        {
+          next: user => this.user = user,
+          error: err => {
+            console.log('err', err)
+            throw err
+          }
+        }
+      )
+    }
+    else this.isEditMode = false
+  }
+
   ngOnDestroy(): void {
     this.destroySubject$.next(null)
     this.destroySubject$.complete()
