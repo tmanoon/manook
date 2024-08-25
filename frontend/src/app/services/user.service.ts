@@ -143,7 +143,7 @@ export class UserService {
     return this._deleteUsersPrivateInfo(user!)
   }
 
-  public updateUser(user: Partial<User>): Observable<Partial<User>> | undefined {
+  public updateUser(user: Partial<User>): Observable<User> | undefined {
     const userToEdit = users.find(_user => _user.username === user.username)
     if (!userToEdit) return undefined
     const userToUpdate = { ...userToEdit, ...user } as User
@@ -152,8 +152,9 @@ export class UserService {
       return user
     })
     this._loggedInUser$.next(userToUpdate)
-    delete (userToUpdate as Partial<User>).password
-    this.utilService.setToStorage(USER_DB, userToUpdate)
+    const userForStorage = { ...userToUpdate }
+    delete (userForStorage as Partial<User>).password
+    this.utilService.setToStorage(USER_DB, userForStorage)
     return of(userToUpdate)
   }
 
