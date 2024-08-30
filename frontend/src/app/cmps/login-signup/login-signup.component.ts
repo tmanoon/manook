@@ -93,7 +93,7 @@ export class LoginSignupComponent implements OnInit, OnDestroy {
   }
 
   onCloseModal() {
-    if(this.disconnectedUserClicked) this.closeMsg(false)
+    this.closeMsg(false)
   }
 
   onUserProfile() {
