@@ -4,10 +4,15 @@
     <div class="user-login-signup grid" *ngIf="sectionClicked === 'user'">
         <button class="close-btn" (click)="onCloseModal()">x</button>
         <div class="logged-in-user grid" *ngIf="loggedInUser">
-            <h1>Hey <span class="user-fullname" routerLink="/user" (click)="onCloseModal()">{{loggedInUser.fullName}}!</span> 
-            <br /> You have {{loggedInUser.coins}} coins.</h1>
-            <br /> <button (click)="onUserProfile()">Your profile</button> 
-            <button (click)="onLogout()">Logout</button>
+            <h1>Hey <span class="user-fullname" routerLink="/user"
+                    (click)="onCloseModal()">{{loggedInUser.fullName}}!</span>
+                <br /> You have {{loggedInUser.coins}} coins.
+            </h1>
+            <br />
+            <div class="btns flex column align-center">
+                <button (click)="onUserProfile()">Your profile</button>
+                <button (click)="onLogout()">Logout</button>
+            </div>
         </div>
         <div class="login-info grid" *ngIf="!loggedInUser">
             <button class="guest-btn" (click)="onGuestClick()">Continue as Guest</button>
@@ -20,12 +25,8 @@
             <button routerLink="signup" class="signup-btn" (click)="onActionClick('none', $event)">Sign-up</button>
         </div>
     </div>
-    <span class="wishlist" 
-    (click)="onMovePage('wishlist')"
-    ></span>
-    <span class="order"
-    (click)="onMovePage('order')"
-      ></span>
+    <span class="wishlist" (click)="onMovePage('wishlist')"></span>
+    <span class="order" (click)="onMovePage('order')"></span>
 </section>
 
 <disconnected-user *ngIf="disconnectedUserClicked" (close)="closeMsg($event)">
