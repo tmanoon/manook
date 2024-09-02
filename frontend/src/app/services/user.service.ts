@@ -23,12 +23,15 @@ export class UserService {
   private _loggedInUser$ = new BehaviorSubject<User | null>(null)
   public loggedInUser$ = this._loggedInUser$.asObservable()
 
-  constructor() {
-    const storedUser = this.utilService.loadFromStorage(USER_DB)
-    if (this._isValidUser(storedUser)) this._loggedInUser$.next(storedUser)
-    else this._loggedInUser$.next(null)
-
+  constructor() {    
     if (!users || users.length === 0) this._setDefaultUsers(1000)
+    const storedUser = this.utilService.loadFromStorage(USER_DB)
+    if (this._isValidUser(storedUser)) {
+      console.log(storedUser)
+      const userToSave = users.find(user => user.username === storedUser.username)!
+      this._loggedInUser$.next(userToSave)
+    }
+    else this._loggedInUser$.next(null)
   }
 
   public signup(credentials: Partial<User>): Observable<Partial<User> | Error> {
@@ -69,9 +72,7 @@ export class UserService {
       const userToSave: Partial<User> = this._deleteUsersPrivateInfo(user)
       this.utilService.setToStorage(USER_DB, userToSave);
       return of(userToSave);
-    } else {
-      return of(undefined);
-    }
+    } else return of(undefined);
   }
 
   public disconnect(): void {
