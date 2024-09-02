@@ -1,24 +1,42 @@
+@import '../../../assets/style/setup/mixins';
+
 .user-details {
-    
+
     h1 {
         font-size: 3em;
         margin-block: 1rem 1.5em;
     }
 
-    .edit-btn {
-        justify-self: center;
+    .user-form {
+
+        select {
+            padding: .5em;
+        }
     }
 
-    .user-form, .user-details-locked {
+    .user-form,
+    .user-details-locked {
         gap: 1em;
 
         label {
             font-family: fira-reg;
             font-weight: 400;
         }
+
+        input {
+            padding: .5em;
+        }
     }
 
     .newsletter {
         gap: 1em;
+    }
+
+    .edit-btn,
+    .cancel-btn {
+        @include buttons1;
+        padding: .5em 1em;
+        margin-block: 1em;
+        justify-self: center;
     }
 }
