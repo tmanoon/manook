@@ -54,7 +54,10 @@ export class UserDetailsComponent implements OnInit, OnDestroy{
       this.userService.updateUser(updatedUser)
       ?.subscribe(
         {
-          next: user => this.user = user,
+          next: user => {
+            this.user = user
+            this.isEditMode = false
+          },
           error: err => {
             console.log('err', err)
             throw err
