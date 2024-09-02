@@ -106,7 +106,7 @@ $_red: rgb(180, 0, 0);
         }
 
         button {
-            @include buttons2;
+            @include buttons1;
             padding-block: 10px;
             padding-inline: 24px;
             justify-self: center;

@@ -41,7 +41,7 @@ $_red: rgb(180, 0, 0);
         }
 
         .add-item-btn {
-            @include buttons2;
+            @include buttons1;
             padding: 1em;
             margin-block-start: 24px;
         }

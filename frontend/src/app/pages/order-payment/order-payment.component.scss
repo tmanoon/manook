@@ -41,7 +41,7 @@
         }
 
         .subscription-btn {
-            @include buttons2;
+            @include buttons1;
             justify-self: center;
             padding: .5rem 1rem;
             margin-block-start: 24px;
