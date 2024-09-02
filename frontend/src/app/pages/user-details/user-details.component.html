@@ -13,9 +13,8 @@
         <input type="password" formControlName="password" placeholder="Your password" id="password" />
         <label for="email">Email</label>
         <input formControlName="email" placeholder="Your email" id="email" />
-        <label for="isSubscribed">Are you subscribed to our newsletter?</label>
-        <div class="subscription-container grid">
-            <label for="isSubscribed">Do you wish to subscribe to our newsletter?</label>
+        <div class="newsletter flex">
+            <label for="isSubscribed">Are you subscribed to our newsletter?</label>
             <input type="checkbox" id="subscription" formControlName="isSubscribed" />
         </div>
     </form>
@@ -39,5 +38,5 @@
     <button (click)="onModifyUser(isEditMode ? 'save' : 'edit')" class="edit-btn">
         {{ isEditMode ? 'Save' : 'Edit' }}
     </button>
-    <button *ngIf="isEditMode" (click)="onModifyUser('cancel')">Cancel</button>
+    <button *ngIf="isEditMode" class="cancel-btn" (click)="onModifyUser('cancel')">Cancel</button>
 </section>
