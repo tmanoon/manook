@@ -1,6 +1,6 @@
 <section class="user-details grid justify-center">
     <h1>My Profile</h1>
-    <form [formGroup]="userForm" *ngIf="isEditMode">
+    <form [formGroup]="userForm" *ngIf="isEditMode" class="user-form flex column">
         <label for="fullName">Full name</label>
         <input formControlName="fullName" placeholder="Your fullname" id="fullName" />
         <label for="gender">Gender</label>
@@ -19,7 +19,7 @@
             <input type="checkbox" id="subscription" formControlName="isSubscribed" />
         </div>
     </form>
-    <div class="user-details-locked" *ngIf="!isEditMode">
+    <div class="user-details-locked flex column" *ngIf="!isEditMode">
         <label for="fullName">Full name</label>
         <p>{{user.fullName}}</p>
         <label for="gender">Gender</label>
@@ -28,8 +28,10 @@
         <input type="password" [value]="user.password" id="password" disabled />
         <label for="email">Email</label>
         <p>{{user.email}}</p>
-        <label for="isSubscribed">Are you subscribed to our newsletter?</label>
-        <input type="checkbox" [value]="user.isSubscribed" disabled />
+        <div class="newsletter flex">
+            <label for="isSubscribed">Are you subscribed to our newsletter?</label>
+            <input type="checkbox" [value]="user.isSubscribed" disabled />
+        </div>
     </div>
     <section class="user-orders" *ngIf="user.orders.length">
         <order-list [orders]="user.orders"></order-list>
