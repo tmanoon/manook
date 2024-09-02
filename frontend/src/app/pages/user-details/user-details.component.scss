@@ -2,9 +2,23 @@
     
     h1 {
         font-size: 3em;
+        margin-block: 1rem 1.5em;
     }
 
     .edit-btn {
         justify-self: center;
+    }
+
+    .user-form, .user-details-locked {
+        gap: 1em;
+
+        label {
+            font-family: fira-reg;
+            font-weight: 400;
+        }
+    }
+
+    .newsletter {
+        gap: 1em;
     }
 }
