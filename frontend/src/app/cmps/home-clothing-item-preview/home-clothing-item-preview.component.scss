@@ -11,9 +11,12 @@
             justify-items: center;
             max-width: 350px;
             gap: .3rem;
+
+            h1, .price {
+                font-size: 1.25em;
+            }
             
             h1 {
-                font-size: 1em;
                 font-family: fira-reg, Tahoma;
                 margin-block: .5em;
             }
