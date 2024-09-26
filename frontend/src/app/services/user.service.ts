@@ -27,7 +27,6 @@ export class UserService {
     if (!users || users.length === 0) this._setDefaultUsers(1000)
     const storedUser = this.utilService.loadFromStorage(USER_DB)
     if (this._isValidUser(storedUser)) {
-      console.log(storedUser)
       const userToSave = users.find(user => user.username === storedUser.username)!
       this._loggedInUser$.next(userToSave)
     }
