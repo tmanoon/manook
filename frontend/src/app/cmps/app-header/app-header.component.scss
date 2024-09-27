@@ -32,16 +32,17 @@
 
             form {
                 position: relative;
-
-
+                
                 input {
                     @include input1;
+                    padding: 0.7em;
                 }
 
                 .search-btn {
                     border: none;
                     position: absolute;
                     right: .3rem;
+                    margin-inline-end: 0.7em;
 
                     &:hover {
                         background-color: var(--white);
