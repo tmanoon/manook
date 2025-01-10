@@ -1,7 +1,7 @@
 @import '../../../assets/style/setup/mixins';
 
 :host {
-  grid-column: 1 / -1;  
+    grid-column: 1 / -1;
 
     .app-header {
 
@@ -18,7 +18,7 @@
             position: relative;
             background-color: var(--white);
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 3fr 1fr;
+            grid-template-columns: 1fr 2fr 3fr 1fr;
             padding-block: 2rem;
             gap: 24px;
 
@@ -56,8 +56,48 @@
                 }
             }
 
-            button {
-                @include buttons1;
+            .buttons-container {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: .5rem;
+
+                button {
+                    @include buttons1;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 800px) {
+    :host {
+
+        .app-header {
+
+            .buttons-logo-container {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(2, 1fr);
+
+                .logo, form {
+                    padding-inline-start: 1rem;
+                }
+
+                .buttons-container {
+                    padding-inline-end: 1rem;
+                }
+
+                form {
+
+                    input {
+                        @include input1;
+                        padding: 0.3em;
+                    }
+
+                    .search-btn {
+                        right: 0;
+                        margin-inline-end: 0;
+                    }
+                }
             }
         }
     }
