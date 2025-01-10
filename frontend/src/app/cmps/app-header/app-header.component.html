@@ -2,21 +2,14 @@
     <div class="discount-alert" *ngIf="discount.isDiscount">{{discount.sumOfDiscount}}% off everything! Hurry up!</div>
     <div class="buttons-logo-container grid">
         <div routerLink="/" class="logo flex center">Manook</div>
-        <button 
-        routerLink="clothing-item"
-         class="women-btn"
-         name="women"
-        (click)="onSetGender('women')">Women</button>
-        <button routerLink="clothing-item"
-         class="men-btn"
-        (click)="onSetGender('men')"
-         name="men">Men</button>
+        <div class="buttons-container">
+            <button routerLink="clothing-item" class="women-btn" name="women"
+                (click)="onSetGender('women')">Women</button>
+            <button routerLink="clothing-item" class="men-btn" (click)="onSetGender('men')" name="men">Men</button>
+        </div>
         <form class="flex align-center">
-            <input type="text"
-             [(ngModel)]="filterBy.name"
-              (ngModelChange)="onSetFilter($event)"
-               placeholder="What are we buying today?"
-               name="term" />
+            <input type="text" [(ngModel)]="filterBy.name" (ngModelChange)="onSetFilter($event)"
+                placeholder="What are we buying today?" name="term" />
             <button class="search-btn"></button>
         </form>
 
