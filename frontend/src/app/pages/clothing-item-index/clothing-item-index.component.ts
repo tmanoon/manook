@@ -55,14 +55,7 @@ export class ClothingItemIndexComponent implements OnInit, OnDestroy {
         error: err => console.log('err', err)
       })
   }
-
-  // OnAddItemToCart(item: ClothingItem) : void {
-  //   if(!this.user) this.showDisconnectedUserPopUp()
-  //   else this.userService.addItemToOrder(item)
-  //   .subscribe({
-  //     error: err => console.log('err', err)
-  //   })
-  // }
+  
   OnAddItemToCart(item: ClothingItem): void {
     if (!this.user) this.showDisconnectedUserPopUp()
     else this.userService.addItemToList(item, 'recentOrder')
