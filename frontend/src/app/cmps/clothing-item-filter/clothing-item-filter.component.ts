@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ClothingItemService } from '../../services/clothingitem.service';
-import { Observable, Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
+import { Subject, debounceTime, takeUntil } from 'rxjs';
 import { FilterBy } from '../../models/filterby.model';
 import { selectedStyleChange } from '../dynamic-style-input/dynamic-style-input.component';
 
