@@ -15,6 +15,7 @@ export class DynamicStyleInputComponent {
 
   @Input() filterBy!: FilterBy
   @Input() style!: string
+  
   @Output() select = new EventEmitter<selectedStyleChange>()
 
   onSetStyle(e: Event) {
